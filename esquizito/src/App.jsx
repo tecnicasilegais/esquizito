@@ -1,15 +1,15 @@
+import './App.scss';
+import { SomeTest } from 'components/SomeTest';
+import Component from 'components/Component';
 import logo from './logo.svg';
-import './App.css';
-import { SomeTest } from './components/SomeTest';
 
 function App() {
   return (
     <div className='App'>
       <header className='App-header'>
+        <Component />
         <img src={logo} className='App-logo' alt='logo' />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
+        <p>God is less</p>
         <a
           className='App-link'
           href='https://reactjs.org'
