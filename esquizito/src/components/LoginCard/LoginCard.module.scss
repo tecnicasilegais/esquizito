@@ -1,0 +1,14 @@
+@import 'src/Constants';
+
+.loginCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 240px;
+  max-width: 500px;
+
+  img {
+    margin-top: -240px;
+    width: 100%;
+  }
+}

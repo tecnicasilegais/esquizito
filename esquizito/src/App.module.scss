@@ -1,0 +1,14 @@
+@import 'Constants';
+
+html {
+  font-size: 20px;
+}
+
+.app {
+  align-items: center;
+  background-color: $color-app-bg;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+}
