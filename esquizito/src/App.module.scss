@@ -12,3 +12,10 @@ html {
   justify-content: center;
   min-height: 100vh;
 }
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  border-radius: 50px;
+}
