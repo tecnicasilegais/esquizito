@@ -10,9 +10,15 @@ import {
 } from '@mui/joy';
 import React from 'react';
 import logo from 'assets/logo.png';
+import { useNavigate } from 'react-router-dom';
 import styles from './LoginCard.module.scss';
 
 function LoginCard() {
+  const navigate = useNavigate();
+  const handleSignUpButton = () => {
+    navigate('/signup');
+  };
+
   return (
     <Card className={styles.loginCard}>
       <CardOverflow>
@@ -34,7 +40,9 @@ function LoginCard() {
         </Stack>
         <Stack spacing={2}>
           <Button>Entrar</Button>
-          <Button variant='soft'>Cadastrar</Button>
+          <Button onClick={handleSignUpButton} variant='soft'>
+            Cadastrar
+          </Button>
         </Stack>
       </Stack>
     </Card>
