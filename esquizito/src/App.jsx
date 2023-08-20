@@ -1,5 +1,5 @@
 import React from 'react';
-import LoginCard from 'components/LoginCard/LoginCard';
+import LoginCard from 'pages/LoginCard/LoginCard';
 import { createHashRouter, Outlet, RouterProvider } from 'react-router-dom';
 import styles from './App.module.scss';
 import SignUp from './components/SignUp/SignUp';

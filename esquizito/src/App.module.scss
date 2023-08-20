@@ -1,4 +1,4 @@
-@import 'Constants';
+@use 'src/util/Constants';
 
 html {
   font-size: 20px;
@@ -6,7 +6,7 @@ html {
 
 .app {
   align-items: center;
-  background-color: $color-app-bg;
+  background-color: Constants.$color-app-bg;
   display: flex;
   flex-direction: column;
   justify-content: center;

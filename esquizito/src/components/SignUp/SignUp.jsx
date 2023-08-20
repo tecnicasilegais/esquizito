@@ -1,4 +1,5 @@
 import React from 'react';
+import withAuth from 'util/WithAuth';
 
 function SignUp() {
   return (
@@ -12,4 +13,4 @@ function SignUp() {
   );
 }
 
-export default SignUp;
+export default withAuth(SignUp);

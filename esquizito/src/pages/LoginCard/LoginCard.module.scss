@@ -1,5 +1,3 @@
-@import 'src/Constants';
-
 .loginCard {
   display: flex;
   flex-direction: column;
@@ -8,7 +6,6 @@
   max-width: 500px;
 
   img {
-    /*box-shadow: 0 0 #000, 0px 1px 2px 0px rgba(21 21 21 /0.08), 0px 2px 4px 0px rgba(21 21 21 / 0.08);*/
     margin-top: -240px;
     width: 100%;
   }
