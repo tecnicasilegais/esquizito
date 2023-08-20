@@ -1,6 +1,6 @@
 import { extendTheme } from '@mui/joy';
 
-const Theme = extendTheme({
+const theme = extendTheme({
   colorSchemes: {
     light: {
       palette: {
@@ -38,4 +38,4 @@ const Theme = extendTheme({
   },
 });
 
-export default Theme;
+export default theme;
