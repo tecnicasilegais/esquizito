@@ -3,6 +3,7 @@
 import http from 'http';
 import { normalizePort } from 'utils/port.util';
 import { app } from 'app';
+import { connectToDatabase } from 'configs/connection.config';
 
 const port = normalizePort(process.env.PORT || 3001);
 function onError(error) {
@@ -30,6 +31,12 @@ function onError(error) {
 app.set('port', port);
 
 const server = http.createServer(app);
+
+connectToDatabase().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});
+
 server.listen(port, () => console.log(`listening on port ${port}`));
 
 server.on('error', onError);
