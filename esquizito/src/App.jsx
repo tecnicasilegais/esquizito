@@ -1,5 +1,5 @@
-import React from 'react';
 import LandingPage from 'pages/LandingPage/LandingPage';
+import React from 'react';
 import { createHashRouter, Outlet, RouterProvider } from 'react-router-dom';
 import styles from './App.module.scss';
 

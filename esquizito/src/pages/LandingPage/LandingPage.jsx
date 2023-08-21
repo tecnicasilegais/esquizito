@@ -1,7 +1,5 @@
 import {
   Button,
-  Card,
-  CardOverflow,
   FormControl,
   FormLabel,
   Input,
@@ -10,7 +8,6 @@ import {
 } from '@mui/joy';
 import PropTypes from 'prop-types';
 import React from 'react';
-import logo from 'assets/logo.png';
 import { useNavigate } from 'react-router-dom';
 import LogoCard from '../../components/LogoCard/LogoCard';
 
