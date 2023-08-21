@@ -2,6 +2,7 @@ import LandingPage from 'pages/LandingPage/LandingPage';
 import React from 'react';
 import { createHashRouter, Outlet, RouterProvider } from 'react-router-dom';
 import styles from './App.module.scss';
+import MainMenu from './pages/MainMenu/MainMenu';
 
 function Layout() {
   return (
@@ -22,6 +23,10 @@ const router = createHashRouter([
       {
         path: '/signup',
         element: <LandingPage authType='signup' />,
+      },
+      {
+        path: '/menu',
+        element: <MainMenu />,
       },
     ],
   },
