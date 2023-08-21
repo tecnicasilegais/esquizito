@@ -1,8 +1,7 @@
 import React from 'react';
-import LoginCard from 'pages/LoginCard/LoginCard';
+import LandingPage from 'pages/LandingPage/LandingPage';
 import { createHashRouter, Outlet, RouterProvider } from 'react-router-dom';
 import styles from './App.module.scss';
-import SignUp from './components/SignUp/SignUp';
 
 function Layout() {
   return (
@@ -18,11 +17,11 @@ const router = createHashRouter([
     children: [
       {
         path: '/',
-        element: <LoginCard />,
+        element: <LandingPage authType='login' />,
       },
       {
         path: '/signup',
-        element: <SignUp />,
+        element: <LandingPage authType='signup' />,
       },
     ],
   },
