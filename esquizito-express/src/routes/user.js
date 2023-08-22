@@ -6,7 +6,9 @@ import auth0Config from 'configs/auth0.config';
 
 const router = express.Router();
 
-if (auth0Config.enabled) router.use(validateAccessToken);
+if (auth0Config.enabled) {
+  router.use(validateAccessToken);
+}
 
 /* GET single user. */
 router.get('/:id', validateId, userController.get);
