@@ -12,10 +12,12 @@ import { useNavigate } from 'react-router-dom';
 import LogoCard from '../../components/LogoCard/LogoCard';
 
 function LandingPage({ authType = 'login' }) {
+  const navigate = useNavigate();
+
   const [name, setName] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
-  const navigate = useNavigate();
+
   const headerMap = new Map();
   headerMap.set('login', 'Entrar');
   headerMap.set('signup', 'Cadastrar');
@@ -91,7 +93,7 @@ function LandingPage({ authType = 'login' }) {
   buttonMap.set(
     'login',
     <>
-      <Button>Entrar</Button>
+      <Button onClick={() => navigate('/menu')}>Entrar</Button>
       <Button onClick={() => navigate('/signup')} variant='soft'>
         Cadastrar
       </Button>
@@ -100,7 +102,7 @@ function LandingPage({ authType = 'login' }) {
   buttonMap.set(
     'signup',
     <>
-      <Button>Confirmar</Button>
+      <Button onClick={() => navigate('/menu')}>Confirmar</Button>
       <Button onClick={() => navigate('/')} variant='soft'>
         Voltar
       </Button>
