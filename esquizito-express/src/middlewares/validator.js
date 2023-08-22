@@ -6,6 +6,6 @@ export function validateId(req, res, next) {
   if (mongoose.Types.ObjectId.isValid(id)) {
     next();
   } else {
-    res.status(400).send('Invalid ID');
+    res.status(400).json({ message: 'Invalid ID' });
   }
 }

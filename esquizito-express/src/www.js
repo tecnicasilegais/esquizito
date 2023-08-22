@@ -1,11 +1,11 @@
 /* istanbul ignore file */
 
 import http from 'http';
-import { normalizePort } from 'utils/port.util';
 import { app } from 'app';
 import { connectToDatabase } from 'configs/connection.config';
+import appConfigs from 'configs/application.config';
 
-const port = normalizePort(process.env.PORT || 3001);
+const port = appConfigs.appPort;
 function onError(error) {
   if (error.syscall !== 'listen') {
     throw error;
