@@ -19,6 +19,6 @@ app.disable('x-powered-by');
 
 app.use('/user', usersRouter);
 
-app.use('/*', (req, res) => res.status(404).send('Not Found'));
+app.use('*', (req, res) => res.status(404).send('Not Found'));
 
 export { app };

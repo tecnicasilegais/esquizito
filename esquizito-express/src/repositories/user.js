@@ -1,10 +1,5 @@
-const get = async (id) =>
-  new Promise((resolve) => {
-    resolve({
-      id,
-      name: 'Esquizito',
-      email: 'esquizito@gmail.com',
-    });
-  });
+import { User } from 'models/user';
+
+const get = async (id) => User.findById(id).exec();
 
 export default { get };

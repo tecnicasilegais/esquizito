@@ -7,12 +7,12 @@ const get = async (req, res) => {
     const user = await userService.get(userId);
 
     if (user) {
-      res.status(200).send(user);
+      return res.status(200).send(user);
     }
-    res.status(404).send();
   } catch (err) {
-    res.status(500).send(err);
+    return res.status(500).send(err);
   }
+  return res.status(404).send();
 };
 
 export default { get };
