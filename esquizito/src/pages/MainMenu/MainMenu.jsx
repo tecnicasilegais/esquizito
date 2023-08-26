@@ -6,7 +6,7 @@ import MenuOptions from 'components/MenuOptions/MenuOptions';
 
 function MainMenu() {
   const { isAuthenticated, user } = useAuth0();
-
+  // TODO: this will later be used to register to the API if mongo_user_id is undefined
   if (isAuthenticated) {
     console.log(user); // shows email, name, etc
     console.log(user.mongo_user_id); // mongo user id should be set as you sign up
