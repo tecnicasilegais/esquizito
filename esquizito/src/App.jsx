@@ -10,6 +10,7 @@ import MainMenu from 'pages/MainMenu/MainMenu';
 import AuthenticationGuard from 'components/AuthenticationGuard/AuthenticationGuard';
 
 import styles from './App.module.scss';
+import ScreenWithHeader from './components/ScreenWithHeader/ScreenWithHeader';
 
 function AppRoutes() {
   return (
@@ -21,6 +22,8 @@ function AppRoutes() {
         element={<AuthenticationGuard component={JoinGamePage} />}
       />
       <Route path='/callback' element={<LoadingPage />} />
+      <Route path='/header' element={<ScreenWithHeader />} />
+      <Route path='/loading' element={<LoadingPage />} />
     </Routes>
   );
 }

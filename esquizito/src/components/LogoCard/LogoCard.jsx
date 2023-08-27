@@ -4,12 +4,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import styles from './LogoCard.module.scss';
 
-function LogoCard({ children, alignCenter }) {
+function LogoCard({ children }) {
   return (
-    <Card
-      className={`${styles.loginCard} ${
-        alignCenter ? styles.centerAligned : ''
-      }`}>
+    <Card className={styles.loginCard}>
       <CardOverflow>
         <img src={logo} alt='EsQUIZito logo' loading='lazy' />
       </CardOverflow>
@@ -20,11 +17,9 @@ function LogoCard({ children, alignCenter }) {
 
 LogoCard.propTypes = {
   children: PropTypes.node,
-  alignCenter: PropTypes.bool,
 };
 LogoCard.defaultProps = {
   children: null,
-  alignCenter: false,
 };
 
 export default LogoCard;

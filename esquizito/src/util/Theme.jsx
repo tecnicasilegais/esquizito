@@ -36,6 +36,10 @@ const theme = extendTheme({
       },
     },
   },
+  fontFamily: {
+    display: '"Montserrat Variable", var(--joy-fontFamily-fallback)',
+    body: '"Montserrat Variable", var(--joy-fontFamily-fallback)',
+  },
 });
 
 export default theme;

@@ -1,0 +1,38 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  height: 100%;
+  width: 100%;
+}
+
+.header {
+  background: #fff;
+  box-sizing: border-box;
+  display: flex;
+  height: 100px;
+  padding: 10px;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+
+  .headerCenter,
+  .headerEnd {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+
+  .headerCenter {
+    width: 70%;
+  }
+
+  .headerEnd {
+    width: 15%;
+  }
+
+  img {
+    height: 100%;
+  }
+}
