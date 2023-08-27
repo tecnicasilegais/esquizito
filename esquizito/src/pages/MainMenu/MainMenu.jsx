@@ -1,22 +1,22 @@
-import { Button, Stack } from '@mui/joy';
+import { useAuth0 } from '@auth0/auth0-react';
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import LogoCard from '../../components/LogoCard/LogoCard';
+import LogoCard from 'components/LogoCard/LogoCard';
+import LoginStack from 'components/LoginStack/LoginStack';
+import MenuOptions from 'components/MenuOptions/MenuOptions';
 
 function MainMenu() {
-  const navigate = useNavigate();
+  const { isAuthenticated, user } = useAuth0();
+  // TODO: this will later be used to register to the API if mongo_user_id is undefined
+  if (isAuthenticated) {
+    console.log(user); // shows email, name, etc
+    console.log(user.mongo_user_id); // mongo user id should be set as you sign up
+    console.log(user.sub); // auth0 user id
+  }
+
   return (
     <LogoCard>
-      <Stack spacing={8}>
-        <Stack spacing={2}>
-          <Button>Entrar em um jogo</Button>
-          <Button>Meus resultados</Button>
-        </Stack>
-        <Stack spacing={2}>
-          <Button variant='soft'>Gerenciar banco de perguntas</Button>
-          <Button variant='soft'>Gerenciar questionários</Button>
-        </Stack>
-      </Stack>
+      {!isAuthenticated && <LoginStack />}
+      {isAuthenticated && <MenuOptions />}
     </LogoCard>
   );
 }
