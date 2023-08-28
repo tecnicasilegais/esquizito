@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import LogoCard from '../../components/LogoCard/LogoCard';
+import { urlPaths } from '../../util/UrlPaths';
 
 function LandingPage({ authType = 'login' }) {
   const navigate = useNavigate();
@@ -93,8 +94,8 @@ function LandingPage({ authType = 'login' }) {
   buttonMap.set(
     'login',
     <>
-      <Button onClick={() => navigate('/menu')}>Entrar</Button>
-      <Button onClick={() => navigate('/signup')} variant='soft'>
+      <Button onClick={() => navigate(urlPaths.joinGamePage)}>Entrar</Button>
+      <Button onClick={() => navigate(urlPaths.landingPage)} variant='soft'>
         Cadastrar
       </Button>
     </>,
@@ -102,8 +103,8 @@ function LandingPage({ authType = 'login' }) {
   buttonMap.set(
     'signup',
     <>
-      <Button onClick={() => navigate('/menu')}>Confirmar</Button>
-      <Button onClick={() => navigate('/')} variant='soft'>
+      <Button onClick={() => navigate(urlPaths.landingPage)}>Confirmar</Button>
+      <Button onClick={() => navigate(urlPaths.landingPage)} variant='soft'>
         Voltar
       </Button>
     </>,

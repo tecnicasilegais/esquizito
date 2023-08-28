@@ -1,6 +1,9 @@
-import { Button, Input, Stack } from '@mui/joy';
-import React from 'react';
+import { Button, FormControl, FormLabel, Input, Stack } from '@mui/joy';
 import LogoCard from 'components/LogoCard/LogoCard';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { properties } from '../../util/Properties';
+import { urlPaths } from '../../util/UrlPaths';
 
 /*
   TODO: Validate input
@@ -10,11 +13,31 @@ import LogoCard from 'components/LogoCard/LogoCard';
   (8^36 combinations) (2.821.109.907.456 combinations) <- this was copilot's calculation
  */
 function JoinGamePage() {
+  const navigate = useNavigate();
+  const [gameCode, setGameCode] = React.useState('');
   return (
     <LogoCard>
-      <Stack spacing={2}>
-        <Input variant='soft' placeholder='Insira o código do quizz...' />
-        <Button>Jogar</Button>
+      <Stack spacing={4}>
+        <FormControl>
+          <FormLabel>{properties.screen.joinGame.label.gameCode}</FormLabel>
+          <Input
+            value={gameCode}
+            onChange={(event) => {
+              setGameCode(event.target.value);
+            }}
+            variant='soft'
+            placeholder={properties.screen.joinGame.placeholder.gameCode}
+          />
+        </FormControl>
+        <Stack spacing={1}>
+          //TODO: change gameCode verification to give message wrong code
+          <Button onClick={() => gameCode && navigate(urlPaths.gamePage)}>
+            {properties.screen.joinGame.button.play}
+          </Button>
+          <Button onClick={() => navigate(urlPaths.mainMenu)} variant='soft'>
+            {properties.screen.joinGame.button.back}
+          </Button>
+        </Stack>
       </Stack>
     </LogoCard>
   );

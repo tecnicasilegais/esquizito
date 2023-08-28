@@ -5,7 +5,7 @@ import { AuthProvider } from 'contexts/AuthProvider';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
-import theme from 'util/Theme';
+import { theme } from 'util/Theme';
 import App from './App';
 
 import './index.css';

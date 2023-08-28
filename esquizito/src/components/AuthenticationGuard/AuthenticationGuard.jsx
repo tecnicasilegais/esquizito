@@ -1,7 +1,7 @@
 import { withAuthenticationRequired } from '@auth0/auth0-react';
-import React from 'react';
 import LoadingPage from 'pages/LoadingPage/LoadingPage';
 import PropTypes from 'prop-types';
+import React from 'react';
 
 function AuthenticationGuard({ component }) {
   const Component = withAuthenticationRequired(component, {

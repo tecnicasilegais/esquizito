@@ -1,6 +1,7 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import { Button } from '@mui/joy';
 import React from 'react';
+import { properties } from '../../util/Properties';
 
 function LogoutButton() {
   const { logout } = useAuth0();
@@ -15,7 +16,7 @@ function LogoutButton() {
 
   return (
     <Button color='danger' variant='outlined' onClick={handleLogout}>
-      Sair
+      {properties.screen.menu.button.logout}
     </Button>
   );
 }

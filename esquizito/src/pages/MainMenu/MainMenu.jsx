@@ -1,8 +1,8 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import React from 'react';
-import LogoCard from 'components/LogoCard/LogoCard';
 import LoginStack from 'components/LoginStack/LoginStack';
+import LogoCard from 'components/LogoCard/LogoCard';
 import MenuOptions from 'components/MenuOptions/MenuOptions';
+import React from 'react';
 
 function MainMenu() {
   const { isAuthenticated, user } = useAuth0();

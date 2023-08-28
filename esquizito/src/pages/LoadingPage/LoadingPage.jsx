@@ -1,6 +1,6 @@
 import { Box, CircularProgress } from '@mui/joy';
-import React from 'react';
 import LogoCard from 'components/LogoCard/LogoCard';
+import React from 'react';
 
 function LoadingPage() {
   return (

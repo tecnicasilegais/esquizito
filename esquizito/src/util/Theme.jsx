@@ -1,6 +1,6 @@
 import { extendTheme } from '@mui/joy';
 
-const theme = extendTheme({
+export const theme = extendTheme({
   colorSchemes: {
     light: {
       palette: {
@@ -14,17 +14,11 @@ const theme = extendTheme({
         root: { borderRadius: '50px' },
       },
     },
-    JoyCard: {
-      styleOverrides: {
-        root: {
-          borderRadius: '38px',
-        },
-      },
-    },
     JoyFormLabel: {
       styleOverrides: {
         root: {
           fontSize: '1rem',
+          paddingInlineStart: '8px',
         },
       },
     },
@@ -41,5 +35,3 @@ const theme = extendTheme({
     body: '"Montserrat Variable", var(--joy-fontFamily-fallback)',
   },
 });
-
-export default theme;
