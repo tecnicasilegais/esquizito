@@ -26,10 +26,8 @@ function AppRoutes() {
 }
 
 export default function App() {
-  // const { isLoading } = useAuth0();
-  const { isLoading, user } = useUser();
+  const { isLoading } = useUser();
 
-  console.log('user is: ', user);
   return (
     <div className={styles.app}>
       {isLoading && <LoadingPage />}
