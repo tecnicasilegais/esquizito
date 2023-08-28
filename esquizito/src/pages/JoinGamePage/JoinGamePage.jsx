@@ -30,9 +30,11 @@ function JoinGamePage() {
           />
         </FormControl>
         <Stack spacing={1}>
-          //TODO: change gameCode verification to give message wrong code
           <Button onClick={() => gameCode && navigate(urlPaths.gamePage)}>
-            {properties.screen.joinGame.button.play}
+            {
+              // TODO: change gameCode verification to give message wrong code
+              properties.screen.joinGame.button.play
+            }
           </Button>
           <Button onClick={() => navigate(urlPaths.mainMenu)} variant='soft'>
             {properties.screen.joinGame.button.back}

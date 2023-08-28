@@ -1,22 +1,18 @@
-import { Box, Typography } from '@mui/joy';
+import { Box } from '@mui/joy';
 import logo from 'assets/logo.png';
 import PropTypes from 'prop-types';
 import React from 'react';
 import styles from './HeaderScreen.module.scss';
 
-function HeaderScreen({ children }) {
+function HeaderScreen({ children, headerCenter, headerRight }) {
   return (
     <div className={styles.container}>
-      <Box className={styles.header} fontWeight='xl'>
+      <Box className={styles.header} fontWeight='xl' px={2} py={1}>
         <div className={styles.headerEnd}>
           <img src={logo} alt='EsQUIZito logo' />
         </div>
-        <div className={styles.headerCenter}>
-          <Typography fontSize='xl3'>5/15</Typography>
-        </div>
-        <div className={styles.headerEnd}>
-          <Typography fontSize='xl3'>5/10</Typography>
-        </div>
+        <div className={styles.headerCenter}>{headerCenter}</div>
+        <div className={styles.headerEnd}>{headerRight}</div>
       </Box>
       {children}
     </div>
@@ -25,8 +21,12 @@ function HeaderScreen({ children }) {
 
 HeaderScreen.propTypes = {
   children: PropTypes.node,
+  headerCenter: PropTypes.node,
+  headerRight: PropTypes.node,
 };
 HeaderScreen.defaultProps = {
   children: null,
+  headerCenter: null,
+  headerRight: null,
 };
 export default HeaderScreen;
