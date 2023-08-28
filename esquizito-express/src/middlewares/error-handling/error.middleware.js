@@ -13,14 +13,16 @@ const ErrorMessages = {
 // eslint-disable-next-line no-unused-vars
 export const errorHandler = (error, request, response, next) => {
   if (error instanceof InvalidTokenError) {
-    response
-      .status(error.status)
-      .json({ message: ErrorMessages.badCredentials });
+    response.status(error.status).json({ error: ErrorMessages.badCredentials });
     return;
   }
   if (error instanceof UnauthorizedError) {
-    response.status(error.status).json({ message: ErrorMessages.unauthorized });
+    response.status(error.status).json({ error: ErrorMessages.unauthorized });
     return;
   }
-  response.status(500).json({ message: ErrorMessages.internalError });
+  if (error.type === 'entity.parse.failed') {
+    response.status(400).json({ error: 'Invalid JSON' });
+    return;
+  }
+  response.status(500).json({ error: ErrorMessages.internalError });
 };
