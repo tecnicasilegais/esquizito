@@ -1,20 +1,13 @@
-import { useAuth0 } from '@auth0/auth0-react';
 import { Button } from '@mui/joy';
 import React from 'react';
 
-function LogoutButton() {
-  const { logout } = useAuth0();
+import { useUser } from 'contexts/UserContext';
 
-  const handleLogout = () => {
-    logout({
-      logoutParams: {
-        returnTo: window.location.origin,
-      },
-    });
-  };
+function LogoutButton() {
+  const { logout } = useUser();
 
   return (
-    <Button color='danger' variant='outlined' onClick={handleLogout}>
+    <Button color='danger' variant='outlined' onClick={logout}>
       Sair
     </Button>
   );

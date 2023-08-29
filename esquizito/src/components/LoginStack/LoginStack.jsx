@@ -1,21 +1,14 @@
-import { useAuth0 } from '@auth0/auth0-react';
 import { Button, Stack } from '@mui/joy';
 import React from 'react';
 
-function LoginStack() {
-  const { loginWithRedirect } = useAuth0();
+import { useUser } from 'contexts/UserContext';
 
-  const handleLogin = async () => {
-    await loginWithRedirect({
-      appState: {
-        returnTo: '/',
-      },
-    });
-  };
+function LoginStack() {
+  const { login } = useUser();
 
   return (
     <Stack spacing={2}>
-      <Button onClick={handleLogin}>Entrar / Cadastrar</Button>
+      <Button onClick={login}>Entrar / Cadastrar</Button>
     </Stack>
   );
 }

@@ -7,7 +7,7 @@ import nocache from 'nocache';
 
 import { contentTypeJson } from 'middlewares/response-content.middleware';
 import { notFoundHandler } from 'middlewares/not-found.middleware';
-import { errorHandler } from 'middlewares/error.middleware';
+import { errorHandler } from 'middlewares/error-handling/error.middleware';
 import appConfig from 'configs/application.config';
 
 import usersRouter from './routes/user';

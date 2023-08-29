@@ -1,4 +1,3 @@
-import { useAuth0 } from '@auth0/auth0-react';
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
@@ -10,6 +9,7 @@ import MainMenu from 'pages/MainMenu/MainMenu';
 import AuthenticationGuard from 'components/AuthenticationGuard/AuthenticationGuard';
 
 import styles from './App.module.scss';
+import { useUser } from './contexts/UserContext';
 
 function AppRoutes() {
   return (
@@ -26,7 +26,7 @@ function AppRoutes() {
 }
 
 export default function App() {
-  const { isLoading } = useAuth0();
+  const { isLoading } = useUser();
 
   return (
     <div className={styles.app}>

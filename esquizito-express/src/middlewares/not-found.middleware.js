@@ -1,5 +1,9 @@
-export const notFoundHandler = (request, response) => {
-  const message = 'Not Found';
+export const notFoundHandler = (req, res) => {
+  let message = 'Not Found';
 
-  response.status(404).json({ message });
+  if (req.notFoundMessage) {
+    message = req.notFoundMessage;
+  }
+
+  res.status(404).json({ message });
 };
