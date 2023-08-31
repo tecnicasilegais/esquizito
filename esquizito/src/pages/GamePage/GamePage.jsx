@@ -11,7 +11,7 @@ function GamePage() {
   };
   return (
     <HeaderScreen>
-      <Stack mx={2} spacing={4}>
+      <Stack mx={2} spacing={4} mt={1}>
         <Card sx={{ borderRadius: 24 }}>
           <Box>
             <Box fontWeight='xl' component='span'>
@@ -37,8 +37,15 @@ function GamePage() {
           <Grid container spacing={1}>
             {properties.example.screen.game.answer.map((text, i) => (
               <Grid xs={12} sm={6}>
-                <Card sx={{ borderRadius: 24, p: 3 }}>
+                <Card
+                  sx={{
+                    borderRadius: 24,
+                    p: 3,
+                    boxSizing: 'border-box',
+                    height: '100%',
+                  }}>
                   <Radio
+                    sx={{ height: '100%' }}
                     value={i}
                     checked={selectedAnswer === i.toString()}
                     onChange={handleAnswerChange}

@@ -14,7 +14,7 @@ function HeaderScreen({ children, headerCenter, headerRight }) {
         <div className={styles.headerCenter}>{headerCenter}</div>
         <div className={styles.headerEnd}>{headerRight}</div>
       </Box>
-      {children}
+      <Box>{children}</Box>
     </div>
   );
 }
