@@ -11,7 +11,10 @@ export const theme = extendTheme({
   components: {
     JoyButton: {
       styleOverrides: {
-        root: { borderRadius: '50px' },
+        root: {
+          borderRadius: '50px',
+          '&:hover': { transition: 'background-color .1s linear' },
+        },
       },
     },
     JoyFormLabel: {

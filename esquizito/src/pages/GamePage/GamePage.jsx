@@ -1,6 +1,14 @@
-import { Box, Button, Card, Divider, Grid, Radio, Stack } from '@mui/joy';
+import {
+  Box,
+  Button,
+  Card,
+  Divider,
+  Grid,
+  Radio,
+  radioClasses,
+  Stack,
+} from '@mui/joy';
 import React from 'react';
-import logo from 'assets/logo.png';
 import HeaderScreen from '../../components/HeaderScreen/HeaderScreen';
 import { properties } from '../../util/Properties';
 
@@ -11,7 +19,7 @@ function GamePage() {
   };
   return (
     <HeaderScreen>
-      <Stack mx={2} spacing={4} mt={1}>
+      <Stack mx={2} spacing={4} mt={1} mb={2}>
         <Card sx={{ borderRadius: 24 }}>
           <Box>
             <Box fontWeight='xl' component='span'>
@@ -34,18 +42,37 @@ function GamePage() {
           </Box>
         </Card>
         <Box>
-          <Grid container spacing={1}>
+          <Grid
+            container
+            spacing={1}
+            sx={{
+              [`& .${radioClasses.checked}`]: {
+                [`& .${radioClasses.action}`]: {
+                  inset: -1,
+                  border: '3px solid',
+                  borderColor: 'primary.500',
+                  transition: 'border .1s linear',
+                },
+              },
+            }}>
             {properties.example.screen.game.answer.map((text, i) => (
-              <Grid xs={12} sm={6}>
+              <Grid xs={12} sm={6} key={text}>
                 <Card
                   sx={{
                     borderRadius: 24,
                     p: 3,
                     boxSizing: 'border-box',
                     height: '100%',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    '&:hover': {
+                      bgcolor: 'primary.100',
+                      transition: 'background-color .1s linear',
+                    },
                   }}>
                   <Radio
-                    sx={{ height: '100%' }}
+                    sx={{ alignItems: 'center' }}
+                    overlay
                     value={i}
                     checked={selectedAnswer === i.toString()}
                     onChange={handleAnswerChange}
