@@ -1,11 +1,12 @@
 import express from 'express';
 import { validateId } from 'middlewares/validator';
 import { validateAccessToken } from 'middlewares/auth0.middleware';
-import userController from 'controllers/user';
+import { UserController } from 'controllers/user';
 import auth0Config from 'configs/auth0.config';
 import { postErrorHandler } from 'middlewares/error-handling/post-error.middleware';
 
 const router = express.Router();
+const userController = new UserController();
 
 if (auth0Config.enabled) {
   router.use(validateAccessToken);

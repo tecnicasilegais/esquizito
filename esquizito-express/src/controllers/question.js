@@ -1,16 +1,8 @@
-import questionService from 'services/question';
+import { QuestionService } from 'services/question';
+import { BaseController } from 'controllers/base.controller';
 
-const get = async (req, res, next) => {
-  const { id } = req.params;
-
-  const question = await questionService.get(id);
-
-  if (!question) {
-    req.notFoundMessage = `Could not locate user by id: ${id}`;
-    return next();
+export class QuestionController extends BaseController {
+  constructor() {
+    super(new QuestionService(), 'question');
   }
-
-  return res.status(200).json(question);
-};
-
-export default { get };
+}

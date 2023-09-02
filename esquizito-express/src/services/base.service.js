@@ -11,4 +11,6 @@ export class BaseService {
   get = async (id) => this.repository.get(id);
 
   create = async (model) => this.repository.create(model);
+
+  update = async (id, model) => this.repository.update(id, model);
 }

@@ -1,7 +1,12 @@
 import questionRepository from 'repositories/question';
+import { BaseService } from 'services/base.service';
+import { FilterType } from 'utils/filter.util';
 
-const get = async (questionId) => questionRepository.get(questionId);
+export class QuestionService extends BaseService {
+  constructor() {
+    super(questionRepository);
+  }
 
-const create = async (question) => questionRepository.create(question);
-
-export default { get, create };
+  listByIds = async (ids) =>
+    this.repository.getAll([{ field: '_id', type: FilterType.IN, value: ids }]);
+}
