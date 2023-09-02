@@ -4,4 +4,5 @@ export const urlPaths = {
   joinGamePage: '/join',
   loadingPage: '/callback',
   gamePage: '/game',
+  rankingPage: '/ranking',
 };
