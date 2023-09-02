@@ -9,7 +9,7 @@ export class BaseController {
     this.name = name;
   }
 
-  get = async (req, res, next) => {
+  async get(req, res, next) {
     const { id } = req.params;
 
     const model = await this.service.get(id);
@@ -20,14 +20,14 @@ export class BaseController {
     }
 
     return res.status(200).json(model);
-  };
+  }
 
-  register = async (req, res, next) => {
+  async create(req, res, next) {
     const { body } = req;
 
     this.service
       .create(body)
       .then(({ _id }) => res.status(201).json({ id: _id }))
       .catch((err) => next(err));
-  };
+  }
 }

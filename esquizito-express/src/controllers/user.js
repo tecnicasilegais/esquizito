@@ -1,9 +1,9 @@
-import { UserService } from 'services/user';
+import userService from 'services/user';
 import { BaseController } from 'controllers/base.controller';
 
 export class UserController extends BaseController {
   constructor() {
-    super(new UserService(), 'user');
+    super(userService, 'user');
   }
 
   getByAuth0Id = async (req, res, next) => {

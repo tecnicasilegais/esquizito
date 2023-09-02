@@ -8,9 +8,19 @@ export class BaseService {
     this.repository = repository;
   }
 
-  get = async (id) => this.repository.get(id);
+  async get(id) {
+    return this.repository.get(id);
+  }
 
-  create = async (model) => this.repository.create(model);
+  async create(model) {
+    return this.repository.create(model);
+  }
 
-  update = async (id, model) => this.repository.update(id, model);
+  async update(id, model) {
+    return this.repository.update(id, model);
+  }
+
+  async exists(model) {
+    return this.repository.exists(model);
+  }
 }

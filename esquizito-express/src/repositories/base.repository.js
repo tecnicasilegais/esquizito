@@ -27,16 +27,27 @@ export class BaseRepository {
     this.model = model;
   }
 
-  get = async (id) => this.model.findById(id).exec();
+  async get(id) {
+    return this.model.findById(id).exec();
+  }
 
-  getOne = async (filters) =>
-    filterOperation(this.model.findOne(), filters).exec();
+  async getOne(filters) {
+    return filterOperation(this.model.findOne(), filters).exec();
+  }
 
-  getAll = async (filters) =>
-    filterOperation(this.model.find(), filters).exec();
+  async getAll(filters) {
+    return filterOperation(this.model.find(), filters).exec();
+  }
 
-  update = async (id, fieldsToUpdate) =>
-    this.model.findByIdAndUpdate(id, fieldsToUpdate).exec();
+  async update(id, fieldsToUpdate) {
+    return this.model.findByIdAndUpdate(id, fieldsToUpdate).exec();
+  }
 
-  create = async (fieldsToCreate) => this.model.create(fieldsToCreate);
+  async create(fieldsToCreate) {
+    return this.model.create(fieldsToCreate);
+  }
+
+  async exists(fields) {
+    return this.model.exists(fields).exec();
+  }
 }

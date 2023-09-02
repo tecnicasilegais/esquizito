@@ -11,6 +11,7 @@ import { errorHandler } from 'middlewares/error-handling/error.middleware';
 import appConfig from 'configs/application.config';
 
 import usersRouter from './routes/user';
+import questionsRouter from './routes/question';
 
 const app = express();
 
@@ -56,6 +57,7 @@ app.use(
 
 app.use(contentTypeJson);
 app.use('/user', usersRouter);
+app.use('/question', questionsRouter);
 
 app.use(errorHandler);
 app.use(notFoundHandler);

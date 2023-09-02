@@ -7,13 +7,18 @@ export class UserService extends BaseService {
     super(userRepository);
   }
 
-  getByEmail = async (email) =>
-    this.repository.getOne([
+  async getByEmail(email) {
+    return this.repository.getOne([
       { field: 'email', type: FilterType.EQUALS, value: email },
     ]);
+  }
 
-  getByAuth0Id = async (auth0Id) =>
-    this.repository.getOne([
+  async getByAuth0Id(auth0Id) {
+    return this.repository.getOne([
       { field: 'auth0Id', type: FilterType.EQUALS, value: auth0Id },
     ]);
+  }
 }
+
+const userService = new UserService();
+export default userService;

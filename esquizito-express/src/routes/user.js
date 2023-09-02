@@ -12,9 +12,7 @@ if (auth0Config.enabled) {
   router.use(validateAccessToken);
 }
 
-/* GET single user. */
-
-router.post('/register', userController.register, postErrorHandler);
+router.post('/register', userController.create, postErrorHandler);
 
 router.get('/auth0/:id', userController.getByAuth0Id);
 
