@@ -1,7 +1,7 @@
 import { Button, Stack } from '@mui/joy';
 import { useUser } from 'contexts/UserContext';
 import React from 'react';
-import { properties } from '../../util/Properties';
+import { properties } from 'util/Properties';
 
 function LoginStack() {
   const { login } = useUser();

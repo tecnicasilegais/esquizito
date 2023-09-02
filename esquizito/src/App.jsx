@@ -1,4 +1,6 @@
 import AuthenticationGuard from 'components/AuthenticationGuard/AuthenticationGuard';
+import { useUser } from 'contexts/UserContext';
+import GamePage from 'pages/GamePage/GamePage';
 
 import JoinGamePage from 'pages/JoinGamePage/JoinGamePage';
 import LandingPage from 'pages/LandingPage/LandingPage';
@@ -6,11 +8,8 @@ import LoadingPage from 'pages/LoadingPage/LoadingPage';
 import MainMenu from 'pages/MainMenu/MainMenu';
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-
+import { urlPaths } from 'util/UrlPaths';
 import styles from './App.module.scss';
-import { useUser } from './contexts/UserContext';
-import GamePage from './pages/GamePage/GamePage';
-import { urlPaths } from './util/UrlPaths';
 
 function AppRoutes() {
   return (

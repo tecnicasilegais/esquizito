@@ -9,8 +9,8 @@ import {
 import PropTypes from 'prop-types';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import LogoCard from '../../components/LogoCard/LogoCard';
-import { urlPaths } from '../../util/UrlPaths';
+import LogoCard from 'components/LogoCard/LogoCard';
+import { urlPaths } from 'util/UrlPaths';
 
 function LandingPage({ authType = 'login' }) {
   const navigate = useNavigate();

@@ -8,9 +8,10 @@ import {
   radioClasses,
   Stack,
 } from '@mui/joy';
+import HeaderScreen from 'components/HeaderScreen/HeaderScreen';
+import Question from 'components/Question/Question';
 import React from 'react';
-import HeaderScreen from '../../components/HeaderScreen/HeaderScreen';
-import { properties } from '../../util/Properties';
+import { properties } from 'util/Properties';
 
 function GamePage() {
   const [selectedAnswer, setSelectedAnswer] = React.useState('');
@@ -36,9 +37,9 @@ function GamePage() {
     };
     const specialStyle = {};
     if (answerState === 'correct') {
-      specialStyle.bgcolor = theme.vars.palette.success.solidBg;
+      specialStyle.bgcolor = `rgba(${theme.vars.palette.success.mainChannel} / 0.8)`;
     } else if (answerState === 'incorrect') {
-      specialStyle.bgcolor = theme.vars.palette.danger.solidBg;
+      specialStyle.bgcolor = `rgba(${theme.vars.palette.danger.mainChannel} / 0.8)`;
     }
     return { ...mainStyle, ...specialStyle };
   };
@@ -46,25 +47,14 @@ function GamePage() {
     <HeaderScreen>
       <Stack mx={2} spacing={4} mt={1} mb={2}>
         <Card sx={{ borderRadius: 24 }}>
-          <Box>
-            <Box fontWeight='xl' component='span'>
-              {'I. '}
-            </Box>
-            <Box fontWeight='md' component='span'>
-              {properties.example.screen.game.question}
-            </Box>
-          </Box>
+          <Question number='I' text={properties.example.screen.game.question} />
           <Box>
             <Divider />
           </Box>
-          <Box>
-            <Box fontWeight='xl' component='span'>
-              {'II. '}
-            </Box>
-            <Box fontWeight='md' component='span'>
-              {properties.example.screen.game.question}
-            </Box>
-          </Box>
+          <Question
+            number='II'
+            text={properties.example.screen.game.question}
+          />
         </Card>
         <Box>
           <Grid

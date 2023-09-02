@@ -1,7 +1,7 @@
 import { Button } from '@mui/joy';
 import { useUser } from 'contexts/UserContext';
 import React from 'react';
-import { properties } from '../../util/Properties';
+import { properties } from 'util/Properties';
 
 function LogoutButton() {
   const { logout } = useUser();
