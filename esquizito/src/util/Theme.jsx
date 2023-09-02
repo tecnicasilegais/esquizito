@@ -1,6 +1,6 @@
 import { extendTheme } from '@mui/joy';
 
-const theme = extendTheme({
+export const theme = extendTheme({
   colorSchemes: {
     light: {
       palette: {
@@ -11,13 +11,9 @@ const theme = extendTheme({
   components: {
     JoyButton: {
       styleOverrides: {
-        root: { borderRadius: '50px' },
-      },
-    },
-    JoyCard: {
-      styleOverrides: {
         root: {
-          borderRadius: '38px',
+          borderRadius: '50px',
+          '&:hover': { transition: 'background-color .1s linear' },
         },
       },
     },
@@ -25,6 +21,7 @@ const theme = extendTheme({
       styleOverrides: {
         root: {
           fontSize: '1rem',
+          paddingInlineStart: '8px',
         },
       },
     },
@@ -36,6 +33,8 @@ const theme = extendTheme({
       },
     },
   },
+  fontFamily: {
+    display: '"Montserrat Variable", var(--joy-fontFamily-fallback)',
+    body: '"Montserrat Variable", var(--joy-fontFamily-fallback)',
+  },
 });
-
-export default theme;

@@ -1,11 +1,13 @@
-import { CircularProgress } from '@mui/joy';
-import React from 'react';
+import { Box, CircularProgress } from '@mui/joy';
 import LogoCard from 'components/LogoCard/LogoCard';
+import React from 'react';
 
 function LoadingPage() {
   return (
-    <LogoCard alignCenter>
-      <CircularProgress variant='soft' size='lg' />
+    <LogoCard>
+      <Box display='flex' justifyContent='center'>
+        <CircularProgress variant='soft' size='lg' />
+      </Box>
     </LogoCard>
   );
 }
