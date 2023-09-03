@@ -6,6 +6,7 @@ import JoinGamePage from 'pages/JoinGamePage/JoinGamePage';
 import LandingPage from 'pages/LandingPage/LandingPage';
 import LoadingPage from 'pages/LoadingPage/LoadingPage';
 import MainMenu from 'pages/MainMenu/MainMenu';
+import RankingPage from 'pages/RankingPage/RankingPage';
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { urlPaths } from 'util/UrlPaths';
@@ -25,6 +26,7 @@ function AppRoutes() {
       />
       <Route path={urlPaths.loadingPage} element={<LoadingPage />} />
       <Route path={urlPaths.gamePage} element={<GamePage />} />
+      <Route path={urlPaths.rankingPage} element={<RankingPage />} />
     </Routes>
   );
 }

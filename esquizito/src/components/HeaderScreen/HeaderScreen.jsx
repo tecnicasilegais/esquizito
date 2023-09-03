@@ -7,7 +7,12 @@ import styles from './HeaderScreen.module.scss';
 function HeaderScreen({ children, headerCenter, headerRight }) {
   return (
     <div className={styles.container}>
-      <Box className={styles.header} fontWeight='xl' px={2} py={1}>
+      <Box
+        className={styles.header}
+        fontWeight='xl'
+        fontSize='xl3'
+        px={2}
+        py={1}>
         <div className={styles.headerEnd}>
           <img src={logo} alt='EsQUIZito logo' />
         </div>

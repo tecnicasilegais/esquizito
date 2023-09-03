@@ -17,6 +17,13 @@ export const theme = extendTheme({
         },
       },
     },
+    JoyCard: {
+      styleOverrides: {
+        root: {
+          borderRadius: '24px',
+        },
+      },
+    },
     JoyFormLabel: {
       styleOverrides: {
         root: {

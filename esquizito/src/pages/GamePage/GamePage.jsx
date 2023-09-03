@@ -24,7 +24,6 @@ function GamePage() {
   };
   const radioCardStyle = (theme) => {
     const mainStyle = {
-      borderRadius: 24,
       p: 3,
       boxSizing: 'border-box',
       height: '100%',
@@ -46,7 +45,7 @@ function GamePage() {
   return (
     <HeaderScreen>
       <Stack mx={2} spacing={4} mt={1} mb={2}>
-        <Card sx={{ borderRadius: 24 }}>
+        <Card>
           <Question number='I' text={properties.example.screen.game.question} />
           <Box>
             <Divider />
