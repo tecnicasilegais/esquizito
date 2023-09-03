@@ -1,10 +1,24 @@
 import userRepository from 'repositories/user';
+import { BaseService } from 'services/base.service';
+import { FilterType } from 'utils/filter.util';
 
-const get = async (userId) => userRepository.get(userId);
+export class UserService extends BaseService {
+  constructor() {
+    super(userRepository);
+  }
 
-const getByEmail = async (email) => userRepository.getByEmail(email);
-const getByAuth0Id = async (auth0Id) => userRepository.getByAuth0Id(auth0Id);
+  async getByEmail(email) {
+    return this.repository.getOne([
+      { field: 'email', type: FilterType.EQUALS, value: email },
+    ]);
+  }
 
-const register = async (userInfo) => userRepository.register(userInfo);
+  async getByAuth0Id(auth0Id) {
+    return this.repository.getOne([
+      { field: 'auth0Id', type: FilterType.EQUALS, value: auth0Id },
+    ]);
+  }
+}
 
-export default { get, getByAuth0Id, getByEmail, register };
+const userService = new UserService();
+export default userService;

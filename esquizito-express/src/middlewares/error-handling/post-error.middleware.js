@@ -24,6 +24,15 @@ export const postErrorHandler = (error, request, response, next) => {
     });
     return;
   }
+  if (error.name === 'UserIdNotFound') {
+    response.status(400).json({ error: error.message });
+    return;
+  }
+
+  if (error.name === 'QuestionIdNotFound') {
+    response.status(404).json({ error: error.message });
+    return;
+  }
 
   next(error);
 };
