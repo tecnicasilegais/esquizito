@@ -15,13 +15,10 @@ export class QuestionService extends BaseService {
    *
    * It's expected to be used by the QuizService to map the list of ids to real questions
    */
-  async listByIds(ids) {
-    return this.repository.getAll([
-      { field: '_id', type: FilterType.IN, value: ids },
-    ]);
-  }
+  listByIds = async (ids) =>
+    this.repository.getAll([{ field: '_id', type: FilterType.IN, value: ids }]);
 
-  async create(question) {
+  create = async (question) => {
     const exists = await userService.exists({ _id: question.userId });
     if (!exists) {
       throw new CustomError(
@@ -30,7 +27,24 @@ export class QuestionService extends BaseService {
       );
     }
     return super.create(question);
-  }
+  };
+
+  update = async (id, question) => {
+    const created = await this.create(question);
+
+    if (created) {
+      const update = await super.update(id, { deprecated: true });
+      if (!update) {
+        throw new CustomError(
+          `Could not deprecate a question by id: ${id}`,
+          'QuestionIdNotFound',
+        );
+      }
+    }
+    return created;
+  };
+
+  delete = async (id) => super.update(id, { deprecated: true });
 }
 
 const questionService = new QuestionService();

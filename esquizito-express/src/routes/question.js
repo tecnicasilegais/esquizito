@@ -19,6 +19,14 @@ router.post(
   postErrorHandler,
 );
 
+router.put(
+  '/update/:id',
+  validateId,
+  questionController.update,
+  postErrorHandler,
+);
+
+router.delete('/:id', validateId, questionController.delete);
 router.get('/:id', validateId, questionController.get);
 
 export default router;
