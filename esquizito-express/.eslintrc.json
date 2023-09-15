@@ -2,19 +2,34 @@
   "extends": [
     "airbnb-base",
     "plugin:import/recommended",
+    "plugin:@typescript-eslint/recommended",
     "prettier"
   ],
   "plugins": [
-    "prettier",
-    "module-resolver"
+    "@typescript-eslint",
+    "prettier"
   ],
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly"
+  },
   "rules": {
     "prettier/prettier": "error",
     "no-unused-vars": "warn",
     "no-console": "warn",
+    "no-underscore-dangle": "off",
     "func-names": "off",
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": "warn",
+    "import/no-unresolved": "error",
     "import/prefer-default-export": "off",
-    "module-resolver/use-alias": 2
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "ts": "never"
+      }
+    ]
   },
   "env": {
     "es2021": true,
@@ -27,10 +42,18 @@
         "moduleDirectory": [
           "node_modules",
           "src"
+        ],
+        "extensions": [
+          ".js",
+          ".ts"
         ]
+      },
+      "typescript": {
+        "alwaysTryTypes": true
       }
     }
   },
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": "latest",
     "sourceType": "module"

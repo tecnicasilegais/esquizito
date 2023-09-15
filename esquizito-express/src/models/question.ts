@@ -1,9 +1,10 @@
-import mongoose from 'mongoose';
+import { model, Schema } from 'mongoose';
+import { QuestionDocument } from './documents';
 
-const questionSchema = new mongoose.Schema(
+const questionSchema: Schema<QuestionDocument> = new Schema<QuestionDocument>(
   {
     userId: {
-      type: mongoose.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       required: true,
       index: true,
     },
@@ -18,4 +19,4 @@ const questionSchema = new mongoose.Schema(
   },
 );
 
-export const Question = mongoose.model('Question', questionSchema);
+export const Question = model('Question', questionSchema);

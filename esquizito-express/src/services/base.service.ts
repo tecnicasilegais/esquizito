@@ -1,26 +1,25 @@
 import { BaseRepository } from 'repositories/base.repository';
 
-export class BaseService {
-  constructor(repository) {
-    if (!(repository instanceof BaseRepository)) {
-      throw new Error(`${repository} is not a valid repository`);
-    }
+export class BaseService<T> {
+  protected repository: BaseRepository<T>;
+
+  constructor(repository: BaseRepository<T>) {
     this.repository = repository;
   }
 
-  async get(id) {
+  async get(id: string) {
     return this.repository.get(id);
   }
 
-  async create(model) {
+  async create(model: T) {
     return this.repository.create(model);
   }
 
-  async update(id, model) {
+  async update(id: string, model: Partial<T>) {
     return this.repository.update(id, model);
   }
 
-  async exists(model) {
+  async exists(model: Partial<T>) {
     return this.repository.exists(model);
   }
 }

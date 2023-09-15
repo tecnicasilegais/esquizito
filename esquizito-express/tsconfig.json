@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "lib": ["esnext"],
+    "allowJs": true,
+    "outDir": "dist"                        /* Redirect output structure to the directory. */,
+    "noEmit": true,
+    "isolatedModules": true,
+    "strict": true,
+    "noImplicitAny": true,
+    // "strictNullChecks": true,              /* Enable strict null checks. */
+    // "strictFunctionTypes": true,           /* Enable strict checking of function types. */
+    // "strictBindCallApply": true,           /* Enable strict 'bind', 'call', and 'apply' methods on functions. */
+    // "strictPropertyInitialization": true,  /* Enable strict checking of property initialization in classes. */
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": false,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "moduleResolution": "node",
+    "baseUrl": "./src",
+    "rootDir": "./src",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */,
+  },
+  "ts-node": {
+    "require": [
+      "tsconfig-paths/register"
+    ]
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": ["node_modules"]
+}

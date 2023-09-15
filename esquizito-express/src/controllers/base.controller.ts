@@ -1,15 +1,17 @@
+import { NextFunction, Request, Response } from 'express';
 import { BaseService } from 'services/base.service';
 
-export class BaseController {
-  constructor(service, name = 'resource') {
-    if (!(service instanceof BaseService)) {
-      throw new Error(`${service} is not a valid service`);
-    }
+export class BaseController<T> {
+  protected service: BaseService<T>;
+
+  protected readonly name: string;
+
+  constructor(service: BaseService<T>, name: string) {
     this.service = service;
     this.name = name;
   }
 
-  get = async (req, res, next) => {
+  get = async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
 
     const model = await this.service.get(id);
@@ -22,7 +24,7 @@ export class BaseController {
     return res.status(200).json(model);
   };
 
-  create = async (req, res, next) => {
+  create = async (req: Request, res: Response, next: NextFunction) => {
     const { body } = req;
 
     this.service

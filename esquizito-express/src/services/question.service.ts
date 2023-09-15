@@ -1,10 +1,11 @@
-import questionRepository from 'repositories/question';
-import userService from 'services/user';
+import questionRepository from 'repositories/question.repository';
+import userService from 'services/user.service';
 import { BaseService } from 'services/base.service';
 import { FilterType } from 'utils/filter.util';
 import { CustomError } from 'utils/error.util';
+import { QuestionDocument } from 'models/documents';
 
-export class QuestionService extends BaseService {
+export class QuestionService extends BaseService<QuestionDocument> {
   constructor() {
     super(questionRepository);
   }
@@ -15,10 +16,10 @@ export class QuestionService extends BaseService {
    *
    * It's expected to be used by the QuizService to map the list of ids to real questions
    */
-  listByIds = async (ids) =>
+  listByIds = async (ids: string[]) =>
     this.repository.getAll([{ field: '_id', type: FilterType.IN, value: ids }]);
 
-  create = async (question) => {
+  create = async (question: QuestionDocument) => {
     const exists = await userService.exists({ _id: question.userId });
     if (!exists) {
       throw new CustomError(
@@ -29,7 +30,7 @@ export class QuestionService extends BaseService {
     return super.create(question);
   };
 
-  update = async (id, question) => {
+  update = async (id: string, question: QuestionDocument) => {
     const created = await this.create(question);
 
     if (created) {
@@ -44,7 +45,7 @@ export class QuestionService extends BaseService {
     return created;
   };
 
-  delete = async (id) => super.update(id, { deprecated: true });
+  delete = async (id: string) => super.update(id, { deprecated: true });
 }
 
 const questionService = new QuestionService();

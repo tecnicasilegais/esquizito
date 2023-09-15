@@ -7,7 +7,7 @@ export function getOffset(currentPage = 0, itemsPerPage = 10) {
   return currentPage * itemsPerPage;
 }
 
-export function emptyOrRows(rows) {
+export function emptyOrRows(rows?: unknown[]) {
   if (rows) {
     return rows;
   }

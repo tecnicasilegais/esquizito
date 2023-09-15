@@ -1,3 +1,4 @@
+import { NextFunction, Request, Response } from 'express';
 import {
   InvalidTokenError,
   UnauthorizedError,
@@ -10,8 +11,13 @@ const ErrorMessages = {
 };
 
 // Express needs 4 parameters on the error handler, even if we won't use 'next'
-// eslint-disable-next-line no-unused-vars
-export const errorHandler = (error, request, response, next) => {
+export const errorHandler = (
+  error: Error,
+  request: Request,
+  response: Response,
+  // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
+  next: NextFunction,
+) => {
   if (error instanceof InvalidTokenError) {
     response.status(error.status).json({ error: ErrorMessages.badCredentials });
     return;
@@ -20,7 +26,7 @@ export const errorHandler = (error, request, response, next) => {
     response.status(error.status).json({ error: ErrorMessages.unauthorized });
     return;
   }
-  if (error.type === 'entity.parse.failed') {
+  if ('type' in error && error.type === 'entity.parse.failed') {
     response.status(400).json({ error: 'Invalid JSON' });
     return;
   }

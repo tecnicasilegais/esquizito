@@ -1,9 +1,9 @@
-export function normalizePort(val) {
+export function normalizePort(val: string): number {
   const portNumber = parseInt(val, 10);
 
   if (Number.isNaN(portNumber)) {
     // named pipe
-    return val;
+    return parseInt(val, 10);
   }
 
   if (portNumber >= 0) {
@@ -11,5 +11,5 @@ export function normalizePort(val) {
     return portNumber;
   }
 
-  return false;
+  return 0;
 }
