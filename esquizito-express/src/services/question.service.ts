@@ -19,6 +19,12 @@ export class QuestionService extends BaseService<QuestionDocument> {
   listByIds = async (ids: string[]) =>
     this.repository.getAll([{ field: '_id', type: FilterType.IN, value: ids }]);
 
+  listByUserId = async (userId: string) =>
+    this.repository.getAll([
+      { field: 'userId', type: FilterType.EQUALS, value: userId },
+      { field: 'deprecated', type: FilterType.EQUALS, value: false },
+    ]);
+
   create = async (question: QuestionDocument) => {
     const exists = await userService.exists({ _id: question.userId });
     if (!exists) {
