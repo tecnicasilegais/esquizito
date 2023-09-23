@@ -35,4 +35,17 @@ export class UserController extends BaseController<UserDocument> {
 
     return res.status(200).json(user);
   };
+
+  getQuestions = async (req: Request, res: Response, next: NextFunction) => {
+    const { id } = req.params;
+
+    const questions = await this.service.getQuestions(id);
+
+    if (!questions) {
+      req.notFoundMessage = `Could not locate questions by userId: ${id}`;
+      return next();
+    }
+
+    return res.status(200).json(questions);
+  };
 }
