@@ -11,6 +11,7 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { urlPaths } from 'util/UrlPaths';
 import styles from './App.module.scss';
+import ManageQuestionsPage from './pages/ManageQuestionsPage/ManageQuestionsPage';
 
 function AppRoutes() {
   return (
@@ -27,6 +28,10 @@ function AppRoutes() {
       <Route path={urlPaths.loadingPage} element={<LoadingPage />} />
       <Route path={urlPaths.gamePage} element={<GamePage />} />
       <Route path={urlPaths.rankingPage} element={<RankingPage />} />
+      <Route
+        path={urlPaths.manageQuestionsPage}
+        element={<ManageQuestionsPage />}
+      />
     </Routes>
   );
 }

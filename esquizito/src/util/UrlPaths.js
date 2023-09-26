@@ -5,4 +5,5 @@ export const urlPaths = {
   loadingPage: '/callback',
   gamePage: '/game',
   rankingPage: '/ranking',
+  manageQuestionsPage: '/manage-questions',
 };
