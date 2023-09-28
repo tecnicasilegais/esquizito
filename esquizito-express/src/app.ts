@@ -6,12 +6,13 @@ import helmet from 'helmet';
 import nocache from 'nocache';
 
 import { contentTypeJson } from 'middlewares/response-content.middleware';
-import { notFoundHandler } from 'middlewares/not-found.middleware';
+import { notFoundHandler } from 'middlewares/error-handling/not-found.middleware';
 import { errorHandler } from 'middlewares/error-handling/error.middleware';
 import appConfig from 'configs/application.config';
 
 import usersRouter from './routes/user';
 import questionsRouter from './routes/question';
+import quizzesRouter from './routes/quiz';
 
 const app = express();
 
@@ -58,6 +59,7 @@ app.use(
 app.use(contentTypeJson);
 app.use('/user', usersRouter);
 app.use('/question', questionsRouter);
+app.use('/quiz', quizzesRouter);
 
 app.use(errorHandler);
 app.use(notFoundHandler);

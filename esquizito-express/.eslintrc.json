@@ -1,5 +1,6 @@
 {
   "extends": [
+    "eslint:recommended",
     "airbnb-base",
     "plugin:import/recommended",
     "plugin:@typescript-eslint/recommended",
@@ -15,12 +16,13 @@
   },
   "rules": {
     "prettier/prettier": "error",
-    "no-unused-vars": "warn",
+    "no-unused-vars": "off",
     "no-console": "warn",
     "no-underscore-dangle": "off",
     "func-names": "off",
     "no-shadow": "off",
     "@typescript-eslint/no-shadow": "warn",
+    "@typescript-eslint/no-unused-vars": ["error"],
     "import/no-unresolved": "error",
     "import/prefer-default-export": "off",
     "import/extensions": [

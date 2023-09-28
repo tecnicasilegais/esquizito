@@ -1,6 +1,6 @@
 import express from 'express';
-import { validateId } from 'middlewares/validator.middleware';
-import { validateAccessToken } from 'middlewares/auth0.middleware';
+import { validateId } from 'middlewares/validations/id-validator.middleware';
+import { validateAccessToken } from 'middlewares/validations/auth0.middleware';
 import { UserController } from 'controllers/user.controller';
 import auth0Config from 'configs/auth0.config';
 import { postErrorHandler } from 'middlewares/error-handling/post-error.middleware';

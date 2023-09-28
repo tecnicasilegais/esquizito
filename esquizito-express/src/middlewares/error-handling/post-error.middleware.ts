@@ -49,6 +49,5 @@ export const postErrorHandler = (
       return;
     }
   }
-
   next(error);
 };

@@ -1,27 +1,29 @@
 import { NextFunction, Request, Response } from 'express';
-import questionService, { QuestionService } from 'services/question.service';
+import quizService, { QuizService } from 'services/quiz.service';
 import { BaseController } from 'controllers/base.controller';
-import { QuestionDocument } from 'models/documents';
+import { QuizDocument } from 'models/documents';
 
-export class QuestionController extends BaseController<QuestionDocument> {
-  declare service: QuestionService;
+export class QuizController extends BaseController<QuizDocument> {
+  declare service: QuizService;
 
   constructor() {
-    super(questionService, 'question');
+    super(quizService, 'quiz');
   }
 
-  update = async (req: Request, res: Response, next: NextFunction) => {
+  publish = async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
-    const { body } = req;
 
-    const question = await this.service.update(id, body);
+    const published = await this.service.publish(id);
 
-    if (!question?._id) {
+    if (!published) {
       req.notFoundMessage = `Could not locate ${this.name} by id: ${id}`;
       return next();
     }
 
-    return res.status(200).json({ id: question._id });
+    return res.status(200).json({
+      message: `Successfully published the ${this.name}`,
+      code: published.code,
+    });
   };
 
   delete = async (req: Request, res: Response, next: NextFunction) => {
@@ -36,6 +38,6 @@ export class QuestionController extends BaseController<QuestionDocument> {
 
     return res
       .status(200)
-      .json({ message: `Successfully removed the ${this.name}` });
+      .json({ message: `Successfully archived the ${this.name}` });
   };
 }

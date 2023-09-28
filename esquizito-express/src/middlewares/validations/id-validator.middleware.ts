@@ -18,3 +18,26 @@ export function validateBodyUserId(
     ? next()
     : res.status(400).json({ error: 'Invalid User ID' });
 }
+
+export function validateQuizListOfIds(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
+  const { questions } = req.body;
+
+  if (!Array.isArray(questions)) {
+    return res.status(400).json({ error: 'Invalid Questions' });
+  }
+
+  const invalidIds = questions.filter((id) => !validateObjectId(id));
+
+  if (invalidIds.length > 0) {
+    const invalidIdsMessage = `Invalid Question IDs: [${invalidIds.join(
+      ', ',
+    )}]`;
+    return res.status(400).json({ error: invalidIdsMessage });
+  }
+
+  return next();
+}

@@ -1,5 +1,4 @@
 import questionRepository from 'repositories/question.repository';
-import userService from 'services/user.service';
 import { BaseService } from 'services/base.service';
 import { FilterType } from 'utils/filter.util';
 import { CustomError } from 'utils/error.util';
@@ -24,17 +23,6 @@ export class QuestionService extends BaseService<QuestionDocument> {
       { field: 'userId', type: FilterType.EQUALS, value: userId },
       { field: 'deprecated', type: FilterType.EQUALS, value: false },
     ]);
-
-  create = async (question: QuestionDocument) => {
-    const exists = await userService.exists({ _id: question.userId });
-    if (!exists) {
-      throw new CustomError(
-        `Could not locate a user by id: ${question.userId}`,
-        'UserIdNotFound',
-      );
-    }
-    return super.create(question);
-  };
 
   update = async (id: string, question: QuestionDocument) => {
     const created = await this.create(question);
