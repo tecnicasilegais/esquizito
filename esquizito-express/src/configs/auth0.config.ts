@@ -1,4 +1,5 @@
 import * as dotenv from 'dotenv';
+
 import { Auth0Config } from './types';
 
 dotenv.config();

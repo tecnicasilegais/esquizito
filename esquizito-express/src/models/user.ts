@@ -1,4 +1,5 @@
 import { Schema, model } from 'mongoose';
+
 import { UserDocument } from './documents';
 
 const userSchema: Schema<UserDocument> = new Schema<UserDocument>(

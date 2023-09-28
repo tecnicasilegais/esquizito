@@ -1,17 +1,17 @@
-import express from 'express';
-import cors from 'cors';
 import cookieParser from 'cookie-parser';
-import logger from 'morgan';
+import cors from 'cors';
+import express from 'express';
 import helmet from 'helmet';
+import logger from 'morgan';
 import nocache from 'nocache';
 
-import { contentTypeJson } from 'middlewares/response-content.middleware';
-import { notFoundHandler } from 'middlewares/not-found.middleware';
-import { errorHandler } from 'middlewares/error-handling/error.middleware';
 import appConfig from 'configs/application.config';
+import { errorHandler } from 'middlewares/error-handling/error.middleware';
+import { notFoundHandler } from 'middlewares/not-found.middleware';
+import { contentTypeJson } from 'middlewares/response-content.middleware';
 
-import usersRouter from './routes/user';
 import questionsRouter from './routes/question';
+import usersRouter from './routes/user';
 
 const app = express();
 

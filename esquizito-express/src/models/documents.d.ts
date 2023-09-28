@@ -1,5 +1,6 @@
 import { Document, Schema } from 'mongoose';
-import { IUser, IQuestion } from './models';
+
+import { IQuestion, IUser } from './models';
 
 export interface UserDocument extends IUser, Document {}
 
