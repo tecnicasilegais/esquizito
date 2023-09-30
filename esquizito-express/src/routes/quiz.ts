@@ -36,7 +36,7 @@ router.put(
   '/update/:id',
   validateId,
   validateQuizIsDraft,
-  //quizController.update,
+  quizController.update,
   postErrorHandler,
 );
 
