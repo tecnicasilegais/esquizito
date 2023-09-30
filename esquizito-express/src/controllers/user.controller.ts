@@ -1,6 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
-import userService, { UserService } from 'services/user.service';
+
 import { BaseController } from 'controllers/base.controller';
+import userService, { UserService } from 'services/user.service';
+
 import { UserDocument } from '../models/documents';
 
 export class UserController extends BaseController<UserDocument> {

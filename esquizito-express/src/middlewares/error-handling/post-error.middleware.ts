@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
-import { Error } from 'mongoose';
 import { MongoError } from 'mongodb';
+import { Error } from 'mongoose';
+
 import { CustomError } from '../../utils/error.util';
 
 // Express needs 4 parameters on the error handler, even if we won't use 'next'

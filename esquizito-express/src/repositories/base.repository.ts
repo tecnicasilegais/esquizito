@@ -1,5 +1,7 @@
 import { Model, QueryWithHelpers } from 'mongoose';
+
 import { Filter, FilterType } from 'utils/filter.util';
+
 import { IRepository } from './repository';
 
 export class BaseRepository<T> implements IRepository<T> {

@@ -1,8 +1,9 @@
 /* istanbul ignore file */
-
 import http from 'http';
+
 import appConfigs from 'configs/application.config';
 import { connectToDatabase } from 'configs/connection.config';
+
 import { app } from './app';
 
 const port = appConfigs.appPort;

@@ -1,7 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
-import questionService, { QuestionService } from 'services/question.service';
+
 import { BaseController } from 'controllers/base.controller';
 import { QuestionDocument } from 'models/documents';
+import questionService, { QuestionService } from 'services/question.service';
 
 export class QuestionController extends BaseController<QuestionDocument> {
   declare service: QuestionService;

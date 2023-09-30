@@ -1,9 +1,17 @@
 {
+  "plugins": ["@trivago/prettier-plugin-sort-imports"],
   "singleQuote": true,
   "trailingComma": "all",
   "tabWidth": 2,
   "arrowParens": "always",
   "bracketSameLine": true,
   "semi": true,
-  "endOfLine": "crlf"
+  "endOfLine": "crlf",
+  "importOrder": [
+    "^(configs|controllers|middlewares|models|repositories|routes|services|types|utils)/?(.*)$",
+    "^[../]",
+    "^[./]"
+  ],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true
 }

@@ -1,9 +1,10 @@
 import express from 'express';
-import { validateId } from 'middlewares/validator.middleware';
-import { validateAccessToken } from 'middlewares/auth0.middleware';
-import { UserController } from 'controllers/user.controller';
+
 import auth0Config from 'configs/auth0.config';
+import { UserController } from 'controllers/user.controller';
+import { validateAccessToken } from 'middlewares/auth0.middleware';
 import { postErrorHandler } from 'middlewares/error-handling/post-error.middleware';
+import { validateId } from 'middlewares/validator.middleware';
 
 const router = express.Router();
 const userController = new UserController();
