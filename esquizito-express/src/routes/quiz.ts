@@ -9,7 +9,10 @@ import {
   validateId,
   validateQuizListOfIds,
 } from 'middlewares/validations/id-validator.middleware';
-import { validateQuestionsExists } from 'middlewares/validations/quiz-validator.middleware';
+import {
+  validateQuestionsExists,
+  validateQuizIsDraft,
+} from 'middlewares/validations/quiz-validator.middleware';
 import { validateUserExists } from 'middlewares/validations/user-validator.middleware';
 
 const router = express.Router();
@@ -26,6 +29,14 @@ router.post(
   validateQuizListOfIds,
   validateQuestionsExists,
   quizController.create,
+  postErrorHandler,
+);
+
+router.put(
+  '/update/:id',
+  validateId,
+  validateQuizIsDraft,
+  //quizController.update,
   postErrorHandler,
 );
 

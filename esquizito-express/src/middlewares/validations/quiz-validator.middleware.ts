@@ -1,6 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
 
-import questionService from '../../services/question.service';
+import questionService from 'services/question.service';
+import quizService from 'services/quiz.service';
+
+import { QuizStatus } from '../../models/enums';
 
 export async function validateQuestionsExists(
   req: Request,
@@ -28,3 +31,27 @@ export async function validateQuestionsExists(
 
   return next();
 }
+
+export const validateQuizIsDraft = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  const { id } = req.params;
+
+  const quiz = await quizService.get(id);
+
+  if (!quiz) {
+    return res
+      .status(404)
+      .json({ error: `Could not locate quiz by id: ${id}` });
+  }
+
+  if (quiz.status !== QuizStatus.DRAFT) {
+    return res
+      .status(400)
+      .json({ error: 'Can only update quizzes in draft state.' });
+  }
+
+  return next();
+};
