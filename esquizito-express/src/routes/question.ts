@@ -1,12 +1,13 @@
 import express from 'express';
+
+import auth0Config from 'configs/auth0.config';
+import { QuestionController } from 'controllers/question.controller';
+import { postErrorHandler } from 'middlewares/error-handling/post-error.middleware';
+import { validateAccessToken } from 'middlewares/validations/auth0.middleware';
 import {
   validateBodyUserId,
   validateId,
 } from 'middlewares/validations/id-validator.middleware';
-import { validateAccessToken } from 'middlewares/validations/auth0.middleware';
-import { QuestionController } from 'controllers/question.controller';
-import auth0Config from 'configs/auth0.config';
-import { postErrorHandler } from 'middlewares/error-handling/post-error.middleware';
 import { validateUserExists } from 'middlewares/validations/user-validator.middleware';
 
 const router = express.Router();

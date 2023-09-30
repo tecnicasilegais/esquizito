@@ -1,7 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
-import quizService, { QuizService } from 'services/quiz.service';
+
 import { BaseController } from 'controllers/base.controller';
 import { QuizDocument } from 'models/documents';
+import quizService, { QuizService } from 'services/quiz.service';
 
 export class QuizController extends BaseController<QuizDocument> {
   declare service: QuizService;

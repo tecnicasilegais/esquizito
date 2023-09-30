@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
+
 import { BaseService } from 'services/base.service';
 
 export class BaseController<T> {

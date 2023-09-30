@@ -11,6 +11,8 @@
     "clean": "rimraf dist",
     "dev": "NODE_ENV=development ts-node -r tsconfig-paths/register --files ./src/www.ts",
     "lint": "eslint .",
+    "format": "prettier --check \"src/**/*.ts\"",
+    "format:fix": "prettier --write \"src/**/*.ts\"",
     "prod": "NODE_ENV=production ts-node src/www.ts",
     "start": "npm run prod",
     "test": "jest",
@@ -36,6 +38,7 @@
     "nocache": "^4.0.0"
   },
   "devDependencies": {
+    "@trivago/prettier-plugin-sort-imports": "^4.2.0",
     "@types/cookie-parser": "^1.4.4",
     "@types/cors": "^2.8.14",
     "@types/express": "^4.17.17",

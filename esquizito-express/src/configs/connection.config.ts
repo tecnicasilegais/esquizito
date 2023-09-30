@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+
 import config from 'configs/db.config';
 
 export async function connectToDatabase(): Promise<void> {

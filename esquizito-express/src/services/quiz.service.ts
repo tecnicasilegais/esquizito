@@ -1,8 +1,8 @@
-import quizRepository from 'repositories/quiz.repository';
-import { BaseService } from 'services/base.service';
+import { getId } from 'configs/nanoId.config';
 import { QuizDocument } from 'models/documents';
 import { QuizStatus } from 'models/enums';
-import { getId } from 'configs/nanoId.config';
+import quizRepository from 'repositories/quiz.repository';
+import { BaseService } from 'services/base.service';
 
 export class QuizService extends BaseService<QuizDocument> {
   constructor() {

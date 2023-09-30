@@ -1,8 +1,9 @@
-import userRepository from 'repositories/user.repository';
-import questionService from 'services/question.service';
-import { BaseService } from 'services/base.service';
-import { FilterType } from 'utils/filter.util';
 import { UserDocument } from 'models/documents';
+import userRepository from 'repositories/user.repository';
+import { BaseService } from 'services/base.service';
+import questionService from 'services/question.service';
+import { FilterType } from 'utils/filter.util';
+
 import { CustomError } from '../utils/error.util';
 
 export class UserService extends BaseService<UserDocument> {

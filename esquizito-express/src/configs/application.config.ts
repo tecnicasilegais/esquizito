@@ -1,5 +1,7 @@
 import * as dotenv from 'dotenv';
+
 import { normalizePort } from 'utils/port.util';
+
 import { CorsConfig } from './types';
 
 dotenv.config();

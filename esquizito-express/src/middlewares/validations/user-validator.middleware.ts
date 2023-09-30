@@ -1,5 +1,7 @@
-import userService from 'services/user.service';
 import { NextFunction, Request, Response } from 'express';
+
+import userService from 'services/user.service';
+
 import { CustomError } from '../../utils/error.util';
 
 export async function validateUserExists(

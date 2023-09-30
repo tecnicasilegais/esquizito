@@ -1,4 +1,5 @@
 import { auth } from 'express-oauth2-jwt-bearer';
+
 import auth0Config from 'configs/auth0.config';
 
 export const validateAccessToken = auth({
