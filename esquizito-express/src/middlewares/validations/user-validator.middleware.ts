@@ -9,14 +9,15 @@ export async function validateUserExists(
   res: Response,
   next: NextFunction,
 ) {
-  const { body } = req;
-  const exists = await userService.exists({ _id: body.userId });
+  const id = req.params.id || req.body.userId;
+
+  const exists = id ? await userService.exists({ _id: id }) : false;
 
   return exists
     ? next()
     : next(
         new CustomError(
-          `Could not locate a user by id: ${body.userId}`,
+          `Could not locate a user by id: ${id}`,
           'UserIdNotFound',
         ),
       );

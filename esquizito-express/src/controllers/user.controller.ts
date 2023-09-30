@@ -1,9 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
 
 import { BaseController } from 'controllers/base.controller';
+import { UserDocument } from 'models/documents';
+import questionService from 'services/question.service';
+import quizService from 'services/quiz.service';
 import userService, { UserService } from 'services/user.service';
-
-import { UserDocument } from '../models/documents';
 
 export class UserController extends BaseController<UserDocument> {
   declare service: UserService;
@@ -38,10 +39,25 @@ export class UserController extends BaseController<UserDocument> {
     return res.status(200).json(user);
   };
 
+  // eslint-disable-next-line class-methods-use-this
   getQuestions = async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
 
-    const questions = await this.service.getQuestions(id);
+    const questions = await questionService.listByUserId(id);
+
+    if (!questions) {
+      req.notFoundMessage = `Could not locate questions by userId: ${id}`;
+      return next();
+    }
+
+    return res.status(200).json(questions);
+  };
+
+  // eslint-disable-next-line class-methods-use-this
+  getQuizzes = async (req: Request, res: Response, next: NextFunction) => {
+    const { id } = req.params;
+
+    const questions = await quizService.listByUserId(id);
 
     if (!questions) {
       req.notFoundMessage = `Could not locate questions by userId: ${id}`;
