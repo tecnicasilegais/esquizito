@@ -4,6 +4,8 @@ import {
   UnauthorizedError,
 } from 'express-oauth2-jwt-bearer';
 
+import { CustomError } from '../../utils/error.util';
+
 const ErrorMessages = {
   badCredentials: 'Bad Credentials',
   unauthorized: 'Requires Authentication',
@@ -29,6 +31,17 @@ export const errorHandler = (
   if ('type' in error && error.type === 'entity.parse.failed') {
     response.status(400).json({ error: 'Invalid JSON' });
     return;
+  }
+  if (error instanceof CustomError) {
+    if (error.name === 'UserIdNotFound') {
+      response.status(400).json({ error: error.message });
+      return;
+    }
+
+    if (error.name === 'QuestionIdNotFound') {
+      response.status(404).json({ error: error.message });
+      return;
+    }
   }
   response.status(500).json({ error: ErrorMessages.internalError });
 };

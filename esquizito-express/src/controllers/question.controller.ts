@@ -37,6 +37,6 @@ export class QuestionController extends BaseController<QuestionDocument> {
 
     return res
       .status(200)
-      .json({ message: 'Successfully removed the question' });
+      .json({ message: `Successfully removed the ${this.name}` });
   };
 }

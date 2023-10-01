@@ -1,3 +1,5 @@
+import { QuizGameMode, QuizStatus } from './enums';
+
 export interface IUser {
   name: string;
   email: string;
@@ -14,4 +16,15 @@ export interface IQuestion<T> {
   subject: string;
   explanation: string;
   deprecated: boolean;
+}
+
+export interface IQuiz<T> {
+  userId: T;
+  name: string;
+  status: QuizStatus;
+  code: string; // nanoId
+  gameMode: QuizGameMode;
+  questionTimeLimit?: number; // seconds
+  amountOfStars?: number;
+  questions: Array<T>;
 }

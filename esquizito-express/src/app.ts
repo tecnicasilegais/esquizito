@@ -7,10 +7,11 @@ import nocache from 'nocache';
 
 import appConfig from 'configs/application.config';
 import { errorHandler } from 'middlewares/error-handling/error.middleware';
-import { notFoundHandler } from 'middlewares/not-found.middleware';
+import { notFoundHandler } from 'middlewares/error-handling/not-found.middleware';
 import { contentTypeJson } from 'middlewares/response-content.middleware';
 
 import questionsRouter from './routes/question';
+import quizzesRouter from './routes/quiz';
 import usersRouter from './routes/user';
 
 const app = express();
@@ -58,6 +59,7 @@ app.use(
 app.use(contentTypeJson);
 app.use('/user', usersRouter);
 app.use('/question', questionsRouter);
+app.use('/quiz', quizzesRouter);
 
 app.use(errorHandler);
 app.use(notFoundHandler);

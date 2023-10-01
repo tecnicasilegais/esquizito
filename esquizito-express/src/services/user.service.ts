@@ -1,10 +1,7 @@
 import { UserDocument } from 'models/documents';
 import userRepository from 'repositories/user.repository';
 import { BaseService } from 'services/base.service';
-import questionService from 'services/question.service';
 import { FilterType } from 'utils/filter.util';
-
-import { CustomError } from '../utils/error.util';
 
 export class UserService extends BaseService<UserDocument> {
   constructor() {
@@ -21,18 +18,6 @@ export class UserService extends BaseService<UserDocument> {
     return this.repository.getOne([
       { field: 'auth0Id', type: FilterType.EQUALS, value: auth0Id },
     ]);
-  }
-
-  async getQuestions(id: string) {
-    const exists = await super.exists({ _id: id });
-    if (!exists) {
-      throw new CustomError(
-        `Could not locate a user by id: ${id}`,
-        'UserIdNotFound',
-      );
-    }
-
-    return questionService.listByUserId(id);
   }
 }
 
