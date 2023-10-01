@@ -62,7 +62,9 @@ function ManageQuestionsPage() {
         type='create'
         onCancel={() => setModalCreateQuestion(false)}
         onClose={() => setModalCreateQuestion(false)}
-        onSave={(questionData) => DB.createQuestion(questionData)}
+        onSave={(questionData) =>
+          DB.createQuestion(questionData).then(() => refreshQuestions())
+        }
       />
     </HeaderScreen>
   );
