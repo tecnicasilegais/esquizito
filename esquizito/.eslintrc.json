@@ -6,7 +6,9 @@
     "prettier"
   ],
   "plugins": [
-    "prettier"
+    "prettier",
+    "sort-keys-fix",
+    "sort-destructure-keys"
   ],
   "rules": {
     "prettier/prettier": "error",
@@ -17,6 +19,20 @@
     "import/prefer-default-export": "off",
     "import/no-unresolved": "off",
     "react/react-in-jsx-scope": "off",
+    "sort-destructure-keys/sort-destructure-keys": [
+      "warn",
+      {
+        "caseSensitive": false
+      }
+    ],
+    "sort-keys-fix/sort-keys-fix": [
+      "warn",
+      "asc",
+      {
+        "caseSensitive": false,
+        "natural": true
+      }
+    ],
     "react/jsx-sort-props": [
       "warn",
       {
@@ -24,6 +40,15 @@
         "callbacksLast": true,
         "shorthandFirst": true,
         "multiline": "last"
+      }
+    ],
+    "react/sort-prop-types": [
+      "warn",
+      {
+        "callbacksLast": false,
+        "ignoreCase": true,
+        "requiredFirst": false,
+        "sortShapeProp": false
       }
     ],
     "react/jsx-no-duplicate-props": [

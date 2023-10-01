@@ -8,13 +8,13 @@ import {
   Sync,
 } from '@mui/icons-material';
 import HeaderScreen from '../../components/HeaderScreen/HeaderScreen';
-import CreateQuestionModal from '../../components/CreateQuestionModal/CreateQuestionModal';
+import ManageQuestionModal from '../../components/ManageQuestionModal/ManageQuestionModal';
 import * as DB from '../../util/DB';
 import ManageQuestion from '../../components/ManageQuestion/ManageQuestion';
 
 function ManageQuestionsPage() {
   const navigate = useNavigate();
-  const [modalCreateQuestion, setModalCreateQuestion] = useState(true);
+  const [modalCreateQuestion, setModalCreateQuestion] = useState(false);
   const [selectAllIcon, setSelectAllIcon] = useState(<CheckBox />);
   const [selectAllState, setSelectedAllState] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -62,6 +62,7 @@ function ManageQuestionsPage() {
                   answer={question.answer}
                   explanation={question.explanation}
                   key={question._id}
+                  questionId={question._id}
                   statement={question.statement}
                   subject={question.subject}
                 />
@@ -69,9 +70,12 @@ function ManageQuestionsPage() {
           </Stack>
         </Card>
       </Stack>
-      <CreateQuestionModal
+      <ManageQuestionModal
         open={modalCreateQuestion}
+        title='Criar nova pergunta'
+        onCancel={() => setModalCreateQuestion(false)}
         onClose={() => setModalCreateQuestion(false)}
+        onSave={(questionData) => DB.createQuestion(questionData)}
       />
     </HeaderScreen>
   );

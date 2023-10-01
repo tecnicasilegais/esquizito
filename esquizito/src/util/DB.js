@@ -4,13 +4,13 @@ import { apiUrl } from './Util';
 
 axios.defaults.baseURL = apiUrl();
 
-export const createQuestion = ({ subject, statement, answer, explanation }) => {
+export const createQuestion = ({ answer, explanation, statement, subject }) => {
   axios
     .post('/question/create', {
-      subject,
-      statement,
       answer,
       explanation,
+      statement,
+      subject,
       userId: '64ecef379778977eb4cb6ac7',
     })
     .then((response) => {
@@ -36,4 +36,30 @@ export const getQuestions = async () => {
     console.log(error);
     return undefined;
   }
+};
+
+export const updateQuestion = ({
+  answer,
+  explanation,
+  questionId,
+  statement,
+  subject,
+}) => {
+  axios
+    .put('/question/update', {
+      answer,
+      explanation,
+      questionId,
+      statement,
+      subject,
+      userId: '64ecef379778977eb4cb6ac7',
+    })
+    .then((response) => {
+      toast.success('deus é menos');
+      console.log(response);
+    })
+    .catch((error) => {
+      toast.error('deus é mais');
+      console.log(error);
+    });
 };

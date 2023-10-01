@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Button,
   ButtonGroup,
@@ -17,29 +17,41 @@ import {
 } from '@mui/joy';
 import { CleaningServices, Clear, Save } from '@mui/icons-material';
 import * as PropTypes from 'prop-types';
-import * as DB from '../../util/DB';
 
-function CreateQuestionModal({ open, onClose }) {
-  const [subject, setSubject] = useState('');
-  const [statement, setStatement] = useState('');
+function ManageQuestionModal({ onCancel, onClose, onSave, open, title }) {
   const [answer, setAnswer] = useState('');
   const [explanation, setExplanation] = useState('');
+  const [statement, setStatement] = useState('');
+  const [subject, setSubject] = useState('');
 
   const clearFields = () => {
-    setSubject('');
-    setStatement('');
     setAnswer('');
     setExplanation('');
+    setStatement('');
+    setSubject('');
+  };
+
+  const updateFields = ({
+    updatedAnswer,
+    updatedExplanation,
+    updatedStatement,
+    updatedSubject,
+  }) => {
+    setAnswer(updatedAnswer);
+    setExplanation(updatedExplanation);
+    setStatement(updatedStatement);
+    setSubject(updatedSubject);
   };
 
   const handleAnswerChange = (event) => {
     setAnswer(event.target.value);
   };
+
   return (
     <Modal open={open} onClose={onClose}>
       <ModalDialog>
         <ModalClose variant='plain' />
-        <DialogTitle>Criar nova pergunta</DialogTitle>
+        <DialogTitle>{title}</DialogTitle>
         <DialogContent>
           <Stack minWidth='60vw' mt={1} spacing={2}>
             <FormControl>
@@ -102,7 +114,7 @@ function CreateQuestionModal({ open, onClose }) {
               <Button
                 startDecorator={<Clear />}
                 variant='soft'
-                onClick={onClose}>
+                onClick={onCancel}>
                 Cancelar
               </Button>
               <Button
@@ -111,11 +123,11 @@ function CreateQuestionModal({ open, onClose }) {
                 type='submit'
                 variant='soft'
                 onClick={() =>
-                  DB.createQuestion({
-                    subject,
-                    statement,
+                  onSave({
                     answer: answer === 'T',
                     explanation,
+                    statement,
+                    subject,
                   })
                 }>
                 Salvar
@@ -128,9 +140,12 @@ function CreateQuestionModal({ open, onClose }) {
   );
 }
 
-CreateQuestionModal.propTypes = {
-  open: PropTypes.bool.isRequired,
+ManageQuestionModal.propTypes = {
+  onCancel: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
+  onSave: PropTypes.func.isRequired,
+  open: PropTypes.bool.isRequired,
+  title: PropTypes.string.isRequired,
 };
 
-export default CreateQuestionModal;
+export default ManageQuestionModal;

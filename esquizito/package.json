@@ -12,6 +12,8 @@
     "@mui/joy": "^5.0.0-beta.2",
     "@mui/material": "^5.14.10",
     "axios": "^1.5.1",
+    "eslint-plugin-sort-destructure-keys": "^1.5.0",
+    "eslint-plugin-sort-keys-fix": "^1.1.2",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
