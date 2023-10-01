@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import ManageQuestionModal from '../ManageQuestionModal/ManageQuestionModal';
 import * as DB from '../../apis/services/DB';
 import DeleteQuestionModal from '../DeleteQuestionModal/DeleteQuestionModal';
+import { useUser } from '../../contexts/UserContext';
 
 function ManageQuestion({
   answer,
@@ -15,6 +16,7 @@ function ManageQuestion({
 }) {
   const [modalEditQuestion, setModalEditQuestion] = useState(false);
   const [modalDeleteQuestion, setModalDeleteQuestion] = useState(false);
+  const { user } = useUser();
   return (
     <Card variant='soft'>
       <Stack alignItems='stretch' direction='row' spacing={1}>
@@ -54,7 +56,7 @@ function ManageQuestion({
         onCancel={() => setModalEditQuestion(false)}
         onClose={() => setModalEditQuestion(false)}
         onSave={(questionData) =>
-          DB.updateQuestion({ questionId, ...questionData })
+          DB.updateQuestion({ questionId, userId: user.id, ...questionData })
         }
       />
       <DeleteQuestionModal

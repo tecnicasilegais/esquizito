@@ -6,23 +6,24 @@ import HeaderScreen from '../../components/HeaderScreen/HeaderScreen';
 import ManageQuestionModal from '../../components/ManageQuestionModal/ManageQuestionModal';
 import * as DB from '../../apis/services/DB';
 import ManageQuestion from '../../components/ManageQuestion/ManageQuestion';
+import { useUser } from '../../contexts/UserContext';
 
 function ManageQuestionsPage() {
   const navigate = useNavigate();
   const [modalCreateQuestion, setModalCreateQuestion] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [questions, setQuestions] = useState([]);
+  const { user } = useUser();
   const refreshQuestions = async () => {
-    const result = await DB.getQuestions();
+    const result = await DB.getQuestions(user.id);
     if (result) {
-      console.log({ result });
       setQuestions(result);
       setIsLoading(false);
     }
   };
   useEffect(() => {
     refreshQuestions();
-  }, []);
+  }, [user]);
   return (
     <HeaderScreen>
       <Stack mb={2} mt={1} mx={2} spacing={2}>
@@ -63,7 +64,9 @@ function ManageQuestionsPage() {
         onCancel={() => setModalCreateQuestion(false)}
         onClose={() => setModalCreateQuestion(false)}
         onSave={(questionData) =>
-          DB.createQuestion(questionData).then(() => refreshQuestions())
+          DB.createQuestion({ userId: user.id, ...questionData }).then(() =>
+            refreshQuestions(),
+          )
         }
       />
     </HeaderScreen>
