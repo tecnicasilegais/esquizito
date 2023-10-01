@@ -9,10 +9,17 @@ export const theme = extendTheme({
     },
   },
   components: {
+    JoyAlert: {
+      styleOverrides: {
+        root: {
+          '--Alert-radius': '16px',
+        },
+      },
+    },
     JoyButton: {
       styleOverrides: {
         root: {
-          borderRadius: '50px',
+          '--Button-radius': '50px',
           '&:hover': { transition: 'background-color .1s linear' },
         },
       },
@@ -20,7 +27,7 @@ export const theme = extendTheme({
     JoyCard: {
       styleOverrides: {
         root: {
-          borderRadius: '24px',
+          '--Card-radius': '24px',
         },
       },
     },
@@ -35,7 +42,21 @@ export const theme = extendTheme({
     JoyInput: {
       styleOverrides: {
         root: {
-          borderRadius: '50px',
+          '--Input-radius': '50px',
+        },
+      },
+    },
+    JoyModalDialog: {
+      styleOverrides: {
+        root: {
+          '--Card-radius': '36px',
+        },
+      },
+    },
+    JoyTextarea: {
+      styleOverrides: {
+        root: {
+          '--Input-radius': '24px',
         },
       },
     },
@@ -43,5 +64,8 @@ export const theme = extendTheme({
   fontFamily: {
     display: '"Montserrat Variable", var(--joy-fontFamily-fallback)',
     body: '"Montserrat Variable", var(--joy-fontFamily-fallback)',
+  },
+  radius: {
+    sm: '24px',
   },
 });

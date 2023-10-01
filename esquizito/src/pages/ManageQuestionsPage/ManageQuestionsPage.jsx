@@ -1,17 +1,22 @@
 import React, { useState } from 'react';
-import { Box, Button, Card, Checkbox, Stack } from '@mui/joy';
+import { Button, Card, Stack } from '@mui/joy';
 import { useNavigate } from 'react-router-dom';
 import {
   AddCircle,
   CheckBox,
   CheckBoxOutlineBlank,
-  Edit,
+  Refresh,
+  Sync,
 } from '@mui/icons-material';
 import HeaderScreen from '../../components/HeaderScreen/HeaderScreen';
 import { properties } from '../../util/Properties';
+import ManageQuestion from '../../components/ManageQuestion/ManageQuestion';
+import CreateQuestionModal from '../../components/CreateQuestionModal/CreateQuestionModal';
+import * as DB from '../../util/DB';
 
 function ManageQuestionsPage() {
   const navigate = useNavigate();
+  const [modalCreateQuestion, setModalCreateQuestion] = useState(true);
   const [selectAllIcon, setSelectAllIcon] = useState(<CheckBox />);
   const [selectAllState, setSelectedAllState] = useState(false);
   const handleSelectAll = () => {
@@ -20,44 +25,39 @@ function ManageQuestionsPage() {
   };
   return (
     <HeaderScreen>
-      <Stack spacing={2} mt={1} mb={2} mx={2}>
-        <Card>
-          <Stack spacing={2} direction='row'>
+      <Stack mb={2} mt={1} mx={2} spacing={2}>
+        <Card sx={{ borderRadius: '36px' }}>
+          <Stack direction='row' spacing={2}>
             <Button
-              variant='soft'
               startDecorator={selectAllIcon}
+              variant='soft'
               onClick={handleSelectAll}>
               Selecionar tudo
             </Button>
-            <Button variant='soft' startDecorator={<AddCircle />}>
+            <Button
+              startDecorator={<AddCircle />}
+              variant='soft'
+              onClick={() => setModalCreateQuestion(true)}>
               Criar pergunta
+            </Button>
+            <Button
+              startDecorator={<Sync />}
+              variant='soft'
+              onClick={() => DB.getQuestions()}>
+              Atualizar
             </Button>
           </Stack>
           <Stack spacing={2}>
-            <Card variant='soft'>
-              <Stack spacing={1} direction='row' alignItems='stretch'>
-                <Stack
-                  py={1}
-                  spacing={1}
-                  alignItems='center'
-                  justifyContent='space-between'>
-                  <Checkbox variant='outlined' />
-                  <Button variant='plain' size='sm' sx={{ height: '100%' }}>
-                    <Edit />
-                  </Button>
-                </Stack>
-                <Box>{properties.example.screen.game.question}</Box>
-              </Stack>
-            </Card>
-            <Card variant='soft'>
+            <ManageQuestion>
               {properties.example.screen.game.question}
-            </Card>
-            <Card variant='soft'>
-              {properties.example.screen.game.question}
-            </Card>
+            </ManageQuestion>
           </Stack>
         </Card>
       </Stack>
+      <CreateQuestionModal
+        open={modalCreateQuestion}
+        onClose={() => setModalCreateQuestion(false)}
+      />
     </HeaderScreen>
   );
 }

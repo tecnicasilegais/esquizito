@@ -9,7 +9,7 @@ import {
   Stack,
 } from '@mui/joy';
 import HeaderScreen from 'components/HeaderScreen/HeaderScreen';
-import Question from 'components/Question/Question';
+import GameQuestion from 'components/GameQuestion/GameQuestion';
 import React from 'react';
 import { properties } from 'util/Properties';
 
@@ -46,11 +46,14 @@ function GamePage() {
     <HeaderScreen>
       <Stack mx={2} spacing={4} mt={1} mb={2}>
         <Card>
-          <Question number='I' text={properties.example.screen.game.question} />
+          <GameQuestion
+            number='I'
+            text={properties.example.screen.game.question}
+          />
           <Box>
             <Divider />
           </Box>
-          <Question
+          <GameQuestion
             number='II'
             text={properties.example.screen.game.question}
           />

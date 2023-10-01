@@ -10,7 +10,7 @@ import React, {
   useMemo,
   useState,
 } from 'react';
-import { extractAuth0Id } from 'util/util';
+import { extractAuth0Id } from 'util/Util';
 
 const UserContext = createContext(undefined);
 

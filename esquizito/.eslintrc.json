@@ -14,7 +14,23 @@
     "no-console": "warn",
     "func-names": "off",
     "import/prefer-default-export": "off",
-    "react/react-in-jsx-scope": "off"
+    "import/no-unresolved": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-sort-props": [
+      "warn",
+      {
+        "ignoreCase": true,
+        "callbacksLast": true,
+        "shorthandFirst": true,
+        "multiline": "last"
+      }
+    ],
+    "react/jsx-no-duplicate-props": [
+      "warn",
+      {
+        "ignoreCase": true
+      }
+    ]
   },
   "env": {
     "browser": true,
