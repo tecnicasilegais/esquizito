@@ -3,27 +3,30 @@ import { Box, Button, Card, Checkbox, Stack } from '@mui/joy';
 import { Edit } from '@mui/icons-material';
 import PropTypes from 'prop-types';
 
-function ManageQuestion({ children }) {
+function ManageQuestion({ statement, answer, subject, explanation }) {
   return (
     <Card variant='soft'>
-      <Stack spacing={1} direction='row' alignItems='stretch'>
+      <Stack alignItems='stretch' direction='row' spacing={1}>
         <Stack
-          py={1}
-          spacing={1}
           alignItems='center'
-          justifyContent='space-between'>
+          justifyContent='space-between'
+          py={1}
+          spacing={1}>
           <Checkbox variant='outlined' />
-          <Button variant='plain' size='sm' sx={{ height: '100%' }}>
+          <Button size='sm' sx={{ height: '100%' }} variant='plain'>
             <Edit />
           </Button>
         </Stack>
-        <Box>{children}</Box>
+        <Box>{statement}</Box>
       </Stack>
     </Card>
   );
 }
 
 ManageQuestion.propTypes = {
-  children: PropTypes.node.isRequired,
+  statement: PropTypes.string.isRequired,
+  answer: PropTypes.string.isRequired,
+  subject: PropTypes.string.isRequired,
+  explanation: PropTypes.string.isRequired,
 };
 export default ManageQuestion;

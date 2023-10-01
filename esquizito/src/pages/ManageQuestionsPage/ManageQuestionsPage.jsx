@@ -5,23 +5,31 @@ import {
   AddCircle,
   CheckBox,
   CheckBoxOutlineBlank,
-  Refresh,
   Sync,
 } from '@mui/icons-material';
 import HeaderScreen from '../../components/HeaderScreen/HeaderScreen';
-import { properties } from '../../util/Properties';
-import ManageQuestion from '../../components/ManageQuestion/ManageQuestion';
 import CreateQuestionModal from '../../components/CreateQuestionModal/CreateQuestionModal';
 import * as DB from '../../util/DB';
+import ManageQuestion from '../../components/ManageQuestion/ManageQuestion';
 
 function ManageQuestionsPage() {
   const navigate = useNavigate();
   const [modalCreateQuestion, setModalCreateQuestion] = useState(true);
   const [selectAllIcon, setSelectAllIcon] = useState(<CheckBox />);
   const [selectAllState, setSelectedAllState] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [questions, setQuestions] = useState([]);
   const handleSelectAll = () => {
     setSelectedAllState(!selectAllState);
     setSelectAllIcon(selectAllState ? <CheckBox /> : <CheckBoxOutlineBlank />);
+  };
+  const refreshQuestions = async () => {
+    const result = await DB.getQuestions();
+    if (result) {
+      console.log({ result });
+      setQuestions(result);
+      setIsLoading(false);
+    }
   };
   return (
     <HeaderScreen>
@@ -43,14 +51,21 @@ function ManageQuestionsPage() {
             <Button
               startDecorator={<Sync />}
               variant='soft'
-              onClick={() => DB.getQuestions()}>
+              onClick={refreshQuestions}>
               Atualizar
             </Button>
           </Stack>
           <Stack spacing={2}>
-            <ManageQuestion>
-              {properties.example.screen.game.question}
-            </ManageQuestion>
+            {!isLoading &&
+              questions.map((question) => (
+                <ManageQuestion
+                  answer={question.answer}
+                  explanation={question.explanation}
+                  key={question._id}
+                  statement={question.statement}
+                  subject={question.subject}
+                />
+              ))}
           </Stack>
         </Card>
       </Stack>
