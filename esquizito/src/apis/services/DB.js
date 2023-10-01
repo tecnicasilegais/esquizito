@@ -1,11 +1,8 @@
-import axios from 'axios';
 import { toast } from 'sonner';
-import { apiUrl } from './Util';
-
-axios.defaults.baseURL = apiUrl();
+import client from '../client';
 
 export const createQuestion = ({ answer, explanation, statement, subject }) => {
-  axios
+  client
     .post('/question/create', {
       answer,
       explanation,
@@ -25,7 +22,7 @@ export const createQuestion = ({ answer, explanation, statement, subject }) => {
 
 export const getQuestions = async () => {
   try {
-    const response = await axios.get(
+    const response = await client.get(
       '/user/64ecef379778977eb4cb6ac7/questions',
     );
     toast.success('deus é menos');
@@ -45,7 +42,7 @@ export const updateQuestion = ({
   statement,
   subject,
 }) => {
-  axios
+  client
     .put('/question/update', {
       answer,
       explanation,

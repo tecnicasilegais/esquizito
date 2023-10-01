@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Box, Button, Card, Checkbox, Stack } from '@mui/joy';
-import { Edit } from '@mui/icons-material';
+import { Box, Button, Card, Chip, Stack } from '@mui/joy';
+import { Delete, Edit } from '@mui/icons-material';
 import PropTypes from 'prop-types';
 import ManageQuestionModal from '../ManageQuestionModal/ManageQuestionModal';
-import * as DB from '../../util/DB';
+import * as DB from '../../apis/services/DB';
+import DeleteQuestionModal from '../DeleteQuestionModal/DeleteQuestionModal';
 
 function ManageQuestion({
   answer,
@@ -13,15 +14,11 @@ function ManageQuestion({
   subject,
 }) {
   const [modalEditQuestion, setModalEditQuestion] = useState(false);
+  const [modalDeleteQuestion, setModalDeleteQuestion] = useState(false);
   return (
     <Card variant='soft'>
       <Stack alignItems='stretch' direction='row' spacing={1}>
-        <Stack
-          alignItems='center'
-          justifyContent='space-between'
-          py={1}
-          spacing={1}>
-          <Checkbox variant='outlined' />
+        <Stack>
           <Button
             size='sm'
             sx={{ height: '100%' }}
@@ -30,16 +27,39 @@ function ManageQuestion({
             <Edit />
           </Button>
         </Stack>
-        <Box>{statement}</Box>
+        <Stack flexGrow={1} spacing={1}>
+          <Box>
+            <Chip size='lg' variant='solid'>
+              {subject}
+            </Chip>
+          </Box>
+          <Box textAlign='justify'>{statement}</Box>
+        </Stack>
+        <Stack>
+          <Button
+            color='danger'
+            size='sm'
+            sx={{ height: '100%' }}
+            variant='plain'
+            onClick={() => setModalDeleteQuestion(true)}>
+            <Delete />
+          </Button>
+        </Stack>
       </Stack>
       <ManageQuestionModal
         open={modalEditQuestion}
+        questionData={{ answer, explanation, statement, subject }}
         title='Editar pergunta'
+        type='edit'
         onCancel={() => setModalEditQuestion(false)}
         onClose={() => setModalEditQuestion(false)}
         onSave={(questionData) =>
           DB.updateQuestion({ questionId, ...questionData })
         }
+      />
+      <DeleteQuestionModal
+        open={modalDeleteQuestion}
+        onClose={() => setModalDeleteQuestion(false)}
       />
     </Card>
   );
