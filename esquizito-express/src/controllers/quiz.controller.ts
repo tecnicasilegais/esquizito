@@ -11,6 +11,19 @@ export class QuizController extends BaseController<QuizDocument> {
     super(quizService, 'quiz');
   }
 
+  getByCode = async (req: Request, res: Response, next: NextFunction) => {
+    const { code } = req.params;
+
+    const quiz = await this.service.getByCode(code);
+
+    if (!quiz) {
+      req.notFoundMessage = `Could not locate quiz by code: ${code}`;
+      return next();
+    }
+
+    return res.status(200).json(quiz);
+  };
+
   update = async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
 

@@ -1,6 +1,11 @@
 import * as nanoid from 'nanoid';
 
+export const nanoIdConfig = {
+  alphabet: '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+  size: 5,
+};
+
 export const getId = nanoid.customAlphabet(
-  '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-  5,
+  nanoIdConfig.alphabet,
+  nanoIdConfig.size,
 );
