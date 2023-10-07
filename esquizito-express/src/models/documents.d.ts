@@ -8,4 +8,6 @@ export interface QuestionDocument
   extends IQuestion<Schema.Types.ObjectId>,
     Document {}
 
-export interface QuizDocument extends IQuiz<Schema.Types.ObjectId>, Document {}
+export interface QuizDocument
+  extends IQuiz<Schema.Types.ObjectId, QuestionDocument>,
+    Document {}
