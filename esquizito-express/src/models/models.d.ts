@@ -18,7 +18,7 @@ export interface IQuestion<T> {
   deprecated: boolean;
 }
 
-export interface IQuiz<T> {
+export interface IQuiz<T, U> {
   userId: T;
   name: string;
   status: QuizStatus;
@@ -26,5 +26,5 @@ export interface IQuiz<T> {
   gameMode: QuizGameMode;
   questionTimeLimit?: number; // seconds
   amountOfStars?: number;
-  questions: Array<T>;
+  questions: Array<U>;
 }

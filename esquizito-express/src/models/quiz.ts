@@ -1,6 +1,7 @@
 import { Schema, model } from 'mongoose';
 
 import { QuizDocument } from './documents';
+import { questionSchema } from './question';
 
 const quizSchema: Schema<QuizDocument> = new Schema<QuizDocument>(
   {
@@ -32,7 +33,7 @@ const quizSchema: Schema<QuizDocument> = new Schema<QuizDocument>(
       type: Number,
     },
     questions: {
-      type: [Schema.Types.ObjectId],
+      type: [questionSchema],
       required: true,
     },
   },

@@ -29,6 +29,10 @@ export async function validateQuestionsExists(
     return res.status(400).json({ error: missingQuestionIdsMessage });
   }
 
+  req.body.questions = questions.map((id) =>
+    existingQuestions.find((question) => question._id.equals(id)),
+  );
+
   return next();
 }
 
