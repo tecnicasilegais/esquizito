@@ -4,7 +4,7 @@ import { DeleteRounded, EditRounded } from '@mui/icons-material';
 import PropTypes from 'prop-types';
 import { useUser } from 'contexts/UserContext';
 import { properties } from 'util/Properties';
-import * as DB from 'apis/services/DB';
+import * as DB from 'apis/services/Question';
 import DeleteQuestionModal from 'components/DeleteQuestionModal/DeleteQuestionModal';
 import ManageQuestionModal from 'components/ManageQuestionModal/ManageQuestionModal';
 

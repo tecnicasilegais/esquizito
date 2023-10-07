@@ -16,19 +16,18 @@ export const createQuestion = async ({
       subject,
       userId,
     });
-    toast.success('deus é menos');
+    toast.success('Pergunta criada com sucesso!');
   } catch (error) {
-    toast.error('deus é mais');
+    toast.error('Erro ao criar pergunta!');
   }
 };
 
 export const getQuestions = async (userId) => {
   try {
     const response = await client.get(`/user/${userId}/questions`);
-    toast.success('deus é menos');
     return response.data;
   } catch (error) {
-    toast.error('deus é mais');
+    toast.error('Erro ao buscar perguntas!');
     return undefined;
   }
 };
@@ -49,17 +48,17 @@ export const updateQuestion = async ({
       subject,
       userId,
     });
-    toast.success('deus é menos');
+    toast.success('Pergunta atualizada com sucesso!');
   } catch (error) {
-    toast.error('deus é mais');
+    toast.error('Erro ao atualizar pergunta!');
   }
 };
 
 export const deleteQuestion = async (questionId) => {
   try {
     const response = await client.delete(`/question/${questionId}`);
-    toast.success('deus é menos');
+    toast.success('Pergunta excluída com sucesso!');
   } catch (error) {
-    toast.error('deus é mais');
+    toast.error('Erro ao excluir pergunta!');
   }
 };

@@ -41,12 +41,9 @@ function DeleteQuestionModal({ onClose, onDelete, open }) {
 }
 
 DeleteQuestionModal.propTypes = {
-  onClose: PropTypes.func,
+  onClose: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
 };
 
-DeleteQuestionModal.defaultProps = {
-  onClose: null,
-};
 export default DeleteQuestionModal;

@@ -170,7 +170,7 @@ function ManageQuestionModal({
 }
 
 ManageQuestionModal.propTypes = {
-  onClose: PropTypes.func,
+  onClose: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
   questionData: PropTypes.shape({
@@ -184,7 +184,6 @@ ManageQuestionModal.propTypes = {
 };
 
 ManageQuestionModal.defaultProps = {
-  onClose: null,
   questionData: null,
 };
 

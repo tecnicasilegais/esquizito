@@ -6,13 +6,13 @@ import {
   HomeRounded,
   SyncRounded,
 } from '@mui/icons-material';
-import { properties } from 'util/Properties';
-import { urlPaths } from 'util/UrlPaths';
 import HeaderScreen from 'components/HeaderScreen/HeaderScreen';
 import ManageQuestionModal from 'components/ManageQuestionModal/ManageQuestionModal';
-import * as DB from 'apis/services/DB';
+import * as DB from 'apis/services/Question';
 import ManageQuestion from 'components/ManageQuestion/ManageQuestion';
 import { useUser } from 'contexts/UserContext';
+import { urlPaths } from 'util/UrlPaths';
+import { properties } from 'util/Properties';
 
 function ManageQuestionsPage() {
   const navigate = useNavigate();
