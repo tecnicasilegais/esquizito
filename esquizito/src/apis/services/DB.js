@@ -1,5 +1,5 @@
 import { toast } from 'sonner';
-import client from '../client';
+import client from 'apis/client';
 
 export const createQuestion = async ({
   answer,
@@ -41,19 +41,25 @@ export const updateQuestion = async ({
   subject,
   userId,
 }) => {
-  client
-    .put('/question/update', {
+  try {
+    const response = await client.put(`/question/update/${questionId}`, {
       answer,
       explanation,
-      questionId,
       statement,
       subject,
       userId,
-    })
-    .then((response) => {
-      toast.success('deus é menos');
-    })
-    .catch((error) => {
-      toast.error('deus é mais');
     });
+    toast.success('deus é menos');
+  } catch (error) {
+    toast.error('deus é mais');
+  }
+};
+
+export const deleteQuestion = async (questionId) => {
+  try {
+    const response = await client.delete(`/question/${questionId}`);
+    toast.success('deus é menos');
+  } catch (error) {
+    toast.error('deus é mais');
+  }
 };

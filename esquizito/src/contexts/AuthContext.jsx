@@ -20,8 +20,8 @@ export function AuthProvider({ children }) {
 
   return (
     <Auth0Provider
-      domain={domain}
       clientId={clientId}
+      domain={domain}
       authorizationParams={{
         audience,
         redirect_uri: redirectUri,

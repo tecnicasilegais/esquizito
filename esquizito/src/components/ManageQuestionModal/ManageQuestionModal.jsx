@@ -17,6 +17,7 @@ import {
 } from '@mui/joy';
 import { CleaningServices, Clear, Save } from '@mui/icons-material';
 import * as PropTypes from 'prop-types';
+import { properties } from 'util/Properties';
 
 function ManageQuestionModal({
   onClose,
@@ -72,7 +73,9 @@ function ManageQuestionModal({
         <DialogContent>
           <Stack minWidth='60vw' mt={1} spacing={2}>
             <FormControl>
-              <FormLabel>Assunto</FormLabel>
+              <FormLabel>
+                {properties.screen.manageQuestions.questionModal.subject}
+              </FormLabel>
               <Input
                 autoFocus
                 required
@@ -82,7 +85,9 @@ function ManageQuestionModal({
               />
             </FormControl>
             <FormControl>
-              <FormLabel>Pergunta</FormLabel>
+              <FormLabel>
+                {properties.screen.manageQuestions.questionModal.statement}
+              </FormLabel>
               <Textarea
                 required
                 minRows={5}
@@ -91,13 +96,17 @@ function ManageQuestionModal({
                 onChange={(event) => setStatement(event.target.value)}
               />
             </FormControl>
-            <FormLabel>Resposta</FormLabel>
+            <FormLabel>
+              {properties.screen.manageQuestions.questionModal.answer}
+            </FormLabel>
             <RadioGroup orientation='horizontal'>
               <Radio
                 value
                 checked={answer}
-                label='Verdadeiro'
                 name='answerRadio'
+                label={
+                  properties.screen.manageQuestions.questionModal.answerTrue
+                }
                 onChange={handleAnswerChange}
               />
               <Radio
@@ -110,7 +119,9 @@ function ManageQuestionModal({
             </RadioGroup>
             <FormControl />
             <FormControl>
-              <FormLabel>Explicação</FormLabel>
+              <FormLabel>
+                {properties.screen.manageQuestions.questionModal.explanation}
+              </FormLabel>
               <Textarea
                 required
                 minRows={5}
@@ -126,13 +137,13 @@ function ManageQuestionModal({
                 type='reset'
                 variant='solid'
                 onClick={() => clearFields()}>
-                Limpar
+                {properties.screen.manageQuestions.questionModal.button.clear}
               </Button>
               <Button
                 startDecorator={<Clear />}
                 variant='soft'
                 onClick={handleClose}>
-                Cancelar
+                {properties.screen.manageQuestions.questionModal.button.cancel}
               </Button>
               <Button
                 color='primary'
@@ -148,7 +159,7 @@ function ManageQuestionModal({
                   });
                   onClose();
                 }}>
-                Salvar
+                {properties.screen.manageQuestions.questionModal.button.save}
               </Button>
             </ButtonGroup>
           </Stack>

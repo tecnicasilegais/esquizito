@@ -19,8 +19,8 @@ export const theme = extendTheme({
     JoyButton: {
       styleOverrides: {
         root: {
-          '--Button-radius': '50px',
           '&:hover': { transition: 'background-color .1s linear' },
+          '--Button-radius': '50px',
         },
       },
     },
@@ -62,8 +62,8 @@ export const theme = extendTheme({
     },
   },
   fontFamily: {
-    display: '"Montserrat Variable", var(--joy-fontFamily-fallback)',
     body: '"Montserrat Variable", var(--joy-fontFamily-fallback)',
+    display: '"Montserrat Variable", var(--joy-fontFamily-fallback)',
   },
   radius: {
     sm: '24px',

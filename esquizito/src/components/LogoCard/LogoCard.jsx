@@ -8,7 +8,7 @@ function LogoCard({ children }) {
   return (
     <Card className={styles.loginCard} sx={{ borderRadius: 36 }}>
       <CardOverflow>
-        <img src={logo} alt='EsQUIZito logo' loading='lazy' />
+        <img alt='EsQUIZito logo' loading='lazy' src={logo} />
       </CardOverflow>
       {children}
     </Card>

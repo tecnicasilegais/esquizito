@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 import { Box, Button, Card, Chip, Stack } from '@mui/joy';
-import { Delete, Edit } from '@mui/icons-material';
+import { DeleteRounded, EditRounded } from '@mui/icons-material';
 import PropTypes from 'prop-types';
-import ManageQuestionModal from '../ManageQuestionModal/ManageQuestionModal';
-import * as DB from '../../apis/services/DB';
-import DeleteQuestionModal from '../DeleteQuestionModal/DeleteQuestionModal';
-import { useUser } from '../../contexts/UserContext';
+import { useUser } from 'contexts/UserContext';
+import { properties } from 'util/Properties';
+import * as DB from 'apis/services/DB';
+import DeleteQuestionModal from 'components/DeleteQuestionModal/DeleteQuestionModal';
+import ManageQuestionModal from 'components/ManageQuestionModal/ManageQuestionModal';
 
 function ManageQuestion({
   answer,
   explanation,
   questionId,
+  refreshPage,
   statement,
   subject,
 }) {
@@ -26,7 +28,7 @@ function ManageQuestion({
             sx={{ height: '100%' }}
             variant='plain'
             onClick={() => setModalEditQuestion(true)}>
-            <Edit />
+            <EditRounded />
           </Button>
         </Stack>
         <Stack flexGrow={1} spacing={1}>
@@ -44,24 +46,31 @@ function ManageQuestion({
             sx={{ height: '100%' }}
             variant='plain'
             onClick={() => setModalDeleteQuestion(true)}>
-            <Delete />
+            <DeleteRounded />
           </Button>
         </Stack>
       </Stack>
       <ManageQuestionModal
         open={modalEditQuestion}
         questionData={{ answer, explanation, statement, subject }}
-        title='Editar pergunta'
+        title={properties.screen.manageQuestions.questionModal.headerEdit}
         type='edit'
         onCancel={() => setModalEditQuestion(false)}
         onClose={() => setModalEditQuestion(false)}
         onSave={(questionData) =>
-          DB.updateQuestion({ questionId, userId: user.id, ...questionData })
+          DB.updateQuestion({
+            questionId,
+            userId: user.id,
+            ...questionData,
+          }).then(() => refreshPage())
         }
       />
       <DeleteQuestionModal
         open={modalDeleteQuestion}
         onClose={() => setModalDeleteQuestion(false)}
+        onDelete={() => {
+          DB.deleteQuestion(questionId).then(() => refreshPage());
+        }}
       />
     </Card>
   );
@@ -71,6 +80,7 @@ ManageQuestion.propTypes = {
   answer: PropTypes.string.isRequired,
   explanation: PropTypes.string.isRequired,
   questionId: PropTypes.string.isRequired,
+  refreshPage: PropTypes.func.isRequired,
   statement: PropTypes.string.isRequired,
   subject: PropTypes.string.isRequired,
 };

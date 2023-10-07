@@ -24,15 +24,15 @@ function GamePage() {
   };
   const radioCardStyle = (theme) => {
     const mainStyle = {
-      p: 3,
-      boxSizing: 'border-box',
-      height: '100%',
-      display: 'flex',
-      justifyContent: 'center',
       '&:hover': {
         bgcolor: 'primary.100',
         transition: 'background-color .1s linear',
       },
+      boxSizing: 'border-box',
+      display: 'flex',
+      height: '100%',
+      justifyContent: 'center',
+      p: 3,
     };
     const specialStyle = {};
     if (answerState === 'correct') {
@@ -44,7 +44,7 @@ function GamePage() {
   };
   return (
     <HeaderScreen>
-      <Stack mx={2} spacing={4} mt={1} mb={2}>
+      <Stack mb={2} mt={1} mx={2} spacing={4}>
         <Card>
           <GameQuestion
             number='I'
@@ -65,24 +65,24 @@ function GamePage() {
             sx={{
               [`& .${radioClasses.checked}`]: {
                 [`& .${radioClasses.action}`]: {
-                  inset: -1,
                   border: '3px solid',
                   borderColor: 'primary.500',
+                  inset: -1,
                   transition: 'border .1s linear',
                 },
               },
             }}>
             {properties.example.screen.game.answer.map((text, i) => (
-              <Grid xs={12} sm={6} key={text}>
+              <Grid key={text} sm={6} xs={12}>
                 <Card name={`radioCard-${i}`} sx={radioCardStyle}>
                   <Radio
-                    sx={{ alignItems: 'center' }}
                     overlay
-                    value={i}
                     checked={selectedAnswer === i.toString()}
-                    onChange={handleAnswerChange}
-                    name='answerRadio'
                     label={text}
+                    name='answerRadio'
+                    sx={{ alignItems: 'center' }}
+                    value={i}
+                    onChange={handleAnswerChange}
                   />
                 </Card>
               </Grid>
@@ -91,9 +91,9 @@ function GamePage() {
         </Box>
         <Box display='flex' justifyContent='center'>
           <Button
-            onClick={checkAnswer}
             disabled={!selectedAnswer}
-            sx={{ px: 6, py: 3, fontSize: 'md' }}>
+            sx={{ fontSize: 'md', px: 6, py: 3 }}
+            onClick={checkAnswer}>
             {properties.screen.game.button.confirm}
           </Button>
         </Box>

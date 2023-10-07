@@ -16,21 +16,27 @@ import ManageQuestionsPage from './pages/ManageQuestionsPage/ManageQuestionsPage
 function AppRoutes() {
   return (
     <Routes>
-      <Route path={urlPaths.mainMenu} element={<MainMenu />} />
+      <Route element={<MainMenu />} path={urlPaths.mainMenu} />
       <Route
-        path={urlPaths.landingPage}
         element={<LandingPage authType='signup' />}
+        path={urlPaths.landingPage}
       />
       <Route
-        path={urlPaths.joinGamePage}
         element={<AuthenticationGuard component={JoinGamePage} />}
+        path={urlPaths.joinGamePage}
       />
-      <Route path={urlPaths.loadingPage} element={<LoadingPage />} />
-      <Route path={urlPaths.gamePage} element={<GamePage />} />
-      <Route path={urlPaths.rankingPage} element={<RankingPage />} />
+      <Route element={<LoadingPage />} path={urlPaths.loadingPage} />
       <Route
+        element={<AuthenticationGuard component={GamePage} />}
+        path={urlPaths.gamePage}
+      />
+      <Route
+        element={<AuthenticationGuard component={RankingPage} />}
+        path={urlPaths.rankingPage}
+      />
+      <Route
+        element={<AuthenticationGuard component={ManageQuestionsPage} />}
         path={urlPaths.manageQuestionsPage}
-        element={<ManageQuestionsPage />}
       />
     </Routes>
   );

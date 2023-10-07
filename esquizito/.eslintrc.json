@@ -8,7 +8,8 @@
   "plugins": [
     "prettier",
     "sort-keys-fix",
-    "sort-destructure-keys"
+    "sort-destructure-keys",
+    "no-relative-import-paths"
   ],
   "rules": {
     "prettier/prettier": "error",
@@ -19,6 +20,13 @@
     "import/prefer-default-export": "off",
     "import/no-unresolved": "off",
     "react/react-in-jsx-scope": "off",
+    "no-relative-import-paths/no-relative-import-paths": [
+      "error",
+      {
+        "allowSameFolder": true,
+        "rootDir": "src"
+      }
+    ],
     "sort-destructure-keys/sort-destructure-keys": [
       "warn",
       {

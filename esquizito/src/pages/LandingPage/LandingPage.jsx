@@ -30,23 +30,23 @@ function LandingPage({ authType = 'login' }) {
       <FormControl>
         <FormLabel>Email</FormLabel>
         <Input
+          placeholder='esquizito@email.com'
+          type='email'
           value={email}
           onChange={(event) => {
             setEmail(event.target.value);
           }}
-          type='email'
-          placeholder='esquizito@email.com'
         />
       </FormControl>
       <FormControl>
         <FormLabel>Senha</FormLabel>
         <Input
+          placeholder='Sua senha'
+          type='password'
           value={password}
           onChange={(event) => {
             setPassword(event.target.value);
           }}
-          type='password'
-          placeholder='Sua senha'
         />
       </FormControl>
     </>,
@@ -57,34 +57,34 @@ function LandingPage({ authType = 'login' }) {
       <FormControl>
         <FormLabel>Nome</FormLabel>
         <Input
+          placeholder='EsQUIZito Silva'
+          type='text'
           value={name}
           onChange={(event) => {
             setName(event.target.value);
           }}
-          type='text'
-          placeholder='EsQUIZito Silva'
         />
       </FormControl>
       <FormControl>
         <FormLabel>Email</FormLabel>
         <Input
+          placeholder='esquizito@email.com'
+          type='email'
           value={email}
           onChange={(event) => {
             setEmail(event.target.value);
           }}
-          type='email'
-          placeholder='esquizito@email.com'
         />
       </FormControl>
       <FormControl>
         <FormLabel>Senha</FormLabel>
         <Input
+          placeholder='Crie uma senha legal'
+          type='password'
           value={password}
           onChange={(event) => {
             setPassword(event.target.value);
           }}
-          type='password'
-          placeholder='Crie uma senha legal'
         />
       </FormControl>
     </>,
@@ -95,7 +95,7 @@ function LandingPage({ authType = 'login' }) {
     'login',
     <>
       <Button onClick={() => navigate(urlPaths.joinGamePage)}>Entrar</Button>
-      <Button onClick={() => navigate(urlPaths.landingPage)} variant='soft'>
+      <Button variant='soft' onClick={() => navigate(urlPaths.landingPage)}>
         Cadastrar
       </Button>
     </>,
@@ -104,7 +104,7 @@ function LandingPage({ authType = 'login' }) {
     'signup',
     <>
       <Button onClick={() => navigate(urlPaths.landingPage)}>Confirmar</Button>
-      <Button onClick={() => navigate(urlPaths.landingPage)} variant='soft'>
+      <Button variant='soft' onClick={() => navigate(urlPaths.landingPage)}>
         Voltar
       </Button>
     </>,

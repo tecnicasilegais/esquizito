@@ -2,11 +2,11 @@ import { Grid, Typography } from '@mui/joy';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-function Average({ title, children, xs }) {
+function Average({ children, title, xs }) {
   return (
     <Grid
-      xs={xs}
-      sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      sx={{ alignItems: 'center', display: 'flex', flexDirection: 'column' }}
+      xs={xs}>
       <Typography fontWeight='lg'>{title}</Typography>
       {children}
     </Grid>
@@ -14,8 +14,8 @@ function Average({ title, children, xs }) {
 }
 
 Average.propTypes = {
-  title: PropTypes.string.isRequired,
   children: PropTypes.node,
+  title: PropTypes.string.isRequired,
   xs: PropTypes.oneOfType([PropTypes.bool, PropTypes.string, PropTypes.number]),
 };
 Average.defaultProps = {

@@ -6,7 +6,7 @@ function LoadingPage() {
   return (
     <LogoCard>
       <Box display='flex' justifyContent='center'>
-        <CircularProgress variant='soft' size='lg' />
+        <CircularProgress size='lg' variant='soft' />
       </Box>
     </LogoCard>
   );

@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "eslint-plugin-no-relative-import-paths": "^1.5.2"
+  }
+}

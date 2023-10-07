@@ -17,8 +17,8 @@ function MainMenu() {
       </Stack>
       <Stack spacing={2}>
         <Button
-          onClick={() => navigate(urlPaths.manageQuestionsPage)}
-          variant='soft'>
+          variant='soft'
+          onClick={() => navigate(urlPaths.manageQuestionsPage)}>
           {properties.screen.menu.button.manageQuestions}
         </Button>
         <Button variant='soft'>
