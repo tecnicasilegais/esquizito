@@ -50,7 +50,7 @@ app.use(
 app.use(
   cors({
     origin: appConfig.originUrl,
-    methods: ['GET'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
     allowedHeaders: ['Authorization', 'Content-Type'],
     maxAge: 86400,
   }),

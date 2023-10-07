@@ -10,7 +10,7 @@ import React, {
   useMemo,
   useState,
 } from 'react';
-import { extractAuth0Id } from 'util/util';
+import { extractAuth0Id } from 'util/Util';
 
 const UserContext = createContext(undefined);
 
@@ -26,9 +26,9 @@ export const useUser = () => {
 
 export function UserProvider({ children }) {
   const {
+    getAccessTokenSilently,
     isAuthenticated,
     isLoading,
-    getAccessTokenSilently,
     loginWithRedirect,
     logout,
     user: userAuth0,
@@ -96,8 +96,8 @@ export function UserProvider({ children }) {
       setUser((prevUser) => ({
         ...prevUser,
         auth0UserId: extractAuth0Id(userAuth0.sub),
-        name: userAuth0.name,
         email: userAuth0.email,
+        name: userAuth0.name,
       }));
       if (!user.id) {
         getUserApiId();
@@ -109,11 +109,11 @@ export function UserProvider({ children }) {
 
   const contextValue = useMemo(
     () => ({
-      user,
       isAuthenticated,
       isLoading,
       login: handleLogin,
       logout: handleLogout,
+      user,
     }),
     [user, isAuthenticated, isLoading, handleLogin, handleLogout],
   );

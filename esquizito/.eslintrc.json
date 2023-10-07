@@ -6,15 +6,65 @@
     "prettier"
   ],
   "plugins": [
-    "prettier"
+    "prettier",
+    "sort-keys-fix",
+    "sort-destructure-keys",
+    "no-relative-import-paths"
   ],
   "rules": {
     "prettier/prettier": "error",
     "no-unused-vars": "warn",
     "no-console": "warn",
+    "no-underscore-dangle": "off",
     "func-names": "off",
     "import/prefer-default-export": "off",
-    "react/react-in-jsx-scope": "off"
+    "import/no-unresolved": "off",
+    "react/react-in-jsx-scope": "off",
+    "no-relative-import-paths/no-relative-import-paths": [
+      "error",
+      {
+        "allowSameFolder": true,
+        "rootDir": "src"
+      }
+    ],
+    "sort-destructure-keys/sort-destructure-keys": [
+      "warn",
+      {
+        "caseSensitive": false
+      }
+    ],
+    "sort-keys-fix/sort-keys-fix": [
+      "warn",
+      "asc",
+      {
+        "caseSensitive": false,
+        "natural": true
+      }
+    ],
+    "react/jsx-sort-props": [
+      "warn",
+      {
+        "ignoreCase": true,
+        "callbacksLast": true,
+        "shorthandFirst": true,
+        "multiline": "last"
+      }
+    ],
+    "react/sort-prop-types": [
+      "warn",
+      {
+        "callbacksLast": false,
+        "ignoreCase": true,
+        "requiredFirst": false,
+        "sortShapeProp": false
+      }
+    ],
+    "react/jsx-no-duplicate-props": [
+      "warn",
+      {
+        "ignoreCase": true
+      }
+    ]
   },
   "env": {
     "browser": true,

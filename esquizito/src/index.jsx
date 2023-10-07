@@ -7,6 +7,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { theme } from 'util/Theme';
+import { Toaster } from 'sonner';
 import App from './App';
 
 import './index.css';
@@ -18,6 +19,7 @@ root.render(
       <BrowserRouter>
         <AuthProvider>
           <UserProvider>
+            <Toaster richColors />
             <App />
           </UserProvider>
         </AuthProvider>

@@ -53,8 +53,8 @@ const register = (userInfo, token) =>
     .catch((err) => ({ data: {}, status: err.code }));
 
 export default {
-  register,
   getUserByAuth0,
   getUserByEmail,
   getUserById,
+  register,
 };

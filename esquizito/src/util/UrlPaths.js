@@ -1,8 +1,9 @@
 export const urlPaths = {
-  mainMenu: '/',
-  landingPage: '/login',
-  joinGamePage: '/join',
-  loadingPage: '/callback',
   gamePage: '/game',
+  joinGamePage: '/join',
+  landingPage: '/login',
+  loadingPage: '/callback',
+  mainMenu: '/',
+  manageQuestionsPage: '/manage-questions',
   rankingPage: '/ranking',
 };

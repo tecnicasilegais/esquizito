@@ -9,12 +9,12 @@ function HeaderScreen({ children, headerCenter, headerRight }) {
     <div className={styles.container}>
       <Box
         className={styles.header}
-        fontWeight='xl'
         fontSize='xl3'
+        fontWeight='xl'
         px={2}
         py={1}>
         <div className={styles.headerEnd}>
-          <img src={logo} alt='EsQUIZito logo' />
+          <img alt='EsQUIZito logo' src={logo} />
         </div>
         <div className={styles.headerCenter}>{headerCenter}</div>
         <div className={styles.headerEnd}>{headerRight}</div>

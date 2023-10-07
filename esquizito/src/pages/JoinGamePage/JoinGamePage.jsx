@@ -21,12 +21,12 @@ function JoinGamePage() {
         <FormControl>
           <FormLabel>{properties.screen.joinGame.label.gameCode}</FormLabel>
           <Input
+            placeholder={properties.screen.joinGame.placeholder.gameCode}
             value={gameCode}
+            variant='soft'
             onChange={(event) => {
               setGameCode(event.target.value);
             }}
-            variant='soft'
-            placeholder={properties.screen.joinGame.placeholder.gameCode}
           />
         </FormControl>
         <Stack spacing={1}>
@@ -36,7 +36,7 @@ function JoinGamePage() {
               properties.screen.joinGame.button.play
             }
           </Button>
-          <Button onClick={() => navigate(urlPaths.mainMenu)} variant='soft'>
+          <Button variant='soft' onClick={() => navigate(urlPaths.mainMenu)}>
             {properties.screen.joinGame.button.back}
           </Button>
         </Stack>

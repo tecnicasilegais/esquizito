@@ -2,22 +2,22 @@ import { Box } from '@mui/joy';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-function Question({ number, text }) {
+function GameQuestion({ number, text }) {
   return (
     <Box>
-      <Box fontWeight='xl' component='span'>
+      <Box component='span' fontWeight='xl'>
         {`${number}. `}
       </Box>
-      <Box fontWeight='md' component='span'>
+      <Box component='span' fontWeight='md'>
         {text}
       </Box>
     </Box>
   );
 }
 
-Question.propTypes = {
+GameQuestion.propTypes = {
   number: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
 };
 
-export default Question;
+export default GameQuestion;
