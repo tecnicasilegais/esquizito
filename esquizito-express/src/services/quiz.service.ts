@@ -18,6 +18,11 @@ export class QuizService extends BaseService<QuizDocument> {
     return super.create(quizDoc);
   };
 
+  getByCode = async (code: string) =>
+    this.repository.getOne([
+      { field: 'code', type: FilterType.EQUALS, value: code },
+    ]);
+
   publish = async (id: string) =>
     super.update(id, { status: QuizStatus.PUBLISHED, code: getId() });
 

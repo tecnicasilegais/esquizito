@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
 
+import { nanoIdConfig } from 'configs/nanoId.config';
+import { QuizStatus } from 'models/enums';
 import questionService from 'services/question.service';
 import quizService from 'services/quiz.service';
-
-import { QuizStatus } from '../../models/enums';
 
 export async function validateQuestionsExists(
   req: Request,
@@ -55,6 +55,20 @@ export const validateQuizIsDraft = async (
     return res
       .status(400)
       .json({ error: 'Can only update quizzes in draft state.' });
+  }
+
+  return next();
+};
+
+export const validateGameCode = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  const { code } = req.params;
+
+  if (code.length !== nanoIdConfig.size) {
+    return res.status(400).json({ error: 'Invalid game code.' });
   }
 
   return next();

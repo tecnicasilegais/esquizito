@@ -10,6 +10,7 @@ import {
   validateQuizListOfIds,
 } from 'middlewares/validations/id-validator.middleware';
 import {
+  validateGameCode,
   validateQuestionsExists,
   validateQuizIsDraft,
 } from 'middlewares/validations/quiz-validator.middleware';
@@ -39,6 +40,8 @@ router.put(
   quizController.update,
   postErrorHandler,
 );
+
+router.get('/code/:code', validateGameCode, quizController.getByCode);
 
 router.patch('/:id/publish', validateId, quizController.publish);
 
