@@ -17,7 +17,7 @@ import {
 } from '@mui/joy';
 import { CleaningServices, Clear, Save } from '@mui/icons-material';
 import * as PropTypes from 'prop-types';
-import { properties } from 'util/Properties';
+import { translations } from 'util/Properties';
 
 function ManageQuestionModal({
   onClose,
@@ -74,7 +74,7 @@ function ManageQuestionModal({
           <Stack minWidth='60vw' mt={1} spacing={2}>
             <FormControl>
               <FormLabel>
-                {properties.screen.manageQuestions.questionModal.subject}
+                {translations.manageQuestions.questionModal.subject}
               </FormLabel>
               <Input
                 autoFocus
@@ -86,7 +86,7 @@ function ManageQuestionModal({
             </FormControl>
             <FormControl>
               <FormLabel>
-                {properties.screen.manageQuestions.questionModal.statement}
+                {translations.manageQuestions.questionModal.statement}
               </FormLabel>
               <Textarea
                 required
@@ -97,16 +97,14 @@ function ManageQuestionModal({
               />
             </FormControl>
             <FormLabel>
-              {properties.screen.manageQuestions.questionModal.answer}
+              {translations.manageQuestions.questionModal.answer}
             </FormLabel>
             <RadioGroup orientation='horizontal'>
               <Radio
                 value
                 checked={answer}
+                label={translations.manageQuestions.questionModal.answerTrue}
                 name='answerRadio'
-                label={
-                  properties.screen.manageQuestions.questionModal.answerTrue
-                }
                 onChange={handleAnswerChange}
               />
               <Radio
@@ -120,7 +118,7 @@ function ManageQuestionModal({
             <FormControl />
             <FormControl>
               <FormLabel>
-                {properties.screen.manageQuestions.questionModal.explanation}
+                {translations.manageQuestions.questionModal.explanation}
               </FormLabel>
               <Textarea
                 required
@@ -137,13 +135,13 @@ function ManageQuestionModal({
                 type='reset'
                 variant='solid'
                 onClick={() => clearFields()}>
-                {properties.screen.manageQuestions.questionModal.button.clear}
+                {translations.manageQuestions.questionModal.button.clear}
               </Button>
               <Button
                 startDecorator={<Clear />}
                 variant='soft'
                 onClick={handleClose}>
-                {properties.screen.manageQuestions.questionModal.button.cancel}
+                {translations.manageQuestions.questionModal.button.cancel}
               </Button>
               <Button
                 color='primary'
@@ -159,7 +157,7 @@ function ManageQuestionModal({
                   });
                   onClose();
                 }}>
-                {properties.screen.manageQuestions.questionModal.button.save}
+                {translations.manageQuestions.questionModal.button.save}
               </Button>
             </ButtonGroup>
           </Stack>

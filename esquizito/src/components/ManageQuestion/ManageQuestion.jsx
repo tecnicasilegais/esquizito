@@ -3,10 +3,10 @@ import { Box, Button, Card, Chip, Stack } from '@mui/joy';
 import { DeleteRounded, EditRounded } from '@mui/icons-material';
 import PropTypes from 'prop-types';
 import { useUser } from 'contexts/UserContext';
-import { properties } from 'util/Properties';
-import * as DB from 'apis/services/Question';
+import { translations } from 'util/Properties';
 import DeleteQuestionModal from 'components/DeleteQuestionModal/DeleteQuestionModal';
 import ManageQuestionModal from 'components/ManageQuestionModal/ManageQuestionModal';
+import * as Question from 'apis/services/Question';
 
 function ManageQuestion({
   answer,
@@ -53,12 +53,12 @@ function ManageQuestion({
       <ManageQuestionModal
         open={modalEditQuestion}
         questionData={{ answer, explanation, statement, subject }}
-        title={properties.screen.manageQuestions.questionModal.headerEdit}
+        title={translations.manageQuestions.questionModal.headerEdit}
         type='edit'
         onCancel={() => setModalEditQuestion(false)}
         onClose={() => setModalEditQuestion(false)}
         onSave={(questionData) =>
-          DB.updateQuestion({
+          Question.update({
             questionId,
             userId: user.id,
             ...questionData,
@@ -69,7 +69,7 @@ function ManageQuestion({
         open={modalDeleteQuestion}
         onClose={() => setModalDeleteQuestion(false)}
         onDelete={() => {
-          DB.deleteQuestion(questionId).then(() => refreshPage());
+          Question.remove(questionId).then(() => refreshPage());
         }}
       />
     </Card>

@@ -1,7 +1,7 @@
 import { toast } from 'sonner';
 import client from 'apis/client';
 
-export const createQuestion = async ({
+export const create = async ({
   answer,
   explanation,
   statement,
@@ -22,7 +22,7 @@ export const createQuestion = async ({
   }
 };
 
-export const getQuestions = async (userId) => {
+export const list = async (userId) => {
   try {
     const response = await client.get(`/user/${userId}/questions`);
     return response.data;
@@ -32,7 +32,7 @@ export const getQuestions = async (userId) => {
   }
 };
 
-export const updateQuestion = async ({
+export const update = async ({
   answer,
   explanation,
   questionId,
@@ -54,7 +54,7 @@ export const updateQuestion = async ({
   }
 };
 
-export const deleteQuestion = async (questionId) => {
+export const remove = async (questionId) => {
   try {
     const response = await client.delete(`/question/${questionId}`);
     toast.success('Pergunta excluída com sucesso!');

@@ -7,21 +7,21 @@ import {
   SyncRounded,
 } from '@mui/icons-material';
 import HeaderScreen from 'components/HeaderScreen/HeaderScreen';
-import ManageQuestionModal from 'components/ManageQuestionModal/ManageQuestionModal';
-import * as Question from 'apis/services/Question';
+import * as Quiz from 'apis/services/Quiz';
 import ManageQuestion from 'components/ManageQuestion/ManageQuestion';
 import { useUser } from 'contexts/UserContext';
 import { urlPaths } from 'util/UrlPaths';
 import { translations } from 'util/Properties';
+import ManageQuizModal from 'components/ManageQuizModal/ManageQuizModal';
 
-function ManageQuestionsPage() {
+function ManageQuizzesPage() {
   const navigate = useNavigate();
   const [modalCreateQuestion, setModalCreateQuestion] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [questions, setQuestions] = useState([]);
   const { user } = useUser();
   const refreshQuestions = async () => {
-    const result = await Question.list(user.id);
+    const result = await Quiz.list(user.id);
     if (result) {
       setQuestions(result);
       setIsLoading(false);
@@ -31,7 +31,7 @@ function ManageQuestionsPage() {
     refreshQuestions();
   }, [user]);
   return (
-    <HeaderScreen headerCenter={translations.manageQuestions.header}>
+    <HeaderScreen headerCenter={translations.manageQuizzes.header}>
       <Stack mb={2} mt={1} mx={2} spacing={2}>
         <Card sx={{ borderRadius: '36px' }}>
           <Stack direction='row' justifyContent='space-between' spacing={2}>
@@ -39,20 +39,20 @@ function ManageQuestionsPage() {
               startDecorator={<HomeRounded />}
               variant='solid'
               onClick={() => navigate(urlPaths.mainMenu)}>
-              {translations.manageQuestions.button.home}
+              {translations.manageQuizzes.button.home}
             </Button>
             <Stack direction='row' spacing={2}>
               <Button
                 startDecorator={<AddCircleRounded />}
                 variant='soft'
                 onClick={() => setModalCreateQuestion(true)}>
-                {translations.manageQuestions.button.create}
+                {translations.manageQuizzes.button.create}
               </Button>
               <Button
                 startDecorator={<SyncRounded />}
                 variant='soft'
                 onClick={refreshQuestions}>
-                {translations.manageQuestions.button.update}
+                {translations.manageQuizzes.button.update}
               </Button>
             </Stack>
           </Stack>
@@ -72,14 +72,14 @@ function ManageQuestionsPage() {
           </Stack>
         </Card>
       </Stack>
-      <ManageQuestionModal
+      <ManageQuizModal
         open={modalCreateQuestion}
-        title={translations.manageQuestions.questionModal.headerCreate}
+        title={translations.manageQuizzes.quizModal.headerCreate}
         type='create'
         onCancel={() => setModalCreateQuestion(false)}
         onClose={() => setModalCreateQuestion(false)}
         onSave={(questionData) =>
-          Question.create({ userId: user.id, ...questionData }).then(() =>
+          Quiz.create({ userId: user.id, ...questionData }).then(() =>
             refreshQuestions(),
           )
         }
@@ -88,4 +88,4 @@ function ManageQuestionsPage() {
   );
 }
 
-export default ManageQuestionsPage;
+export default ManageQuizzesPage;

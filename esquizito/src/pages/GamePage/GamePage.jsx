@@ -11,7 +11,7 @@ import {
 import HeaderScreen from 'components/HeaderScreen/HeaderScreen';
 import GameQuestion from 'components/GameQuestion/GameQuestion';
 import React from 'react';
-import { properties } from 'util/Properties';
+import { translations, examples } from 'util/Properties';
 
 function GamePage() {
   const [selectedAnswer, setSelectedAnswer] = React.useState('');
@@ -44,19 +44,13 @@ function GamePage() {
   };
   return (
     <HeaderScreen>
-      <Stack mb={2} mt={1} mx={2} spacing={4}>
+      <Stack mb={2} mt={1} mx={2} spacing={4} sx={{ userSelect: 'none' }}>
         <Card>
-          <GameQuestion
-            number='I'
-            text={properties.example.screen.game.question}
-          />
+          <GameQuestion number='I' text={examples.screen.game.question} />
           <Box>
             <Divider />
           </Box>
-          <GameQuestion
-            number='II'
-            text={properties.example.screen.game.question}
-          />
+          <GameQuestion number='II' text={examples.screen.game.question} />
         </Card>
         <Box>
           <Grid
@@ -72,7 +66,7 @@ function GamePage() {
                 },
               },
             }}>
-            {properties.example.screen.game.answer.map((text, i) => (
+            {examples.screen.game.answer.map((text, i) => (
               <Grid key={text} sm={6} xs={12}>
                 <Card name={`radioCard-${i}`} sx={radioCardStyle}>
                   <Radio
@@ -94,7 +88,7 @@ function GamePage() {
             disabled={!selectedAnswer}
             sx={{ fontSize: 'md', px: 6, py: 3 }}
             onClick={checkAnswer}>
-            {properties.screen.game.button.confirm}
+            {translations.game.button.confirm}
           </Button>
         </Box>
       </Stack>

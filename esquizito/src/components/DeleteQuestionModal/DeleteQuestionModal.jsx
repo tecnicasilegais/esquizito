@@ -8,7 +8,7 @@ import {
   ModalDialog,
 } from '@mui/joy';
 import * as PropTypes from 'prop-types';
-import { properties } from 'util/Properties';
+import { translations } from 'util/Properties';
 import { DeleteRounded } from '@mui/icons-material';
 
 function DeleteQuestionModal({ onClose, onDelete, open }) {
@@ -16,12 +16,12 @@ function DeleteQuestionModal({ onClose, onDelete, open }) {
     <Modal open={open} onClose={onClose}>
       <ModalDialog>
         <DialogTitle sx={{ textAlign: 'center' }}>
-          {properties.screen.manageQuestions.deleteModal.header}
+          {translations.manageQuestions.deleteModal.header}
         </DialogTitle>
         <DialogContent>
           <ButtonGroup buttonFlex={1} sx={{ mt: '12px' }}>
             <Button variant='soft' onClick={onClose}>
-              {properties.screen.manageQuestions.deleteModal.button.cancel}
+              {translations.manageQuestions.deleteModal.button.cancel}
             </Button>
             <Button
               color='danger'
@@ -31,7 +31,7 @@ function DeleteQuestionModal({ onClose, onDelete, open }) {
                 onDelete();
                 onClose();
               }}>
-              {properties.screen.manageQuestions.deleteModal.button.delete}
+              {translations.manageQuestions.deleteModal.button.delete}
             </Button>
           </ButtonGroup>
         </DialogContent>

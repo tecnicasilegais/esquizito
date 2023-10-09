@@ -5,5 +5,6 @@ export const urlPaths = {
   loadingPage: '/callback',
   mainMenu: '/',
   manageQuestionsPage: '/manage-questions',
+  manageQuizzesPage: '/manage-quizzes',
   rankingPage: '/ranking',
 };
