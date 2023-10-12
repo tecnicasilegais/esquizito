@@ -8,7 +8,7 @@ import {
   validateBodyUserId,
   validateId,
 } from 'middlewares/validations/id-validator.middleware';
-import { validateUserExists } from 'middlewares/validations/user-validator.middleware';
+import { validateBodyUserExists } from 'middlewares/validations/user-validator.middleware';
 
 const router = express.Router();
 const questionController = new QuestionController();
@@ -20,7 +20,7 @@ if (auth0Config.enabled) {
 router.post(
   '/create',
   validateBodyUserId,
-  validateUserExists,
+  validateBodyUserExists,
   questionController.create,
   postErrorHandler,
 );
