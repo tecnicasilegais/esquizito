@@ -34,6 +34,13 @@ router.get(
   userController.getQuizzes,
 );
 
+router.get(
+  '/:id/results',
+  validateId,
+  validateUserExists,
+  userController.getResults,
+);
+
 router.get('/:id', validateId, userController.get);
 
 export default router;

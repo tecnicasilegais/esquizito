@@ -6,6 +6,8 @@ import questionService from 'services/question.service';
 import quizService from 'services/quiz.service';
 import userService, { UserService } from 'services/user.service';
 
+import resultService from '../services/result.service';
+
 export class UserController extends BaseController<UserDocument> {
   declare service: UserService;
 
@@ -65,5 +67,19 @@ export class UserController extends BaseController<UserDocument> {
     }
 
     return res.status(200).json(questions);
+  };
+
+  // eslint-disable-next-line class-methods-use-this
+  getResults = async (req: Request, res: Response, next: NextFunction) => {
+    const { id } = req.params;
+
+    const results = await resultService.listByUserId(id);
+
+    if (!results) {
+      req.notFoundMessage = `Could not locate results by userId: ${id}`;
+      return next();
+    }
+
+    return res.status(200).json(results);
   };
 }
