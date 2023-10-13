@@ -10,11 +10,12 @@ import {
   validateQuizListOfIds,
 } from 'middlewares/validations/id-validator.middleware';
 import {
+  validateAmountOfQuestions,
   validateGameCode,
   validateQuestionsExists,
   validateQuizIsDraft,
 } from 'middlewares/validations/quiz-validator.middleware';
-import { validateUserExists } from 'middlewares/validations/user-validator.middleware';
+import { validateBodyUserExists } from 'middlewares/validations/user-validator.middleware';
 
 const router = express.Router();
 const quizController = new QuizController();
@@ -26,9 +27,10 @@ if (auth0Config.enabled) {
 router.post(
   '/create',
   validateBodyUserId,
-  validateUserExists,
+  validateBodyUserExists,
   validateQuizListOfIds,
   validateQuestionsExists,
+  validateAmountOfQuestions,
   quizController.create,
   postErrorHandler,
 );
@@ -37,6 +39,10 @@ router.put(
   '/update/:id',
   validateId,
   validateQuizIsDraft,
+  validateBodyUserExists,
+  validateQuizListOfIds,
+  validateQuestionsExists,
+  validateAmountOfQuestions,
   quizController.update,
   postErrorHandler,
 );

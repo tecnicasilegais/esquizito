@@ -4,14 +4,36 @@ import userService from 'services/user.service';
 
 import { CustomError } from '../../utils/error.util';
 
-export async function validateUserExists(
+async function validateUserExists(id: string) {
+  return id ? userService.exists({ _id: id }) : false;
+}
+
+export async function validateBodyUserExists(
   req: Request,
   res: Response,
   next: NextFunction,
 ) {
-  const id = req.params.id || req.body.userId;
+  const { userId } = req.body;
 
-  const exists = id ? await userService.exists({ _id: id }) : false;
+  const exists = await validateUserExists(userId);
+
+  return exists
+    ? next()
+    : next(
+        new CustomError(
+          `Could not locate a user by id: ${userId}`,
+          'UserIdNotFound',
+        ),
+      );
+}
+export async function validateParamsUserExists(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
+  const { id } = req.params;
+
+  const exists = await validateUserExists(id);
 
   return exists
     ? next()

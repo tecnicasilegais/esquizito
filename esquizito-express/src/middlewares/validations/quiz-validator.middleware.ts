@@ -73,3 +73,19 @@ export const validateGameCode = async (
 
   return next();
 };
+
+export const validateAmountOfQuestions = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  const { questions } = req.body;
+
+  if (questions.length % 2 !== 0) {
+    return res
+      .status(400)
+      .json({ error: 'Amount of questions should be even' });
+  }
+
+  return next();
+};
