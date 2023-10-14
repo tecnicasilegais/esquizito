@@ -1,7 +1,15 @@
-import { QuizRounded, StarRounded, TimerRounded } from '@mui/icons-material';
+import {
+  EditNoteRounded,
+  Inventory2Rounded,
+  KeyRounded,
+  QuizRounded,
+  StarRounded,
+  TimerRounded,
+} from '@mui/icons-material';
 
 export const properties = {
   gameModes: ['classic', 'timed', 'stars'],
+  quizStatus: ['draft', 'published', 'archived'],
 };
 
 export const translations = {
@@ -19,7 +27,9 @@ export const translations = {
   landing: { button: { login: 'Entrar' } },
   manageQuestions: {
     button: {
+      cancel: 'Cancelar',
       create: 'Criar pergunta',
+      delete: 'Excluir',
       edit: 'Editar',
       home: 'Início',
       update: 'Atualizar',
@@ -34,42 +44,43 @@ export const translations = {
       explanation: 'Explicação',
       headerCreate: 'Criar nova pergunta',
       headerEdit: 'Editar pergunta',
+      headerView: 'Visualizar pergunta',
       statement: 'Enunciado',
       subject: 'Assunto',
     },
   },
   manageQuizzes: {
     button: {
+      archive: 'Arquivar',
       create: 'Criar questionário',
+      delete: 'Excluir',
+      edit: 'Editar',
       home: 'Início',
+      publish: 'Publicar',
       update: 'Atualizar',
+      view: 'Visualizar',
     },
-    deleteHeader: 'Tem certeza que deseja excluir o questionário?',
+    deleteHeader: 'Tem certeza que deseja arquivar o questionário?',
     header: 'Gerenciar Questionários',
     quizModal: {
       button: {
-        archive: 'Arquivar',
         cancel: 'Cancelar',
         clear: 'Limpar',
-        delete: 'Excluir',
-        edit: 'Editar',
-        publish: 'Publicar',
         save: 'Salvar',
       },
-
       gameMode: 'Modo de jogo',
       gameModes: {
-        [properties.gameModes[0]]: {
+        0: {
           helperText: 'Modo padrão sem limite de tempo.',
           icon: <QuizRounded />,
           text: 'Clássico',
         },
-        [properties.gameModes[1]]: {
+        1: {
           helperText: 'O jogo termina quando o tempo acaba.',
           icon: <TimerRounded />,
           text: 'Tempo',
         },
-        [properties.gameModes[2]]: {
+        2: {
           helperText:
             'O jogo termina quando o jogador perde todas as estrelas.',
           icon: <StarRounded />,
@@ -78,9 +89,15 @@ export const translations = {
       },
       headerCreate: 'Criar novo questionário',
       headerEdit: 'Editar questionário',
+      headerView: 'Visualizar questionário',
       name: 'Nome',
 
       questions: 'Perguntas',
+    },
+    quizStatus: {
+      0: { icon: <EditNoteRounded />, text: 'Rascunho' },
+      1: { icon: <KeyRounded />, text: 'Publicado' },
+      2: { icon: <Inventory2Rounded />, text: 'Arquivado' },
     },
   },
   menu: {

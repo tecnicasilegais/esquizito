@@ -22,11 +22,11 @@ function ManageQuestion({
   return (
     <Card variant='soft'>
       <Stack alignItems='stretch' direction='row' spacing={1}>
-        <Stack>
+        <Stack alignItems='stretch' justifyContent='center'>
           <Button
             size='sm'
             startDecorator={<EditRounded />}
-            sx={{ height: '100%' }}
+            sx={{ justifyContent: 'flex-start' }}
             variant='plain'
             onClick={() => setModalEditQuestion(true)}>
             {translations.manageQuestions.button.edit}
@@ -35,21 +35,21 @@ function ManageQuestion({
         <Divider orientation='vertical' />
         <Stack flexGrow={1} justifyContent='center' px={2} spacing={1}>
           <Box>
-            <Chip size='md' variant='solid'>
+            <Chip size='sm' variant='solid'>
               {subject}
             </Chip>
           </Box>
           <Box textAlign='justify'>{statement}</Box>
         </Stack>
         <Divider orientation='vertical' />
-        <Stack>
+        <Stack alignItems='center' justifyContent='space-around'>
           <Button
             color='danger'
             size='sm'
-            sx={{ height: '100%' }}
+            startDecorator={<DeleteRounded />}
             variant='plain'
             onClick={() => setModalDeleteQuestion(true)}>
-            <DeleteRounded />
+            {translations.manageQuestions.button.delete}
           </Button>
         </Stack>
       </Stack>

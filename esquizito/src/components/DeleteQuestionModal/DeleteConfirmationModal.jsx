@@ -11,7 +11,14 @@ import * as PropTypes from 'prop-types';
 import { translations } from 'util/Properties';
 import { DeleteRounded } from '@mui/icons-material';
 
-function DeleteConfirmationModal({ onClose, onDelete, open, title }) {
+function DeleteConfirmationModal({
+  onClose,
+  onDelete,
+  open,
+  primaryIcon,
+  primaryText,
+  title,
+}) {
   return (
     <Modal open={open} onClose={onClose}>
       <ModalDialog>
@@ -23,13 +30,13 @@ function DeleteConfirmationModal({ onClose, onDelete, open, title }) {
             </Button>
             <Button
               color='danger'
-              startDecorator={<DeleteRounded />}
+              startDecorator={primaryIcon || <DeleteRounded />}
               variant='solid'
               onClick={() => {
                 onDelete();
                 onClose();
               }}>
-              {translations.deleteModal.button.delete}
+              {primaryText || translations.deleteModal.button.delete}
             </Button>
           </ButtonGroup>
         </DialogContent>
@@ -42,7 +49,14 @@ DeleteConfirmationModal.propTypes = {
   onClose: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
+  primaryIcon: PropTypes.element,
+  primaryText: PropTypes.string,
   title: PropTypes.string.isRequired,
+};
+
+DeleteConfirmationModal.defaultProps = {
+  primaryIcon: null,
+  primaryText: null,
 };
 
 export default DeleteConfirmationModal;

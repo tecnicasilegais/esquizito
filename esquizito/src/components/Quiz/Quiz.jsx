@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Box, Button, Card, Chip, Divider, Stack } from '@mui/joy';
+import { Box, Button, Card, Chip, Divider, Stack, Typography } from '@mui/joy';
 import {
   ArchiveRounded,
   DeleteRounded,
   EditRounded,
   PublishRounded,
   TagRounded,
+  VisibilityRounded,
 } from '@mui/icons-material';
 import PropTypes from 'prop-types';
 import { properties, translations } from 'util/Properties';
@@ -13,88 +14,112 @@ import DeleteConfirmationModal from 'components/DeleteQuestionModal/DeleteConfir
 import ManageQuizModal from 'components/ManageQuizModal/ManageQuizModal';
 import * as QuizService from 'apis/services/Quiz';
 
-function Quiz({ gameMode, name, questions, quizId, refreshPage }) {
+function Quiz({ gameMode, name, questions, quizId, quizStatus, refreshPage }) {
   const [modalEditQuiz, setModalEditQuiz] = useState(false);
   const [modalDeleteQuiz, setModalDeleteQuiz] = useState(false);
+  const [modalFieldsDisabled, setModalFieldsDisabled] = useState(false);
+
   return (
     <Card variant='soft'>
       <Stack alignItems='stretch' direction='row' spacing={1}>
-        <Stack textAlign='left'>
-          <Button
-            size='sm'
-            startDecorator={<PublishRounded />}
-            sx={{ height: '100%', justifyContent: 'flex-start' }}
-            variant='plain'
-            onClick={() => alert('implementa aí vai')}>
-            {translations.manageQuizzes.quizModal.button.publish}
-          </Button>
-          <Button
-            size='sm'
-            startDecorator={<EditRounded />}
-            sx={{ height: '100%', justifyContent: 'flex-start' }}
-            variant='plain'
-            onClick={() => setModalEditQuiz(true)}>
-            {translations.manageQuizzes.quizModal.button.edit}
-          </Button>
+        <Stack alignItems='stretch' justifyContent='center' width='130px'>
+          {properties.quizStatus[quizStatus] === 'draft' && (
+            <Button
+              size='sm'
+              startDecorator={<PublishRounded />}
+              sx={{ justifyContent: 'flex-start' }}
+              variant='plain'
+              onClick={() => alert('implementa aí vai')}>
+              {translations.manageQuizzes.button.publish}
+            </Button>
+          )}
+          {properties.quizStatus[quizStatus] === 'draft' && (
+            <Button
+              size='sm'
+              startDecorator={<EditRounded />}
+              sx={{ justifyContent: 'flex-start' }}
+              variant='plain'
+              onClick={() => {
+                setModalFieldsDisabled(false);
+                setModalEditQuiz(true);
+              }}>
+              {translations.manageQuizzes.button.edit}
+            </Button>
+          )}
+          {(properties.quizStatus[quizStatus] === 'published' ||
+            properties.quizStatus[quizStatus] === 'archived') && (
+            <Button
+              size='sm'
+              startDecorator={<VisibilityRounded />}
+              sx={{ justifyContent: 'flex-start' }}
+              variant='plain'
+              onClick={() => {
+                setModalFieldsDisabled(true);
+                setModalEditQuiz(true);
+              }}>
+              {translations.manageQuizzes.button.view}
+            </Button>
+          )}
         </Stack>
         <Divider orientation='vertical' />
-        <Stack flexGrow={1} justifyContent='center' px={2} spacing={1}>
+        <Stack flexGrow={1} justifyContent='space-around' px={2}>
           <Stack direction='row' spacing={1}>
             <Chip
-              size='md'
+              size='sm'
               variant='solid'
               startDecorator={
-                translations.manageQuizzes.quizModal.gameModes[
-                  properties.gameModes[gameMode]
-                ].icon
+                translations.manageQuizzes.quizModal.gameModes[gameMode].icon
               }>
-              {
-                translations.manageQuizzes.quizModal.gameModes[
-                  properties.gameModes[gameMode]
-                ].text
-              }
+              {translations.manageQuizzes.quizModal.gameModes[gameMode].text}
             </Chip>
-            <Chip size='md' startDecorator={<TagRounded />} variant='solid'>
+            <Chip size='sm' startDecorator={<TagRounded />} variant='solid'>
               {`${questions.length} ${translations.manageQuizzes.quizModal.questions}`}
             </Chip>
           </Stack>
           <Box textAlign='justify'>{name}</Box>
         </Stack>
         <Divider orientation='vertical' />
-        <Stack>
-          <Button
-            color='danger'
-            size='sm'
-            startDecorator={<DeleteRounded />}
-            sx={{ height: '100%' }}
-            variant='plain'
-            onClick={() => setModalDeleteQuiz(true)}>
-            {translations.manageQuizzes.quizModal.button.delete}
-          </Button>
-          <Button
-            color='danger'
-            size='sm'
-            startDecorator={<ArchiveRounded />}
-            sx={{ height: '100%' }}
-            variant='plain'
-            onClick={() => setModalDeleteQuiz(true)}>
-            {translations.manageQuizzes.quizModal.button.archive}
-          </Button>
+        <Stack alignItems='center' justifyContent='space-around' width='130px'>
+          <Chip
+            size='md'
+            variant='solid'
+            startDecorator={
+              translations.manageQuizzes.quizStatus[quizStatus].icon
+            }>
+            {translations.manageQuizzes.quizStatus[quizStatus].text}
+          </Chip>
+          {properties.quizStatus[quizStatus] === 'draft' && (
+            <Button
+              color='danger'
+              size='sm'
+              startDecorator={<ArchiveRounded />}
+              variant='plain'
+              onClick={() => setModalDeleteQuiz(true)}>
+              {translations.manageQuizzes.button.archive}
+            </Button>
+          )}
         </Stack>
       </Stack>
       <ManageQuizModal
+        formDisabled={modalFieldsDisabled}
         open={modalEditQuiz}
         quizGameMode={gameMode}
         quizName={name}
         quizQuestions={questions}
-        title={translations.manageQuizzes.quizModal.headerEdit}
         type='edit'
+        title={
+          modalFieldsDisabled
+            ? translations.manageQuizzes.quizModal.headerView
+            : translations.manageQuizzes.quizModal.headerEdit
+        }
         onCancel={() => setModalEditQuiz(false)}
         onClose={() => setModalEditQuiz(false)}
         onSave={(questionData) => alert('implementa aí vai')}
       />
       <DeleteConfirmationModal
         open={modalDeleteQuiz}
+        primaryIcon={<ArchiveRounded />}
+        primaryText={translations.manageQuizzes.button.archive}
         title={translations.manageQuizzes.deleteHeader}
         onClose={() => setModalDeleteQuiz(false)}
         onDelete={() => QuizService.archive(quizId).then(() => refreshPage())}
@@ -115,6 +140,7 @@ Quiz.propTypes = {
     }),
   ).isRequired,
   quizId: PropTypes.string.isRequired,
+  quizStatus: PropTypes.number.isRequired,
   refreshPage: PropTypes.func.isRequired,
 };
 export default Quiz;

@@ -31,10 +31,10 @@ import {
 import * as PropTypes from 'prop-types';
 import { properties, translations } from 'util/Properties';
 import GameModeSelector from 'components/GameModeSelector/GameModeSelector';
-import * as Question from 'apis/services/Question';
-import { useUser } from 'contexts/UserContext';
+import ManageQuestionModal from 'components/ManageQuestionModal/ManageQuestionModal';
 
 function ManageQuizModal({
+  formDisabled,
   onClose,
   onSave,
   open,
@@ -48,7 +48,8 @@ function ManageQuizModal({
   const [gameMode, setGameMode] = useState(properties.gameModes[0]);
   const [checkedQuestions, setCheckedQuestions] = useState({});
   const [loading, setLoading] = useState(true);
-  const { user } = useUser();
+  const [showQuestionModal, setShowQuestionModal] = useState(false);
+  const [openQuestionData, setOpenQuestionData] = useState({});
 
   const updateCheckedQuestion = (questionId, checked) => {
     setCheckedQuestions({ ...checkedQuestions, [questionId]: checked });
@@ -97,7 +98,7 @@ function ManageQuizModal({
     }
   }, [quizQuestions]);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <div />;
   return (
     <Modal open={open} onClose={handleClose}>
       <ModalDialog>
@@ -110,6 +111,7 @@ function ManageQuizModal({
               <Input
                 autoFocus
                 required
+                disabled={formDisabled}
                 value={name}
                 variant='soft'
                 onChange={(event) => setName(event.target.value)}
@@ -120,6 +122,7 @@ function ManageQuizModal({
                 {translations.manageQuizzes.quizModal.gameMode}
               </FormLabel>
               <RadioGroup
+                disabled={formDisabled}
                 orientation='horizontal'
                 value={gameMode}
                 sx={{
@@ -131,11 +134,14 @@ function ManageQuizModal({
                   minHeight: 40.5,
                   padding: '4px',
                 }}
-                onChange={(event) => setGameMode(event.target.value)}>
-                {properties.gameModes.map((mode) => (
+                onChange={(event) => {
+                  setGameMode(event.target.value);
+                }}>
+                {properties.gameModes.map((mode, i) => (
                   <Radio
                     disableIcon
                     color='neutral'
+                    disabled={formDisabled}
                     key={mode}
                     name='gameModeRadio'
                     value={mode}
@@ -143,13 +149,9 @@ function ManageQuizModal({
                     label={
                       <GameModeSelector
                         startDecorator={
-                          translations.manageQuizzes.quizModal.gameModes[mode]
-                            .icon
+                          translations.manageQuizzes.quizModal.gameModes[i].icon
                         }>
-                        {
-                          translations.manageQuizzes.quizModal.gameModes[mode]
-                            .text
-                        }
+                        {translations.manageQuizzes.quizModal.gameModes[i].text}
                       </GameModeSelector>
                     }
                     slotProps={{
@@ -199,8 +201,9 @@ function ManageQuizModal({
                   <InfoOutlined />
                   <Box>
                     {
-                      translations.manageQuizzes.quizModal.gameModes[gameMode]
-                        .helperText
+                      translations.manageQuizzes.quizModal.gameModes[
+                        properties.gameModes.indexOf(gameMode)
+                      ].helperText
                     }
                   </Box>
                 </Stack>
@@ -230,7 +233,17 @@ function ManageQuizModal({
                         spacing={2}>
                         <Checkbox
                           checked={checkedQuestions[question._id]}
+                          disabled={formDisabled}
                           label={question.statement}
+                          slotProps={{
+                            label: ({ disabled }) => ({
+                              sx: {
+                                ...(disabled && {
+                                  color: 'neutral.softColor',
+                                }),
+                              },
+                            }),
+                          }}
                           onChange={(event) =>
                             updateCheckedQuestion(
                               question._id,
@@ -238,7 +251,14 @@ function ManageQuizModal({
                             )
                           }
                         />
-                        <Button size='sm' variant='plain'>
+                        <Button
+                          size='sm'
+                          variant='plain'
+                          onClick={() => {
+                            console.log(question);
+                            setOpenQuestionData(question);
+                            setShowQuestionModal(true);
+                          }}>
                           <VisibilityRounded />
                         </Button>
                       </Stack>
@@ -248,40 +268,50 @@ function ManageQuizModal({
               </List>
             </Card>
             <FormControl />
-            <ButtonGroup buttonFlex={1}>
-              <Button
-                color='danger'
-                startDecorator={<CleaningServices />}
-                type='reset'
-                variant='solid'
-                onClick={clearFields}>
-                {translations.manageQuizzes.quizModal.button.clear}
-              </Button>
-              <Button
-                startDecorator={<Clear />}
-                variant='soft'
-                onClick={handleClose}>
-                {translations.manageQuizzes.quizModal.button.cancel}
-              </Button>
-              <Button
-                color='primary'
-                startDecorator={<Save />}
-                type='submit'
-                variant='solid'
-                onClick={() => {
-                  onSave({
-                    gameMode: properties.gameModes.indexOf(gameMode),
-                    name,
-                    questionIds: Object.keys(checkedQuestions).filter(
-                      (key) => checkedQuestions[key],
-                    ),
-                  });
-                  onClose();
-                }}>
-                {translations.manageQuizzes.quizModal.button.save}
-              </Button>
-            </ButtonGroup>
+            {!formDisabled && (
+              <ButtonGroup buttonFlex={1}>
+                <Button
+                  color='danger'
+                  startDecorator={<CleaningServices />}
+                  type='reset'
+                  variant='solid'
+                  onClick={clearFields}>
+                  {translations.manageQuizzes.quizModal.button.clear}
+                </Button>
+                <Button
+                  startDecorator={<Clear />}
+                  variant='soft'
+                  onClick={handleClose}>
+                  {translations.manageQuizzes.quizModal.button.cancel}
+                </Button>
+                <Button
+                  color='primary'
+                  startDecorator={<Save />}
+                  type='submit'
+                  variant='solid'
+                  onClick={() => {
+                    onSave({
+                      gameMode: properties.gameModes.indexOf(gameMode),
+                      name,
+                      questionIds: Object.keys(checkedQuestions).filter(
+                        (key) => checkedQuestions[key],
+                      ),
+                    });
+                    onClose();
+                  }}>
+                  {translations.manageQuizzes.quizModal.button.save}
+                </Button>
+              </ButtonGroup>
+            )}
           </Stack>
+          <ManageQuestionModal
+            formDisabled
+            open={showQuestionModal}
+            questionData={openQuestionData}
+            title={translations.manageQuestions.questionModal.headerView}
+            type='edit'
+            onClose={() => setShowQuestionModal(false)}
+          />
         </DialogContent>
       </ModalDialog>
     </Modal>
@@ -289,6 +319,7 @@ function ManageQuizModal({
 }
 
 ManageQuizModal.propTypes = {
+  formDisabled: PropTypes.bool,
   onClose: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
@@ -307,6 +338,7 @@ ManageQuizModal.propTypes = {
 };
 
 ManageQuizModal.defaultProps = {
+  formDisabled: false,
   quizGameMode: 0,
   quizName: '',
   quizQuestions: [],

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Card, Stack } from '@mui/joy';
+import { Button, Card, LinearProgress, Stack } from '@mui/joy';
 import { useNavigate } from 'react-router-dom';
 import {
   AddCircleRounded,
@@ -21,11 +21,12 @@ function ManageQuestionsPage() {
   const [questions, setQuestions] = useState([]);
   const { user } = useUser();
   const refreshQuestions = async () => {
+    setIsLoading(true);
     const result = await Question.list(user.id);
     if (result) {
       setQuestions(result);
-      setIsLoading(false);
     }
+    setIsLoading(false);
   };
   useEffect(() => {
     if (user.id) {
@@ -58,6 +59,7 @@ function ManageQuestionsPage() {
               </Button>
             </Stack>
           </Stack>
+          {isLoading && <LinearProgress size='sm' />}
           <Stack spacing={2}>
             {!isLoading &&
               questions.map((question) => (

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Card, Stack } from '@mui/joy';
+import { Button, Card, LinearProgress, Stack } from '@mui/joy';
 import { useNavigate } from 'react-router-dom';
 import {
   AddCircleRounded,
@@ -27,7 +27,6 @@ function ManageQuizzesPage() {
     const result = await QuizService.list(user.id);
     if (result) {
       setQuizzes(result);
-      setIsLoading(false);
     }
   };
 
@@ -38,10 +37,16 @@ function ManageQuizzesPage() {
     }
   };
 
+  const refreshContent = async () => {
+    setIsLoading(true);
+    await refreshQuizzes();
+    await refreshQuestions();
+    setIsLoading(false);
+  };
+
   useEffect(() => {
     if (user.id) {
-      refreshQuizzes();
-      refreshQuestions();
+      refreshContent();
     }
   }, [user.id]);
 
@@ -66,14 +71,12 @@ function ManageQuizzesPage() {
               <Button
                 startDecorator={<SyncRounded />}
                 variant='soft'
-                onClick={() => {
-                  refreshQuizzes();
-                  refreshQuestions();
-                }}>
+                onClick={() => refreshContent()}>
                 {translations.manageQuizzes.button.update}
               </Button>
             </Stack>
           </Stack>
+          {isLoading && <LinearProgress size='sm' />}
           <Stack spacing={2}>
             {!isLoading &&
               quizzes.map((quiz) => (
@@ -83,7 +86,8 @@ function ManageQuizzesPage() {
                   name={quiz.name}
                   questions={quiz.questions}
                   quizId={quiz._id}
-                  refreshPage={refreshQuizzes}
+                  quizStatus={quiz.status}
+                  refreshPage={refreshContent}
                 />
               ))}
           </Stack>

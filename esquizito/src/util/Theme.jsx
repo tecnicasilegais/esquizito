@@ -4,6 +4,9 @@ export const theme = extendTheme({
   colorSchemes: {
     light: {
       palette: {
+        neutral: {
+          softDisabledBg: 'var(--joy-palette-neutral-softBg)',
+        },
         primary: { 500: '#00394e' },
       },
     },
