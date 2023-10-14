@@ -19,6 +19,16 @@ export function validateBodyUserId(
     : res.status(400).json({ error: 'Invalid User ID' });
 }
 
+export function validateBodyQuizId(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
+  return validateObjectId(req.body.quizId)
+    ? next()
+    : res.status(400).json({ error: 'Invalid Quiz ID' });
+}
+
 export function validateQuizListOfIds(
   req: Request,
   res: Response,

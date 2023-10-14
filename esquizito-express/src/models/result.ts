@@ -17,10 +17,10 @@ const resultSchema: Schema<ResultDocument> = new Schema<ResultDocument>(
     answers: {
       type: [
         {
-          questionId: Schema.Types.ObjectId,
-          givenAnswer: Boolean,
-          correctAnswer: Boolean,
-          elapsedTime: Number,
+          questionId: { type: Schema.Types.ObjectId, required: true },
+          givenAnswer: { type: Boolean, required: true },
+          correctAnswer: { type: Boolean, required: true },
+          elapsedTime: { type: Number, required: true },
         },
       ],
       required: true,
