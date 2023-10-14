@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 import { properties, translations } from 'util/Properties';
 import DeleteConfirmationModal from 'components/DeleteQuestionModal/DeleteConfirmationModal';
 import ManageQuizModal from 'components/ManageQuizModal/ManageQuizModal';
-import * as QuizService from 'apis/services/Quiz';
+import QuizService from 'apis/services/QuizService';
 
 function Quiz({ gameMode, name, questions, quizId, quizStatus, refreshPage }) {
   const [modalEditQuiz, setModalEditQuiz] = useState(false);

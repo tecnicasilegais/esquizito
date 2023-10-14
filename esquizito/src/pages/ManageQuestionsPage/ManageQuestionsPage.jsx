@@ -8,7 +8,7 @@ import {
 } from '@mui/icons-material';
 import HeaderScreen from 'components/HeaderScreen/HeaderScreen';
 import ManageQuestionModal from 'components/ManageQuestionModal/ManageQuestionModal';
-import * as Question from 'apis/services/Question';
+import QuestionService from 'apis/services/QuestionService';
 import ManageQuestion from 'components/ManageQuestion/ManageQuestion';
 import { useUser } from 'contexts/UserContext';
 import { urlPaths } from 'util/UrlPaths';
@@ -22,7 +22,7 @@ function ManageQuestionsPage() {
   const { user } = useUser();
   const refreshQuestions = async () => {
     setIsLoading(true);
-    const result = await Question.list(user.id);
+    const result = await QuestionService.list(user.id);
     if (result) {
       setQuestions(result);
     }
@@ -83,8 +83,8 @@ function ManageQuestionsPage() {
         onCancel={() => setModalCreateQuestion(false)}
         onClose={() => setModalCreateQuestion(false)}
         onSave={(questionData) =>
-          Question.create({ userId: user.id, ...questionData }).then(() =>
-            refreshQuestions(),
+          QuestionService.create({ userId: user.id, ...questionData }).then(
+            () => refreshQuestions(),
           )
         }
       />

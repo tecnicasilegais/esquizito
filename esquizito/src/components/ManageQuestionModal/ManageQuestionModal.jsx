@@ -67,7 +67,9 @@ function ManageQuestionModal({
   };
 
   useEffect(() => {
-    updateFields(questionData);
+    if (questionData) {
+      updateFields(questionData);
+    }
   }, [questionData]);
 
   return (

@@ -6,7 +6,7 @@ import { useUser } from 'contexts/UserContext';
 import { translations } from 'util/Properties';
 import DeleteConfirmationModal from 'components/DeleteQuestionModal/DeleteConfirmationModal';
 import ManageQuestionModal from 'components/ManageQuestionModal/ManageQuestionModal';
-import * as Question from 'apis/services/Question';
+import QuestionService from 'apis/services/QuestionService';
 
 function ManageQuestion({
   answer,
@@ -61,7 +61,7 @@ function ManageQuestion({
         onCancel={() => setModalEditQuestion(false)}
         onClose={() => setModalEditQuestion(false)}
         onSave={(questionData) =>
-          Question.update({
+          QuestionService.update({
             questionId,
             userId: user.id,
             ...questionData,
@@ -73,7 +73,7 @@ function ManageQuestion({
         title={translations.manageQuestions.deleteHeader}
         onClose={() => setModalDeleteQuestion(false)}
         onDelete={() => {
-          Question.remove(questionId).then(() => refreshPage());
+          QuestionService.remove(questionId).then(() => refreshPage());
         }}
       />
     </Card>
