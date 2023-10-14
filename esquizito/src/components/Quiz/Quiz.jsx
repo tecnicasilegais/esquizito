@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { Box, Button, Card, Chip, Divider, Stack, Typography } from '@mui/joy';
+import { Box, Button, Card, Chip, Divider, Stack } from '@mui/joy';
 import {
   ArchiveRounded,
-  DeleteRounded,
   EditRounded,
   PublishRounded,
   TagRounded,
