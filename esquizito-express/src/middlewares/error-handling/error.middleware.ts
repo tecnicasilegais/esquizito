@@ -42,6 +42,11 @@ export const errorHandler = (
       response.status(404).json({ error: error.message });
       return;
     }
+
+    if (error.name === 'QuizIdNotFound') {
+      response.status(404).json({ error: error.message });
+      return;
+    }
   }
   response.status(500).json({ error: ErrorMessages.internalError });
 };

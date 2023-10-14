@@ -12,6 +12,7 @@ import { contentTypeJson } from 'middlewares/response-content.middleware';
 
 import questionsRouter from './routes/question';
 import quizzesRouter from './routes/quiz';
+import resultsRouter from './routes/result';
 import usersRouter from './routes/user';
 
 const app = express();
@@ -60,6 +61,7 @@ app.use(contentTypeJson);
 app.use('/user', usersRouter);
 app.use('/question', questionsRouter);
 app.use('/quiz', quizzesRouter);
+app.use('/result', resultsRouter);
 
 app.use(errorHandler);
 app.use(notFoundHandler);

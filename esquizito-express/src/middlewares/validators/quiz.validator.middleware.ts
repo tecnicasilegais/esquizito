@@ -4,6 +4,11 @@ import { nanoIdConfig } from 'configs/nanoId.config';
 import { QuizStatus } from 'models/enums';
 import questionService from 'services/question.service';
 import quizService from 'services/quiz.service';
+import { CustomError } from 'utils/error.util';
+
+async function validateQuizExists(id: string) {
+  return id ? quizService.exists({ _id: id }) : false;
+}
 
 export async function validateQuestionsExists(
   req: Request,
@@ -36,6 +41,9 @@ export async function validateQuestionsExists(
   return next();
 }
 
+/*
+ * This also validates if the quiz exists
+ */
 export const validateQuizIsDraft = async (
   req: Request,
   res: Response,
@@ -58,6 +66,41 @@ export const validateQuizIsDraft = async (
   }
 
   return next();
+};
+
+export const validateBodyQuizExists = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  const { quizId } = req.body;
+
+  const exists = await validateQuizExists(quizId);
+
+  return exists
+    ? next()
+    : next(
+        new CustomError(
+          `Could not locate quiz by id: ${quizId}`,
+          'QuizIdNotFound',
+        ),
+      );
+};
+
+export const validateParamsQuizExists = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  const { id } = req.params;
+
+  const exists = await validateQuizExists(id);
+
+  return exists
+    ? next()
+    : next(
+        new CustomError(`Could not locate quiz by id: ${id}`, 'QuizIdNotFound'),
+      );
 };
 
 export const validateGameCode = async (

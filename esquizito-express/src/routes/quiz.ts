@@ -3,19 +3,19 @@ import express from 'express';
 import auth0Config from 'configs/auth0.config';
 import { QuizController } from 'controllers/quiz.controller';
 import { postErrorHandler } from 'middlewares/error-handling/post-error.middleware';
-import { validateAccessToken } from 'middlewares/validations/auth0.middleware';
+import { validateAccessToken } from 'middlewares/validators/auth0.middleware';
 import {
   validateBodyUserId,
   validateId,
   validateQuizListOfIds,
-} from 'middlewares/validations/id-validator.middleware';
+} from 'middlewares/validators/id.validator.middleware';
 import {
   validateAmountOfQuestions,
   validateGameCode,
   validateQuestionsExists,
   validateQuizIsDraft,
-} from 'middlewares/validations/quiz-validator.middleware';
-import { validateBodyUserExists } from 'middlewares/validations/user-validator.middleware';
+} from 'middlewares/validators/quiz.validator.middleware';
+import { validateBodyUserExists } from 'middlewares/validators/user.validator.middleware';
 
 const router = express.Router();
 const quizController = new QuizController();
@@ -50,6 +50,8 @@ router.put(
 router.get('/code/:code', validateGameCode, quizController.getByCode);
 
 router.patch('/:id/publish', validateId, quizController.publish);
+
+router.get('/:id/results', validateId, quizController.getResults);
 
 router.delete('/:id', validateId, quizController.delete);
 router.get('/:id', validateId, quizController.get);

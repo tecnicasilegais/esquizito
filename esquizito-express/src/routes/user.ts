@@ -3,9 +3,9 @@ import express from 'express';
 import auth0Config from 'configs/auth0.config';
 import { UserController } from 'controllers/user.controller';
 import { postErrorHandler } from 'middlewares/error-handling/post-error.middleware';
-import { validateAccessToken } from 'middlewares/validations/auth0.middleware';
-import { validateId } from 'middlewares/validations/id-validator.middleware';
-import { validateParamsUserExists } from 'middlewares/validations/user-validator.middleware';
+import { validateAccessToken } from 'middlewares/validators/auth0.middleware';
+import { validateId } from 'middlewares/validators/id.validator.middleware';
+import { validateParamsUserExists } from 'middlewares/validators/user.validator.middleware';
 
 const router = express.Router();
 const userController = new UserController();
@@ -37,7 +37,7 @@ router.get(
 router.get(
   '/:id/results',
   validateId,
-  validateUserExists,
+  validateParamsUserExists,
   userController.getResults,
 );
 
