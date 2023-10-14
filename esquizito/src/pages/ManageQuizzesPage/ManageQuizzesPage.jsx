@@ -7,29 +7,44 @@ import {
   SyncRounded,
 } from '@mui/icons-material';
 import HeaderScreen from 'components/HeaderScreen/HeaderScreen';
-import * as Quiz from 'apis/services/Quiz';
-import ManageQuestion from 'components/ManageQuestion/ManageQuestion';
+import * as QuizService from 'apis/services/Quiz';
 import { useUser } from 'contexts/UserContext';
 import { urlPaths } from 'util/UrlPaths';
 import { translations } from 'util/Properties';
 import ManageQuizModal from 'components/ManageQuizModal/ManageQuizModal';
+import Quiz from 'components/Quiz/Quiz';
+import * as Question from 'apis/services/Question';
 
 function ManageQuizzesPage() {
   const navigate = useNavigate();
-  const [modalCreateQuestion, setModalCreateQuestion] = useState(false);
+  const [modalManageQuiz, setModalManageQuiz] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [quizzes, setQuizzes] = useState([]);
   const [questions, setQuestions] = useState([]);
   const { user } = useUser();
-  const refreshQuestions = async () => {
-    const result = await Quiz.list(user.id);
+
+  const refreshQuizzes = async () => {
+    const result = await QuizService.list(user.id);
     if (result) {
-      setQuestions(result);
+      setQuizzes(result);
       setIsLoading(false);
     }
   };
+
+  const refreshQuestions = async () => {
+    const result = await Question.list(user.id);
+    if (result) {
+      setQuestions(result);
+    }
+  };
+
   useEffect(() => {
-    refreshQuestions();
-  }, [user]);
+    if (user.id) {
+      refreshQuizzes();
+      refreshQuestions();
+    }
+  }, [user.id]);
+
   return (
     <HeaderScreen headerCenter={translations.manageQuizzes.header}>
       <Stack mb={2} mt={1} mx={2} spacing={2}>
@@ -45,43 +60,49 @@ function ManageQuizzesPage() {
               <Button
                 startDecorator={<AddCircleRounded />}
                 variant='soft'
-                onClick={() => setModalCreateQuestion(true)}>
+                onClick={() => setModalManageQuiz(true)}>
                 {translations.manageQuizzes.button.create}
               </Button>
               <Button
                 startDecorator={<SyncRounded />}
                 variant='soft'
-                onClick={refreshQuestions}>
+                onClick={() => {
+                  refreshQuizzes();
+                  refreshQuestions();
+                }}>
                 {translations.manageQuizzes.button.update}
               </Button>
             </Stack>
           </Stack>
           <Stack spacing={2}>
             {!isLoading &&
-              questions.map((question) => (
-                <ManageQuestion
-                  answer={question.answer}
-                  explanation={question.explanation}
-                  key={question._id}
-                  questionId={question._id}
-                  refreshPage={refreshQuestions}
-                  statement={question.statement}
-                  subject={question.subject}
+              quizzes.map((quiz) => (
+                <Quiz
+                  gameMode={quiz.gameMode}
+                  key={quiz._id}
+                  name={quiz.name}
+                  questions={quiz.questions}
+                  quizId={quiz._id}
+                  refreshPage={refreshQuizzes}
                 />
               ))}
           </Stack>
         </Card>
       </Stack>
       <ManageQuizModal
-        open={modalCreateQuestion}
+        open={modalManageQuiz}
+        quizQuestions={questions}
         title={translations.manageQuizzes.quizModal.headerCreate}
         type='create'
-        onCancel={() => setModalCreateQuestion(false)}
-        onClose={() => setModalCreateQuestion(false)}
-        onSave={(questionData) =>
-          Quiz.create({ userId: user.id, ...questionData }).then(() =>
-            refreshQuestions(),
-          )
+        onCancel={() => setModalManageQuiz(false)}
+        onClose={() => setModalManageQuiz(false)}
+        onSave={({ gameMode, name, questionIds }) =>
+          QuizService.create({
+            gameMode,
+            name,
+            questionIds,
+            userId: user.id,
+          }).then(() => refreshQuizzes())
         }
       />
     </HeaderScreen>

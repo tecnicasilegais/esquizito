@@ -55,7 +55,7 @@ function ManageQuestionModal({
   };
 
   const handleAnswerChange = (event) => {
-    setAnswer(event.target.value);
+    setAnswer(event.target.value === 'true');
   };
 
   const handleClose = () => {

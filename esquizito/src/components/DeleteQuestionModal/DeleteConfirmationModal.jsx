@@ -11,17 +11,15 @@ import * as PropTypes from 'prop-types';
 import { translations } from 'util/Properties';
 import { DeleteRounded } from '@mui/icons-material';
 
-function DeleteQuestionModal({ onClose, onDelete, open }) {
+function DeleteConfirmationModal({ onClose, onDelete, open, title }) {
   return (
     <Modal open={open} onClose={onClose}>
       <ModalDialog>
-        <DialogTitle sx={{ textAlign: 'center' }}>
-          {translations.manageQuestions.deleteModal.header}
-        </DialogTitle>
+        <DialogTitle sx={{ textAlign: 'center' }}>{title}</DialogTitle>
         <DialogContent>
           <ButtonGroup buttonFlex={1} sx={{ mt: '12px' }}>
             <Button variant='soft' onClick={onClose}>
-              {translations.manageQuestions.deleteModal.button.cancel}
+              {translations.deleteModal.button.cancel}
             </Button>
             <Button
               color='danger'
@@ -31,7 +29,7 @@ function DeleteQuestionModal({ onClose, onDelete, open }) {
                 onDelete();
                 onClose();
               }}>
-              {translations.manageQuestions.deleteModal.button.delete}
+              {translations.deleteModal.button.delete}
             </Button>
           </ButtonGroup>
         </DialogContent>
@@ -40,10 +38,11 @@ function DeleteQuestionModal({ onClose, onDelete, open }) {
   );
 }
 
-DeleteQuestionModal.propTypes = {
+DeleteConfirmationModal.propTypes = {
   onClose: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
+  title: PropTypes.string.isRequired,
 };
 
-export default DeleteQuestionModal;
+export default DeleteConfirmationModal;

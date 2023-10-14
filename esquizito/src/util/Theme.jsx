@@ -27,7 +27,7 @@ export const theme = extendTheme({
     JoyCard: {
       styleOverrides: {
         root: {
-          '--Card-radius': '24px',
+          '--Card-radius': '20px',
         },
       },
     },
@@ -46,6 +46,13 @@ export const theme = extendTheme({
         },
       },
     },
+    JoyList: {
+      styleOverrides: {
+        root: {
+          '--List-radius': '24px',
+        },
+      },
+    },
     JoyModalDialog: {
       styleOverrides: {
         root: {
@@ -57,6 +64,13 @@ export const theme = extendTheme({
       styleOverrides: {
         root: {
           '--Input-radius': '24px',
+        },
+      },
+    },
+    JoyTooltip: {
+      styleOverrides: {
+        root: {
+          borderRadius: '8px',
         },
       },
     },

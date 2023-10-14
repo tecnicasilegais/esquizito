@@ -10,6 +10,7 @@
   box-sizing: border-box;
   display: flex;
   height: 100px;
+  z-index: 1;
 
   .headerCenter,
   .headerEnd {
@@ -27,4 +28,9 @@
   img {
     height: 100%;
   }
+}
+
+.children {
+  max-height: calc(100vh - 100px);
+  overflow: auto;
 }

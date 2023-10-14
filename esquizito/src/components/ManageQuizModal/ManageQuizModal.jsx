@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Box,
   Button,
@@ -12,6 +12,7 @@ import {
   FormLabel,
   Input,
   List,
+  ListDivider,
   ListItem,
   Modal,
   ModalClose,
@@ -19,50 +20,91 @@ import {
   Radio,
   RadioGroup,
   Stack,
-  Textarea,
 } from '@mui/joy';
 import {
   CleaningServices,
   Clear,
   InfoOutlined,
-  InfoRounded,
   Save,
+  VisibilityRounded,
 } from '@mui/icons-material';
 import * as PropTypes from 'prop-types';
 import { properties, translations } from 'util/Properties';
 import GameModeSelector from 'components/GameModeSelector/GameModeSelector';
+import * as Question from 'apis/services/Question';
+import { useUser } from 'contexts/UserContext';
 
-function ManageQuizModal({ onClose, onSave, open, questionData, title, type }) {
+function ManageQuizModal({
+  onClose,
+  onSave,
+  open,
+  quizGameMode,
+  quizName,
+  quizQuestions,
+  title,
+  type,
+}) {
   const [name, setName] = useState('');
   const [gameMode, setGameMode] = useState(properties.gameModes[0]);
-  const [questions, setQuestions] = useState([]);
+  const [checkedQuestions, setCheckedQuestions] = useState({});
+  const [loading, setLoading] = useState(true);
+  const { user } = useUser();
+
+  const updateCheckedQuestion = (questionId, checked) => {
+    setCheckedQuestions({ ...checkedQuestions, [questionId]: checked });
+  };
 
   const clearFields = () => {
     setName('');
     setGameMode(properties.gameModes[0]);
-    setQuestions([]);
+    const newCheckedQuestions = {};
+    Object.keys(checkedQuestions).forEach((questionId) => {
+      newCheckedQuestions[questionId] = false;
+    });
+    setCheckedQuestions(newCheckedQuestions);
   };
 
-  const updateFields = (updatedFields) => {
-    setName(updatedFields.subject);
-    setGameMode(updatedFields.answer);
-    setQuestions(updatedFields.statement);
+  const resetEditedValues = () => {
+    setName(quizName);
+    setGameMode(properties.gameModes[quizGameMode]);
+
+    const checkedValue = type === 'edit';
+    const newCheckedQuestions = {};
+    quizQuestions.forEach((question) => {
+      newCheckedQuestions[question._id] = checkedValue;
+    });
+    setCheckedQuestions({ ...newCheckedQuestions });
   };
 
   const handleClose = () => {
     if (type === 'edit') {
-      updateFields(questionData);
+      resetEditedValues();
     }
     onClose();
   };
 
+  useEffect(() => {
+    if (type === 'edit') {
+      setName(quizName);
+      setGameMode(properties.gameModes[quizGameMode]);
+    }
+  }, [quizName, quizGameMode]);
+
+  useEffect(() => {
+    if (quizQuestions) {
+      resetEditedValues();
+      setLoading(false);
+    }
+  }, [quizQuestions]);
+
+  if (loading) return <div>Loading...</div>;
   return (
     <Modal open={open} onClose={handleClose}>
       <ModalDialog>
         <ModalClose variant='plain' />
         <DialogTitle>{title}</DialogTitle>
         <DialogContent>
-          <Stack minWidth='60vw' mt={1} spacing={2}>
+          <Stack mt={1} spacing={2} width='450px'>
             <FormControl>
               <FormLabel>{translations.manageQuizzes.quizModal.name}</FormLabel>
               <Input
@@ -167,14 +209,42 @@ function ManageQuizModal({ onClose, onSave, open, questionData, title, type }) {
             <FormLabel>
               {translations.manageQuizzes.quizModal.questions}
             </FormLabel>
-            <Card variant='soft'>
+            <Card
+              sx={{ maxHeight: '40vh', overflow: 'auto', p: 1 }}
+              variant='soft'>
               <List>
-                <Card variant='plain'>
-                  <Stack direction='row' spacing={2}>
-                    <Checkbox />
-                    <Box>Teste 1</Box>
-                  </Stack>
-                </Card>
+                {quizQuestions.map((question, i) => (
+                  <React.Fragment key={`fragment_${question._id}`}>
+                    {i !== 0 && (
+                      <ListDivider
+                        inset='gutter'
+                        key={`divider_${question._id}`}
+                      />
+                    )}
+                    <ListItem key={question._id} variant='plain'>
+                      <Stack
+                        alignItems='center'
+                        direction='row'
+                        flex={1}
+                        justifyContent='space-between'
+                        spacing={2}>
+                        <Checkbox
+                          checked={checkedQuestions[question._id]}
+                          label={question.statement}
+                          onChange={(event) =>
+                            updateCheckedQuestion(
+                              question._id,
+                              event.target.checked,
+                            )
+                          }
+                        />
+                        <Button size='sm' variant='plain'>
+                          <VisibilityRounded />
+                        </Button>
+                      </Stack>
+                    </ListItem>
+                  </React.Fragment>
+                ))}
               </List>
             </Card>
             <FormControl />
@@ -184,7 +254,7 @@ function ManageQuizModal({ onClose, onSave, open, questionData, title, type }) {
                 startDecorator={<CleaningServices />}
                 type='reset'
                 variant='solid'
-                onClick={() => clearFields()}>
+                onClick={clearFields}>
                 {translations.manageQuizzes.quizModal.button.clear}
               </Button>
               <Button
@@ -200,9 +270,11 @@ function ManageQuizModal({ onClose, onSave, open, questionData, title, type }) {
                 variant='solid'
                 onClick={() => {
                   onSave({
-                    gameMode,
+                    gameMode: properties.gameModes.indexOf(gameMode),
                     name,
-                    questions,
+                    questionIds: Object.keys(checkedQuestions).filter(
+                      (key) => checkedQuestions[key],
+                    ),
                   });
                   onClose();
                 }}>
@@ -220,18 +292,24 @@ ManageQuizModal.propTypes = {
   onClose: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
-  questionData: PropTypes.shape({
-    answer: PropTypes.bool,
-    explanation: PropTypes.string,
-    statement: PropTypes.string,
-    subject: PropTypes.string,
-  }),
+  quizGameMode: PropTypes.number,
+  quizName: PropTypes.string,
+  quizQuestions: PropTypes.arrayOf(
+    PropTypes.shape({
+      answer: PropTypes.bool,
+      explanation: PropTypes.string,
+      statement: PropTypes.string,
+      subject: PropTypes.string,
+    }),
+  ),
   title: PropTypes.string.isRequired,
   type: PropTypes.oneOf(['create', 'edit']).isRequired,
 };
 
 ManageQuizModal.defaultProps = {
-  questionData: null,
+  quizGameMode: 0,
+  quizName: '',
+  quizQuestions: [],
 };
 
 export default ManageQuizModal;

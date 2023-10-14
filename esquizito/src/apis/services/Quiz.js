@@ -1,12 +1,12 @@
 import { toast } from 'sonner';
 import client from 'apis/client';
 
-export const create = async ({ gameMode, name, questions, userId }) => {
+export const create = async ({ gameMode, name, questionIds, userId }) => {
   try {
     await client.post('/quiz/create', {
       gameMode,
       name,
-      questions,
+      questions: questionIds,
       userId,
     });
     toast.success('Questionário criado com sucesso!');

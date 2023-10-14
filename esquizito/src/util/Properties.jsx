@@ -1,14 +1,13 @@
-import {
-  HourglassBottomRounded,
-  StarRounded,
-  TimerRounded,
-} from '@mui/icons-material';
+import { QuizRounded, StarRounded, TimerRounded } from '@mui/icons-material';
 
 export const properties = {
-  gameModes: ['infinite', 'stars', 'timed'],
+  gameModes: ['classic', 'timed', 'stars'],
 };
 
 export const translations = {
+  deleteModal: {
+    button: { cancel: 'Cancelar', delete: 'Excluir' },
+  },
   game: {
     button: { confirm: 'Confirmar', next: 'Avançar' },
   },
@@ -19,11 +18,13 @@ export const translations = {
   },
   landing: { button: { login: 'Entrar' } },
   manageQuestions: {
-    button: { create: 'Criar pergunta', home: 'Início', update: 'Atualizar' },
-    deleteModal: {
-      button: { cancel: 'Cancelar', delete: 'Excluir' },
-      header: 'Tem certeza que deseja excluir a pergunta?',
+    button: {
+      create: 'Criar pergunta',
+      edit: 'Editar',
+      home: 'Início',
+      update: 'Atualizar',
     },
+    deleteHeader: 'Tem certeza que deseja excluir a pergunta?',
     header: 'Gerenciar Questões',
     questionModal: {
       answer: 'Resposta',
@@ -43,35 +44,42 @@ export const translations = {
       home: 'Início',
       update: 'Atualizar',
     },
-    deleteModal: {
-      button: { cancel: 'Cancelar', delete: 'Excluir' },
-      header: 'Tem certeza que deseja excluir o questionário?',
-    },
+    deleteHeader: 'Tem certeza que deseja excluir o questionário?',
     header: 'Gerenciar Questionários',
     quizModal: {
-      button: { cancel: 'Cancelar', clear: 'Limpar', save: 'Salvar' },
+      button: {
+        archive: 'Arquivar',
+        cancel: 'Cancelar',
+        clear: 'Limpar',
+        delete: 'Excluir',
+        edit: 'Editar',
+        publish: 'Publicar',
+        save: 'Salvar',
+      },
+
       gameMode: 'Modo de jogo',
       gameModes: {
-        infinite: {
-          helperText: 'O jogo não tem fim.',
-          icon: <HourglassBottomRounded />,
-          text: 'Infinito',
+        [properties.gameModes[0]]: {
+          helperText: 'Modo padrão sem limite de tempo.',
+          icon: <QuizRounded />,
+          text: 'Clássico',
         },
-        stars: {
+        [properties.gameModes[1]]: {
+          helperText: 'O jogo termina quando o tempo acaba.',
+          icon: <TimerRounded />,
+          text: 'Tempo',
+        },
+        [properties.gameModes[2]]: {
           helperText:
             'O jogo termina quando o jogador perde todas as estrelas.',
           icon: <StarRounded />,
           text: 'Estrelas',
         },
-        timed: {
-          helperText: 'O jogo termina quando o tempo acaba.',
-          icon: <TimerRounded />,
-          text: 'Tempo',
-        },
       },
       headerCreate: 'Criar novo questionário',
       headerEdit: 'Editar questionário',
       name: 'Nome',
+
       questions: 'Perguntas',
     },
   },

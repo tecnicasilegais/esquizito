@@ -28,8 +28,10 @@ function ManageQuestionsPage() {
     }
   };
   useEffect(() => {
-    refreshQuestions();
-  }, [user]);
+    if (user.id) {
+      refreshQuestions();
+    }
+  }, [user.id]);
   return (
     <HeaderScreen headerCenter={translations.manageQuestions.header}>
       <Stack mb={2} mt={1} mx={2} spacing={2}>
