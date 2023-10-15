@@ -1,8 +1,8 @@
 import { Box, Button, Card, Grid, Stack, Table, Typography } from '@mui/joy';
-import Average from 'components/Average/Average';
-import HeaderScreen from 'components/HeaderScreen/HeaderScreen';
+import { examples, translations } from 'util/Properties';
+import Average from 'components/Average';
+import HeaderScreen from 'components/HeaderScreen';
 import React from 'react';
-import { translations, examples } from 'util/Properties';
 import correct from 'assets/check.svg';
 import incorrect from 'assets/cancel.svg';
 

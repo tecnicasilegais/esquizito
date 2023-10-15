@@ -5,13 +5,13 @@ import {
   Divider,
   Grid,
   Radio,
-  radioClasses,
   Stack,
+  radioClasses,
 } from '@mui/joy';
-import HeaderScreen from 'components/HeaderScreen/HeaderScreen';
-import GameQuestion from 'components/GameQuestion/GameQuestion';
+import { examples, translations } from 'util/Properties';
+import GameQuestion from 'components/GameQuestion';
+import HeaderScreen from 'components/HeaderScreen';
 import React from 'react';
-import { translations, examples } from 'util/Properties';
 
 function GamePage() {
   const [selectedAnswer, setSelectedAnswer] = React.useState('');

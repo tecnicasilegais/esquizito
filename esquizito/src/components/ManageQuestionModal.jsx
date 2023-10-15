@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import * as PropTypes from 'prop-types';
 import {
   Button,
   ButtonGroup,
@@ -16,8 +16,8 @@ import {
   Textarea,
 } from '@mui/joy';
 import { CleaningServices, Clear, Save } from '@mui/icons-material';
-import * as PropTypes from 'prop-types';
 import { translations } from 'util/Properties';
+import React, { useEffect, useState } from 'react';
 
 function ManageQuestionModal({
   formDisabled,

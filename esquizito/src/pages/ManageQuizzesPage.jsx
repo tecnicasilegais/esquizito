@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Card, LinearProgress, Stack } from '@mui/joy';
-import { useNavigate } from 'react-router-dom';
 import {
   AddCircleRounded,
   HomeRounded,
   SyncRounded,
 } from '@mui/icons-material';
-import HeaderScreen from 'components/HeaderScreen/HeaderScreen';
-import QuizService from 'apis/services/QuizService';
-import { useUser } from 'contexts/UserContext';
-import { urlPaths } from 'util/UrlPaths';
+import { Button, Card, LinearProgress, Stack } from '@mui/joy';
 import { translations } from 'util/Properties';
-import ManageQuizModal from 'components/ManageQuizModal/ManageQuizModal';
-import Quiz from 'components/Quiz/Quiz';
+import { urlPaths } from 'util/UrlPaths';
+import { useNavigate } from 'react-router-dom';
+import { useUser } from 'contexts/UserContext';
+import HeaderScreen from 'components/HeaderScreen';
+import ManageQuizModal from 'components/ManageQuizModal';
 import QuestionService from 'apis/services/QuestionService';
+import Quiz from 'components/Quiz';
+import QuizService from 'apis/services/QuizService';
+import React, { useEffect, useState } from 'react';
 
 function ManageQuizzesPage() {
   const navigate = useNavigate();

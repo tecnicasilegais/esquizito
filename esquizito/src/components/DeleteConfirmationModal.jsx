@@ -1,4 +1,4 @@
-import React from 'react';
+import * as PropTypes from 'prop-types';
 import {
   Button,
   ButtonGroup,
@@ -7,9 +7,9 @@ import {
   Modal,
   ModalDialog,
 } from '@mui/joy';
-import * as PropTypes from 'prop-types';
-import { translations } from 'util/Properties';
 import { DeleteRounded } from '@mui/icons-material';
+import { translations } from 'util/Properties';
+import React from 'react';
 
 function DeleteConfirmationModal({
   onClose,

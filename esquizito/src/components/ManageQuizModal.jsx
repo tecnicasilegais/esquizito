@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import * as PropTypes from 'prop-types';
 import {
   Box,
   Button,
@@ -28,10 +28,10 @@ import {
   Save,
   VisibilityRounded,
 } from '@mui/icons-material';
-import * as PropTypes from 'prop-types';
 import { properties, translations } from 'util/Properties';
-import GameModeSelector from 'components/GameModeSelector/GameModeSelector';
-import ManageQuestionModal from 'components/ManageQuestionModal/ManageQuestionModal';
+import GameModeSelector from 'components/GameModeSelector';
+import ManageQuestionModal from 'components/ManageQuestionModal';
+import React, { useEffect, useState } from 'react';
 
 function ManageQuizModal({
   formDisabled,

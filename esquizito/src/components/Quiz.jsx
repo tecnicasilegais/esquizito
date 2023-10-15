@@ -1,5 +1,3 @@
-import React, { useState } from 'react';
-import { Box, Button, Card, Chip, Divider, Stack } from '@mui/joy';
 import {
   ArchiveRounded,
   EditRounded,
@@ -7,17 +5,18 @@ import {
   TagRounded,
   VisibilityRounded,
 } from '@mui/icons-material';
-import PropTypes from 'prop-types';
+import { Box, Button, Card, Chip, Divider, Stack } from '@mui/joy';
 import { properties, translations } from 'util/Properties';
-import DeleteConfirmationModal from 'components/DeleteQuestionModal/DeleteConfirmationModal';
-import ManageQuizModal from 'components/ManageQuizModal/ManageQuizModal';
+import DeleteConfirmationModal from 'components/DeleteConfirmationModal';
+import ManageQuizModal from 'components/ManageQuizModal';
+import PropTypes from 'prop-types';
 import QuizService from 'apis/services/QuizService';
+import React, { useState } from 'react';
 
 function Quiz({ gameMode, name, questions, quizId, quizStatus, refreshPage }) {
   const [modalEditQuiz, setModalEditQuiz] = useState(false);
   const [modalDeleteQuiz, setModalDeleteQuiz] = useState(false);
   const [modalFieldsDisabled, setModalFieldsDisabled] = useState(false);
-
   return (
     <Card variant='soft'>
       <Stack alignItems='stretch' direction='row' spacing={1}>

@@ -1,7 +1,7 @@
-import LoginStack from 'components/LoginStack/LoginStack';
-import LogoCard from 'components/LogoCard/LogoCard';
-import MenuOptions from 'components/MenuOptions/MenuOptions';
 import { useUser } from 'contexts/UserContext';
+import LoginStack from 'components/LoginStack';
+import LogoCard from 'components/LogoCard';
+import MenuOptions from 'components/MenuOptions';
 import React from 'react';
 
 function MainMenu() {

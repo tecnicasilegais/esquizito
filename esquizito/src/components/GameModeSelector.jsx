@@ -1,6 +1,6 @@
-import React from 'react';
 import { Box, Stack } from '@mui/joy';
 import PropTypes from 'prop-types';
+import React from 'react';
 
 function GameModeSelector({ children, endDecorator, startDecorator }) {
   return (
