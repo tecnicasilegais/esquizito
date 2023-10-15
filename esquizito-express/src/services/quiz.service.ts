@@ -11,7 +11,7 @@ export class QuizService extends BaseService<QuizDocument> {
     super(quizRepository);
   }
 
-  // are there extra validations?
+  // are there extra validators?
   create = async (quiz: QuizDocument) => {
     const quizDoc = quiz;
     quizDoc.status = QuizStatus.DRAFT;

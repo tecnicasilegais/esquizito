@@ -3,6 +3,7 @@ import { NextFunction, Request, Response } from 'express';
 import { BaseController } from 'controllers/base.controller';
 import { QuizDocument } from 'models/documents';
 import quizService, { QuizService } from 'services/quiz.service';
+import resultService from 'services/result.service';
 
 export class QuizController extends BaseController<QuizDocument> {
   declare service: QuizService;
@@ -68,5 +69,19 @@ export class QuizController extends BaseController<QuizDocument> {
     return res
       .status(200)
       .json({ message: `Successfully archived the ${this.name}` });
+  };
+
+  // eslint-disable-next-line class-methods-use-this
+  getResults = async (req: Request, res: Response, next: NextFunction) => {
+    const { id } = req.params;
+
+    const results = await resultService.listByQuizId(id);
+
+    if (!results) {
+      req.notFoundMessage = `Could not locate results by quizId: ${id}`;
+      return next();
+    }
+
+    return res.status(200).json(results);
   };
 }

@@ -28,3 +28,18 @@ export interface IQuiz<T, U> {
   amountOfStars?: number;
   questions: Array<U>;
 }
+
+export interface IResponse<T> {
+  questionId: T;
+  givenAnswer: boolean;
+  correctAnswer: boolean;
+  elapsedTime: number; // seconds
+}
+
+export interface IResult<T> {
+  userId: T;
+  quizId: T;
+  answers: IResponse<T>[];
+  elapsedTime: number; // seconds
+  createdAt: Date;
+}

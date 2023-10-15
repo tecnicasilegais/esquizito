@@ -21,6 +21,7 @@
     "no-underscore-dangle": "off",
     "func-names": "off",
     "no-shadow": "off",
+    "no-plusplus": "off",
     "@typescript-eslint/no-shadow": "warn",
     "@typescript-eslint/no-unused-vars": ["error"],
     "import/no-unresolved": "error",
