@@ -17,8 +17,6 @@ function Quiz({ gameMode, name, questions, quizId, quizStatus, refreshPage }) {
   const [modalEditQuiz, setModalEditQuiz] = useState(false);
   const [modalDeleteQuiz, setModalDeleteQuiz] = useState(false);
   const [modalFieldsDisabled, setModalFieldsDisabled] = useState(false);
-  console.log(quizStatus);
-  console.log(properties.quizStatus[quizStatus]);
   return (
     <Card variant='soft'>
       <Stack alignItems='stretch' direction='row' spacing={1}>
