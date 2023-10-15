@@ -2,7 +2,7 @@ import { Button, FormControl, FormLabel, Input, Stack } from '@mui/joy';
 import LogoCard from 'components/LogoCard/LogoCard';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { properties } from 'util/Properties';
+import { translations } from 'util/Properties';
 import { urlPaths } from 'util/UrlPaths';
 
 /*
@@ -19,9 +19,9 @@ function JoinGamePage() {
     <LogoCard>
       <Stack spacing={4}>
         <FormControl>
-          <FormLabel>{properties.screen.joinGame.label.gameCode}</FormLabel>
+          <FormLabel>{translations.joinGame.label.gameCode}</FormLabel>
           <Input
-            placeholder={properties.screen.joinGame.placeholder.gameCode}
+            placeholder={translations.joinGame.placeholder.gameCode}
             value={gameCode}
             variant='soft'
             onChange={(event) => {
@@ -33,11 +33,11 @@ function JoinGamePage() {
           <Button onClick={() => gameCode && navigate(urlPaths.gamePage)}>
             {
               // TODO: change gameCode verification to give message wrong code
-              properties.screen.joinGame.button.play
+              translations.joinGame.button.play
             }
           </Button>
           <Button variant='soft' onClick={() => navigate(urlPaths.mainMenu)}>
-            {properties.screen.joinGame.button.back}
+            {translations.joinGame.button.back}
           </Button>
         </Stack>
       </Stack>

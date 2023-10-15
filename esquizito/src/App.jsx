@@ -12,6 +12,7 @@ import { Route, Routes } from 'react-router-dom';
 import { urlPaths } from 'util/UrlPaths';
 import styles from './App.module.scss';
 import ManageQuestionsPage from './pages/ManageQuestionsPage/ManageQuestionsPage';
+import ManageQuizzesPage from './pages/ManageQuizzesPage/ManageQuizzesPage';
 
 function AppRoutes() {
   return (
@@ -37,6 +38,10 @@ function AppRoutes() {
       <Route
         element={<AuthenticationGuard component={ManageQuestionsPage} />}
         path={urlPaths.manageQuestionsPage}
+      />
+      <Route
+        element={<AuthenticationGuard component={ManageQuizzesPage} />}
+        path={urlPaths.manageQuizzesPage}
       />
     </Routes>
   );

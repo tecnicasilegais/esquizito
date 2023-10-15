@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Card, Stack } from '@mui/joy';
+import { Button, Card, LinearProgress, Stack } from '@mui/joy';
 import { useNavigate } from 'react-router-dom';
 import {
   AddCircleRounded,
@@ -8,11 +8,11 @@ import {
 } from '@mui/icons-material';
 import HeaderScreen from 'components/HeaderScreen/HeaderScreen';
 import ManageQuestionModal from 'components/ManageQuestionModal/ManageQuestionModal';
-import * as DB from 'apis/services/Question';
+import QuestionService from 'apis/services/QuestionService';
 import ManageQuestion from 'components/ManageQuestion/ManageQuestion';
 import { useUser } from 'contexts/UserContext';
 import { urlPaths } from 'util/UrlPaths';
-import { properties } from 'util/Properties';
+import { translations } from 'util/Properties';
 
 function ManageQuestionsPage() {
   const navigate = useNavigate();
@@ -21,17 +21,20 @@ function ManageQuestionsPage() {
   const [questions, setQuestions] = useState([]);
   const { user } = useUser();
   const refreshQuestions = async () => {
-    const result = await DB.getQuestions(user.id);
+    setIsLoading(true);
+    const result = await QuestionService.list(user.id);
     if (result) {
       setQuestions(result);
-      setIsLoading(false);
     }
+    setIsLoading(false);
   };
   useEffect(() => {
-    refreshQuestions();
-  }, [user]);
+    if (user.id) {
+      refreshQuestions();
+    }
+  }, [user.id]);
   return (
-    <HeaderScreen headerCenter={properties.screen.manageQuestions.header}>
+    <HeaderScreen headerCenter={translations.manageQuestions.header}>
       <Stack mb={2} mt={1} mx={2} spacing={2}>
         <Card sx={{ borderRadius: '36px' }}>
           <Stack direction='row' justifyContent='space-between' spacing={2}>
@@ -39,23 +42,24 @@ function ManageQuestionsPage() {
               startDecorator={<HomeRounded />}
               variant='solid'
               onClick={() => navigate(urlPaths.mainMenu)}>
-              {properties.screen.manageQuestions.button.home}
+              {translations.manageQuestions.button.home}
             </Button>
             <Stack direction='row' spacing={2}>
               <Button
                 startDecorator={<AddCircleRounded />}
                 variant='soft'
                 onClick={() => setModalCreateQuestion(true)}>
-                {properties.screen.manageQuestions.button.create}
+                {translations.manageQuestions.button.create}
               </Button>
               <Button
                 startDecorator={<SyncRounded />}
                 variant='soft'
                 onClick={refreshQuestions}>
-                {properties.screen.manageQuestions.button.update}
+                {translations.manageQuestions.button.update}
               </Button>
             </Stack>
           </Stack>
+          {isLoading && <LinearProgress size='sm' />}
           <Stack spacing={2}>
             {!isLoading &&
               questions.map((question) => (
@@ -74,13 +78,13 @@ function ManageQuestionsPage() {
       </Stack>
       <ManageQuestionModal
         open={modalCreateQuestion}
-        title={properties.screen.manageQuestions.questionModal.headerCreate}
+        title={translations.manageQuestions.questionModal.headerCreate}
         type='create'
         onCancel={() => setModalCreateQuestion(false)}
         onClose={() => setModalCreateQuestion(false)}
         onSave={(questionData) =>
-          DB.createQuestion({ userId: user.id, ...questionData }).then(() =>
-            refreshQuestions(),
+          QuestionService.create({ userId: user.id, ...questionData }).then(
+            () => refreshQuestions(),
           )
         }
       />

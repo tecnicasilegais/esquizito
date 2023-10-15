@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Button,
   ButtonGroup,
@@ -17,9 +17,10 @@ import {
 } from '@mui/joy';
 import { CleaningServices, Clear, Save } from '@mui/icons-material';
 import * as PropTypes from 'prop-types';
-import { properties } from 'util/Properties';
+import { translations } from 'util/Properties';
 
 function ManageQuestionModal({
+  formDisabled,
   onClose,
   onSave,
   open,
@@ -55,7 +56,7 @@ function ManageQuestionModal({
   };
 
   const handleAnswerChange = (event) => {
-    setAnswer(event.target.value);
+    setAnswer(event.target.value === 'true');
   };
 
   const handleClose = () => {
@@ -64,6 +65,12 @@ function ManageQuestionModal({
     }
     onClose();
   };
+
+  useEffect(() => {
+    if (questionData) {
+      updateFields(questionData);
+    }
+  }, [questionData]);
 
   return (
     <Modal open={open} onClose={handleClose}>
@@ -74,11 +81,12 @@ function ManageQuestionModal({
           <Stack minWidth='60vw' mt={1} spacing={2}>
             <FormControl>
               <FormLabel>
-                {properties.screen.manageQuestions.questionModal.subject}
+                {translations.manageQuestions.questionModal.subject}
               </FormLabel>
               <Input
                 autoFocus
                 required
+                disabled={formDisabled}
                 value={subject}
                 variant='soft'
                 onChange={(event) => setSubject(event.target.value)}
@@ -86,10 +94,11 @@ function ManageQuestionModal({
             </FormControl>
             <FormControl>
               <FormLabel>
-                {properties.screen.manageQuestions.questionModal.statement}
+                {translations.manageQuestions.questionModal.statement}
               </FormLabel>
               <Textarea
                 required
+                disabled={formDisabled}
                 minRows={5}
                 value={statement}
                 variant='soft'
@@ -97,20 +106,20 @@ function ManageQuestionModal({
               />
             </FormControl>
             <FormLabel>
-              {properties.screen.manageQuestions.questionModal.answer}
+              {translations.manageQuestions.questionModal.answer}
             </FormLabel>
             <RadioGroup orientation='horizontal'>
               <Radio
                 value
                 checked={answer}
+                disabled={formDisabled}
+                label={translations.manageQuestions.questionModal.answerTrue}
                 name='answerRadio'
-                label={
-                  properties.screen.manageQuestions.questionModal.answerTrue
-                }
                 onChange={handleAnswerChange}
               />
               <Radio
                 checked={!answer}
+                disabled={formDisabled}
                 label='Falso'
                 name='answerRadio'
                 value={false}
@@ -120,48 +129,51 @@ function ManageQuestionModal({
             <FormControl />
             <FormControl>
               <FormLabel>
-                {properties.screen.manageQuestions.questionModal.explanation}
+                {translations.manageQuestions.questionModal.explanation}
               </FormLabel>
               <Textarea
                 required
+                disabled={formDisabled}
                 minRows={5}
                 value={explanation}
                 variant='soft'
                 onChange={(event) => setExplanation(event.target.value)}
               />
             </FormControl>
-            <ButtonGroup buttonFlex={1}>
-              <Button
-                color='danger'
-                startDecorator={<CleaningServices />}
-                type='reset'
-                variant='solid'
-                onClick={() => clearFields()}>
-                {properties.screen.manageQuestions.questionModal.button.clear}
-              </Button>
-              <Button
-                startDecorator={<Clear />}
-                variant='soft'
-                onClick={handleClose}>
-                {properties.screen.manageQuestions.questionModal.button.cancel}
-              </Button>
-              <Button
-                color='primary'
-                startDecorator={<Save />}
-                type='submit'
-                variant='solid'
-                onClick={() => {
-                  onSave({
-                    answer,
-                    explanation,
-                    statement,
-                    subject,
-                  });
-                  onClose();
-                }}>
-                {properties.screen.manageQuestions.questionModal.button.save}
-              </Button>
-            </ButtonGroup>
+            {!formDisabled && (
+              <ButtonGroup buttonFlex={1}>
+                <Button
+                  color='danger'
+                  startDecorator={<CleaningServices />}
+                  type='reset'
+                  variant='solid'
+                  onClick={() => clearFields()}>
+                  {translations.manageQuestions.questionModal.button.clear}
+                </Button>
+                <Button
+                  startDecorator={<Clear />}
+                  variant='soft'
+                  onClick={handleClose}>
+                  {translations.manageQuestions.questionModal.button.cancel}
+                </Button>
+                <Button
+                  color='primary'
+                  startDecorator={<Save />}
+                  type='submit'
+                  variant='solid'
+                  onClick={() => {
+                    onSave({
+                      answer,
+                      explanation,
+                      statement,
+                      subject,
+                    });
+                    onClose();
+                  }}>
+                  {translations.manageQuestions.questionModal.button.save}
+                </Button>
+              </ButtonGroup>
+            )}
           </Stack>
         </DialogContent>
       </ModalDialog>
@@ -170,8 +182,9 @@ function ManageQuestionModal({
 }
 
 ManageQuestionModal.propTypes = {
+  formDisabled: PropTypes.bool,
   onClose: PropTypes.func.isRequired,
-  onSave: PropTypes.func.isRequired,
+  onSave: PropTypes.func,
   open: PropTypes.bool.isRequired,
   questionData: PropTypes.shape({
     answer: PropTypes.bool,
@@ -184,6 +197,8 @@ ManageQuestionModal.propTypes = {
 };
 
 ManageQuestionModal.defaultProps = {
+  formDisabled: false,
+  onSave: null,
   questionData: null,
 };
 

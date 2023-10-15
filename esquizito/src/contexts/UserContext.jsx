@@ -1,6 +1,6 @@
 import { useAuth0 } from '@auth0/auth0-react';
 
-import User from 'apis/services/User';
+import UserService from 'apis/services/UserService';
 import PropTypes from 'prop-types';
 import React, {
   createContext,
@@ -55,7 +55,7 @@ export function UserProvider({ children }) {
 
   const getUserApiId = useCallback(async () => {
     const token = await getAccessTokenSilently();
-    const { data, status } = await User.getUserByAuth0(
+    const { data, status } = await UserService.getUserByAuth0(
       extractAuth0Id(userAuth0.sub),
       token,
     );
@@ -69,7 +69,7 @@ export function UserProvider({ children }) {
     }
     if (status === 404) {
       // eslint-disable-next-line no-shadow
-      const { data, status } = await User.register(
+      const { data, status } = await UserService.register(
         {
           auth0Id: extractAuth0Id(userAuth0.sub),
           email: userAuth0.email,
