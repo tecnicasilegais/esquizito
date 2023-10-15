@@ -32,18 +32,23 @@ function JoinGamePage() {
 
   const handleJoinGame = async () => {
     if (!gameCode) {
-      setShowError(true);
       setErrorMessage(translations.joinGame.gameCode.error.invalidCode);
+      setShowError(true);
       return;
     }
     try {
       const quiz = await QuizService.getByCode(gameCode);
-      setShowError(false);
+      if (quiz.data.questions.length % 2 !== 0) {
+        setErrorMessage(translations.joinGame.gameCode.error.oddQuestions);
+        setShowError(true);
+        return;
+      }
       setErrorMessage(null);
+      setShowError(false);
       setGameData(quiz.data);
     } catch (error) {
-      setShowError(true);
       setErrorMessage(translations.joinGame.gameCode.error.notFound);
+      setShowError(true);
     }
   };
 

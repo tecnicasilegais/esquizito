@@ -8,6 +8,7 @@ import {
 } from '@mui/icons-material';
 
 export const properties = {
+  answers: ['vv', 'vf', 'fv', 'ff'],
   gameModes: ['classic', 'timed', 'stars'],
   quizStatus: ['draft', 'published', 'archived'],
 };
@@ -17,6 +18,12 @@ export const translations = {
     button: { cancel: 'Cancelar', delete: 'Excluir' },
   },
   game: {
+    answers: {
+      ff: 'Nenhuma alternativa é verdadeira.',
+      fv: 'Apenas II é verdadeira.',
+      vf: 'Apenas I é verdadeira.',
+      vv: 'Todas as alternativas são verdadeiras.',
+    },
     button: { confirm: 'Confirmar', next: 'Avançar' },
   },
   joinGame: {
@@ -26,6 +33,8 @@ export const translations = {
         invalidCode: 'Código inválido.',
         notFound:
           'Não foi possível encontrar um quiz publicado com esse código.',
+        oddQuestions:
+          'O quiz informado é inválido. Verifique o número de questões com o criador.',
       },
       label: 'Código do quiz',
       placeholder: 'Insira o código',
