@@ -6,10 +6,10 @@ import {
   HomeRounded,
   SyncRounded,
 } from '@mui/icons-material';
-import HeaderScreen from 'components/HeaderScreen/HeaderScreen';
-import ManageQuestionModal from 'components/ManageQuestionModal/ManageQuestionModal';
+import HeaderScreen from 'components/HeaderScreen';
+import ManageQuestionModal from 'components/ManageQuestionModal';
 import QuestionService from 'apis/services/QuestionService';
-import ManageQuestion from 'components/ManageQuestion/ManageQuestion';
+import ManageQuestion from 'components/ManageQuestion';
 import { useUser } from 'contexts/UserContext';
 import { urlPaths } from 'util/UrlPaths';
 import { translations } from 'util/Properties';

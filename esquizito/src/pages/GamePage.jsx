@@ -8,8 +8,8 @@ import {
   radioClasses,
   Stack,
 } from '@mui/joy';
-import HeaderScreen from 'components/HeaderScreen/HeaderScreen';
-import GameQuestion from 'components/GameQuestion/GameQuestion';
+import HeaderScreen from 'components/HeaderScreen';
+import GameQuestion from 'components/GameQuestion';
 import React from 'react';
 import { translations, examples } from 'util/Properties';
 

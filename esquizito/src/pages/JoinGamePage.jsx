@@ -1,5 +1,5 @@
 import { Button, FormControl, FormLabel, Input, Stack } from '@mui/joy';
-import LogoCard from 'components/LogoCard/LogoCard';
+import LogoCard from 'components/LogoCard';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { translations } from 'util/Properties';

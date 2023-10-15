@@ -6,13 +6,13 @@ import {
   HomeRounded,
   SyncRounded,
 } from '@mui/icons-material';
-import HeaderScreen from 'components/HeaderScreen/HeaderScreen';
+import HeaderScreen from 'components/HeaderScreen';
 import QuizService from 'apis/services/QuizService';
 import { useUser } from 'contexts/UserContext';
 import { urlPaths } from 'util/UrlPaths';
 import { translations } from 'util/Properties';
-import ManageQuizModal from 'components/ManageQuizModal/ManageQuizModal';
-import Quiz from 'components/Quiz/Quiz';
+import ManageQuizModal from 'components/ManageQuizModal';
+import Quiz from 'components/Quiz';
 import QuestionService from 'apis/services/QuestionService';
 
 function ManageQuizzesPage() {

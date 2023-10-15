@@ -9,8 +9,8 @@ import {
 } from '@mui/icons-material';
 import PropTypes from 'prop-types';
 import { properties, translations } from 'util/Properties';
-import DeleteConfirmationModal from 'components/DeleteQuestionModal/DeleteConfirmationModal';
-import ManageQuizModal from 'components/ManageQuizModal/ManageQuizModal';
+import DeleteConfirmationModal from 'components/DeleteConfirmationModal';
+import ManageQuizModal from 'components/ManageQuizModal';
 import QuizService from 'apis/services/QuizService';
 
 function Quiz({ gameMode, name, questions, quizId, quizStatus, refreshPage }) {

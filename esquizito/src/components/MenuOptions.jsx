@@ -1,5 +1,5 @@
 import { Button, Stack } from '@mui/joy';
-import LogoutButton from 'components/LogoutButton/LogoutButton';
+import LogoutButton from 'components/LogoutButton';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { translations } from 'util/Properties';

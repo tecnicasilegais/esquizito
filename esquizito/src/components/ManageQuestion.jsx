@@ -4,8 +4,8 @@ import { DeleteRounded, EditRounded } from '@mui/icons-material';
 import PropTypes from 'prop-types';
 import { useUser } from 'contexts/UserContext';
 import { translations } from 'util/Properties';
-import DeleteConfirmationModal from 'components/DeleteQuestionModal/DeleteConfirmationModal';
-import ManageQuestionModal from 'components/ManageQuestionModal/ManageQuestionModal';
+import DeleteConfirmationModal from 'components/DeleteConfirmationModal';
+import ManageQuestionModal from 'components/ManageQuestionModal';
 import QuestionService from 'apis/services/QuestionService';
 
 function ManageQuestion({

@@ -9,6 +9,7 @@
     "prettier",
     "sort-keys-fix",
     "sort-destructure-keys",
+    "sort-imports-es6-autofix",
     "no-relative-import-paths"
   ],
   "rules": {
@@ -64,7 +65,8 @@
       {
         "ignoreCase": true
       }
-    ]
+    ],
+    "sort-imports-es6-autofix/sort-imports-es6": "warn"
   },
   "env": {
     "browser": true,

@@ -1,5 +1,5 @@
 import { withAuthenticationRequired } from '@auth0/auth0-react';
-import LoadingPage from 'pages/LoadingPage/LoadingPage';
+import LoadingPage from 'pages/LoadingPage';
 import PropTypes from 'prop-types';
 import React from 'react';
 

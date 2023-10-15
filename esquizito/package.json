@@ -14,6 +14,7 @@
     "axios": "^1.5.1",
     "eslint-plugin-no-relative-import-paths": "^1.5.2",
     "eslint-plugin-sort-destructure-keys": "^1.5.0",
+    "eslint-plugin-sort-imports-es6-autofix": "^0.6.0",
     "eslint-plugin-sort-keys-fix": "^1.1.2",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",

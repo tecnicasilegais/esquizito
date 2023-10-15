@@ -1,18 +1,18 @@
-import AuthenticationGuard from 'components/AuthenticationGuard/AuthenticationGuard';
+import AuthenticationGuard from 'components/AuthenticationGuard';
 import { useUser } from 'contexts/UserContext';
-import GamePage from 'pages/GamePage/GamePage';
+import GamePage from 'pages/GamePage';
 
-import JoinGamePage from 'pages/JoinGamePage/JoinGamePage';
-import LandingPage from 'pages/LandingPage/LandingPage';
-import LoadingPage from 'pages/LoadingPage/LoadingPage';
-import MainMenu from 'pages/MainMenu/MainMenu';
-import RankingPage from 'pages/RankingPage/RankingPage';
+import JoinGamePage from 'pages/JoinGamePage';
+import LandingPage from 'pages/LandingPage';
+import LoadingPage from 'pages/LoadingPage';
+import MainMenu from 'pages/MainMenu';
+import RankingPage from 'pages/RankingPage';
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { urlPaths } from 'util/UrlPaths';
+import ManageQuestionsPage from 'pages/ManageQuestionsPage';
+import ManageQuizzesPage from 'pages/ManageQuizzesPage';
 import styles from './App.module.scss';
-import ManageQuestionsPage from './pages/ManageQuestionsPage/ManageQuestionsPage';
-import ManageQuizzesPage from './pages/ManageQuizzesPage/ManageQuizzesPage';
 
 function AppRoutes() {
   return (
