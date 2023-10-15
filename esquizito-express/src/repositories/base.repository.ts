@@ -47,8 +47,18 @@ export class BaseRepository<T> implements IRepository<T> {
     return this.filterOperation(this._model.find(), filters).exec();
   }
 
-  async update(id: string, changes: Partial<T>) {
-    return this._model.findByIdAndUpdate(id, changes).exec();
+  async update(id: string, changes: Partial<T>, fieldsToRemove?: [keyof T]) {
+    const updateOperation: [{ $set: Partial<T> } | { $unset: keyof T }] = [
+      { $set: changes },
+    ];
+    if (fieldsToRemove) {
+      fieldsToRemove.forEach((field: keyof T) => {
+        updateOperation.push({ $unset: field });
+      });
+    }
+    return this._model
+      .findByIdAndUpdate(id, updateOperation, { new: true })
+      .exec();
   }
 
   async create(model: T) {
