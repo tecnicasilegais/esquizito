@@ -11,7 +11,8 @@ import MainMenu from 'pages/MainMenu';
 import ManageQuestionsPage from 'pages/ManageQuestionsPage';
 import ManageQuizzesPage from 'pages/ManageQuizzesPage';
 import RankingPage from 'pages/RankingPage';
-import React from 'react';
+import React, { useMemo } from 'react';
+import GameContext from 'contexts/GameContext';
 import styles from './App.module.scss';
 
 function AppRoutes() {
@@ -48,12 +49,20 @@ function AppRoutes() {
 }
 
 export default function App() {
+  const [gameData, setGameData] = React.useState(null);
   const { isLoading } = useUser();
 
+  const gameContext = useMemo(
+    () => ({ gameData, setGameData }),
+    [gameData, setGameData],
+  );
+
   return (
-    <div className={styles.app}>
-      {isLoading && <LoadingPage />}
-      {!isLoading && <AppRoutes />}
-    </div>
+    <GameContext.Provider value={gameContext}>
+      <div className={styles.app}>
+        {isLoading && <LoadingPage />}
+        {!isLoading && <AppRoutes />}
+      </div>
+    </GameContext.Provider>
   );
 }

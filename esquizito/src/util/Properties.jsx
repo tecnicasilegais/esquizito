@@ -21,8 +21,15 @@ export const translations = {
   },
   joinGame: {
     button: { back: 'Voltar', play: 'Jogar' },
-    label: { gameCode: 'Código do quiz' },
-    placeholder: { gameCode: 'Insira o código' },
+    gameCode: {
+      error: {
+        invalidCode: 'Código inválido.',
+        notFound:
+          'Não foi possível encontrar um quiz publicado com esse código.',
+      },
+      label: 'Código do quiz',
+      placeholder: 'Insira o código',
+    },
   },
   landing: { button: { login: 'Entrar' } },
   manageQuestions: {

@@ -1,9 +1,20 @@
-import { Button, FormControl, FormLabel, Input, Stack } from '@mui/joy';
+import {
+  Box,
+  Button,
+  FormControl,
+  FormHelperText,
+  FormLabel,
+  Input,
+  Stack,
+} from '@mui/joy';
+import { InfoOutlined } from '@mui/icons-material';
 import { translations } from 'util/Properties';
 import { urlPaths } from 'util/UrlPaths';
 import { useNavigate } from 'react-router-dom';
+import GameContext from 'contexts/GameContext';
 import LogoCard from 'components/LogoCard';
-import React from 'react';
+import QuizService from 'apis/services/QuizService';
+import React, { useEffect } from 'react';
 
 /*
   TODO: Validate input
@@ -14,23 +25,58 @@ import React from 'react';
  */
 function JoinGamePage() {
   const navigate = useNavigate();
+  const { gameData, setGameData } = React.useContext(GameContext);
   const [gameCode, setGameCode] = React.useState('');
+  const [errorMessage, setErrorMessage] = React.useState(null);
+  const [showError, setShowError] = React.useState(false);
+
+  const handleJoinGame = async () => {
+    if (!gameCode) {
+      setShowError(true);
+      setErrorMessage(translations.joinGame.gameCode.error.invalidCode);
+      return;
+    }
+    try {
+      const quiz = await QuizService.getByCode(gameCode);
+      setShowError(false);
+      setErrorMessage(null);
+      setGameData(quiz.data);
+    } catch (error) {
+      setShowError(true);
+      setErrorMessage(translations.joinGame.gameCode.error.notFound);
+    }
+  };
+
+  useEffect(() => {
+    if (gameData) {
+      navigate(urlPaths.gamePage);
+    }
+  }, [gameData, navigate]);
+
   return (
     <LogoCard>
       <Stack spacing={4}>
-        <FormControl>
-          <FormLabel>{translations.joinGame.label.gameCode}</FormLabel>
+        <FormControl error={showError}>
+          <FormLabel>{translations.joinGame.gameCode.label}</FormLabel>
           <Input
-            placeholder={translations.joinGame.placeholder.gameCode}
+            placeholder={translations.joinGame.gameCode.placeholder}
             value={gameCode}
             variant='soft'
             onChange={(event) => {
               setGameCode(event.target.value);
             }}
           />
+          {showError && (
+            <FormHelperText>
+              <Stack direction='row' spacing={1}>
+                <InfoOutlined />
+                <Box>{errorMessage}</Box>
+              </Stack>
+            </FormHelperText>
+          )}
         </FormControl>
         <Stack spacing={1}>
-          <Button onClick={() => gameCode && navigate(urlPaths.gamePage)}>
+          <Button onClick={handleJoinGame}>
             {
               // TODO: change gameCode verification to give message wrong code
               translations.joinGame.button.play

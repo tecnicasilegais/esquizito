@@ -26,13 +26,8 @@ const QuizService = {
   },
 
   getByCode: async (quizCode) => {
-    try {
-      const response = await client.get(`/quiz/code/${quizCode}`);
-      return response.data;
-    } catch (error) {
-      toast.error('Erro ao buscar questionário!');
-      return undefined;
-    }
+    const response = await client.get(`/quiz/code/${quizCode}`);
+    return response;
   },
 
   list: async (userId) => {
