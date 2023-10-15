@@ -14,7 +14,6 @@
     "axios": "^1.5.1",
     "eslint-plugin-no-relative-import-paths": "^1.5.2",
     "eslint-plugin-sort-destructure-keys": "^1.5.0",
-    "eslint-plugin-sort-imports-es6-autofix": "^0.6.0",
     "eslint-plugin-sort-keys-fix": "^1.1.2",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
@@ -26,6 +25,22 @@
   "resolutions": {
     "@mui/material": "npm:@mui/joy@latest"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx}": [
+      "prettier --write",
+      "eslint --fix",
+      "git add"
+    ],
+    "*.{css,md,json}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -34,7 +49,8 @@
     "eject": "react-scripts eject",
     "lint": "eslint .",
     "lint:fix": "eslint --fix",
-    "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc"
+    "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",
+    "prepare": "husky install"
   },
   "eslintConfig": {
     "extends": [
@@ -69,6 +85,8 @@
     "eslint-plugin-prettier": "^5.0.0",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.3.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.0.1",
     "prettier": "^3.0.2",
     "react-test-renderer": "^18.2.0",
     "sass": "^1.66.0"

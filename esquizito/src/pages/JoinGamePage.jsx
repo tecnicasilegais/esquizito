@@ -1,9 +1,9 @@
 import { Button, FormControl, FormLabel, Input, Stack } from '@mui/joy';
-import LogoCard from 'components/LogoCard';
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import { translations } from 'util/Properties';
 import { urlPaths } from 'util/UrlPaths';
+import { useNavigate } from 'react-router-dom';
+import LogoCard from 'components/LogoCard';
+import React from 'react';
 
 /*
   TODO: Validate input

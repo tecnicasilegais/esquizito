@@ -1,7 +1,7 @@
 import { Box } from '@mui/joy';
-import logo from 'assets/logo.png';
 import PropTypes from 'prop-types';
 import React from 'react';
+import logo from 'assets/logo.png';
 import styles from './HeaderScreen.module.scss';
 
 function HeaderScreen({ children, headerCenter, headerRight }) {

@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
 import { Box, Button, Card, Chip, Divider, Stack } from '@mui/joy';
 import { DeleteRounded, EditRounded } from '@mui/icons-material';
-import PropTypes from 'prop-types';
-import { useUser } from 'contexts/UserContext';
 import { translations } from 'util/Properties';
+import { useUser } from 'contexts/UserContext';
 import DeleteConfirmationModal from 'components/DeleteConfirmationModal';
 import ManageQuestionModal from 'components/ManageQuestionModal';
+import PropTypes from 'prop-types';
 import QuestionService from 'apis/services/QuestionService';
+import React, { useState } from 'react';
 
 function ManageQuestion({
   answer,

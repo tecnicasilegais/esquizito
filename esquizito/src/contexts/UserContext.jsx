@@ -1,6 +1,6 @@
 import { useAuth0 } from '@auth0/auth0-react';
 
-import UserService from 'apis/services/UserService';
+import { extractAuth0Id } from 'util/Util';
 import PropTypes from 'prop-types';
 import React, {
   createContext,
@@ -10,7 +10,7 @@ import React, {
   useMemo,
   useState,
 } from 'react';
-import { extractAuth0Id } from 'util/Util';
+import UserService from 'apis/services/UserService';
 
 const UserContext = createContext(undefined);
 
