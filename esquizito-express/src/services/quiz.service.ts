@@ -27,7 +27,7 @@ export class QuizService extends BaseService<QuizDocument> {
     super.update(id, { status: QuizStatus.PUBLISHED, code: getId() });
 
   delete = async (id: string) =>
-    super.update(id, { status: QuizStatus.ARCHIVED });
+    this.repository.update(id, { status: QuizStatus.ARCHIVED }, ['code']);
 
   listByUserId = async (userId: string) =>
     this.repository.getAll([
