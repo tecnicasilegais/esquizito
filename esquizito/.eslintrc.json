@@ -14,7 +14,7 @@
   "rules": {
     "prettier/prettier": "error",
     "no-unused-vars": "warn",
-    "no-console": "error",
+    "no-console": "warn",
     "no-underscore-dangle": "off",
     "func-names": "off",
     "import/prefer-default-export": "off",
@@ -74,10 +74,7 @@
   "settings": {
     "import/resolver": {
       "node": {
-        "moduleDirectory": [
-          "node_modules",
-          "src"
-        ]
+        "moduleDirectory": ["node_modules", "src"]
       }
     }
   }
