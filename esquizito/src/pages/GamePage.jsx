@@ -7,14 +7,12 @@ import {
   Radio,
   Stack,
   radioClasses,
-  Typography,
 } from '@mui/joy';
-import { examples, properties, translations } from 'util/Properties';
+import { properties, translations } from 'util/Properties';
 import GameContext from 'contexts/GameContext';
 import GameQuestion from 'components/GameQuestion';
 import HeaderScreen from 'components/HeaderScreen';
 import React, { useEffect, useState, useContext } from 'react';
-import QuizService from 'apis/services/QuizService';
 import ResultService from 'apis/services/ResultService';
 import { urlPaths } from 'util/UrlPaths';
 import { useUser } from 'contexts/UserContext';
@@ -65,11 +63,9 @@ function GamePage() {
     } else {
       setAnswerCorrect(false);
     }
-    console.log('answers', answers);
   };
 
   const nextQuestion = () => {
-    console.log('questionIndex', questionIndex);
     setSelectedAnswer('');
     setAnswerCorrect(null);
     if (questionIndex + 2 < questions.length) {
@@ -87,34 +83,13 @@ function GamePage() {
 
   useEffect(() => {
     if (gameData) {
-      console.log('got data from context ', gameData);
       setQuestions(gameData.questions);
       setLoading(false);
     }
   }, [gameData]);
 
-  const radioCardStyle = (theme) => {
-    const mainStyle = {
-      '&:hover': {
-        bgcolor: 'primary.100',
-        transition: 'background-color .1s linear',
-      },
-      boxSizing: 'border-box',
-      display: 'flex',
-      height: '100%',
-      justifyContent: 'center',
-      p: 3,
-    };
-    const specialStyle = {};
-    if (answerCorrect === true) {
-      specialStyle.bgcolor = `rgba(${theme.vars.palette.success.mainChannel} / 0.8)`;
-    } else if (answerCorrect === false) {
-      specialStyle.bgcolor = `rgba(${theme.vars.palette.danger.mainChannel} / 0.8)`;
-    }
-    return { ...mainStyle, ...specialStyle };
-  };
   return (
-    <HeaderScreen headerCenter={selectedAnswer}>
+    <HeaderScreen>
       {!loading && (
         <Stack mb={2} mt={1} mx={2} spacing={4} sx={{ userSelect: 'none' }}>
           <Card>
@@ -146,7 +121,19 @@ function GamePage() {
               }}>
               {properties.answers.map((value) => (
                 <Grid key={value} sm={6} xs={12}>
-                  <Card name={`radioCard-${value}`} sx={radioCardStyle}>
+                  <Card
+                    name={`radioCard-${value}`}
+                    sx={{
+                      '&:hover': {
+                        bgcolor: 'primary.100',
+                        transition: 'background-color .1s linear',
+                      },
+                      boxSizing: 'border-box',
+                      display: 'flex',
+                      height: '100%',
+                      justifyContent: 'center',
+                      p: 3,
+                    }}>
                     <Radio
                       overlay
                       checked={selectedAnswer === value}
@@ -155,6 +142,23 @@ function GamePage() {
                       name='answerRadio'
                       sx={{ alignItems: 'center' }}
                       value={value}
+                      slotProps={{
+                        action: ({ checked }) => ({
+                          sx: (theme) => ({
+                            ...(checked &&
+                              answerCorrect === true && {
+                                bgcolor: `rgba(${theme.vars.palette.success.mainChannel} / 0.7)`,
+                              }),
+                            ...(checked &&
+                              answerCorrect === false && {
+                                bgcolor: `rgba(${theme.vars.palette.danger.mainChannel} / 0.7)`,
+                              }),
+                            zIndex: 0,
+                          }),
+                        }),
+                        icon: { sx: { zIndex: 1 } },
+                        label: { sx: { zIndex: 1 } },
+                      }}
                       onChange={handleAnswerChange}
                     />
                   </Card>

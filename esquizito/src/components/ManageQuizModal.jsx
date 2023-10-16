@@ -255,7 +255,6 @@ function ManageQuizModal({
                           size='sm'
                           variant='plain'
                           onClick={() => {
-                            console.log(question);
                             setOpenQuestionData(question);
                             setShowQuestionModal(true);
                           }}>

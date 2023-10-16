@@ -10,9 +10,9 @@ const ResultService = {
         quizId,
         userId,
       });
-      toast.success('Pergunta criada com sucesso!');
+      toast.success('Resultado salvo com sucesso!');
     } catch (error) {
-      toast.error('Erro ao criar pergunta!');
+      toast.error('Erro ao salvar resultado!');
     }
   },
 
