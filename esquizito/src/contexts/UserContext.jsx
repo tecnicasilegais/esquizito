@@ -86,7 +86,6 @@ export function UserProvider({ children }) {
       } else {
         // TODO: Probably the services are down or something very wrong happened
         // Do we logout or display a "try again later" component?
-        console.log('Error registering user: ', data);
       }
     }
   }, [getAccessTokenSilently, userAuth0]);
