@@ -19,10 +19,34 @@ export const translations = {
   },
   game: {
     answers: {
-      ff: 'Nenhuma alternativa é verdadeira.',
-      fv: 'Apenas II é verdadeira.',
-      vf: 'Apenas I é verdadeira.',
-      vv: 'Todas as alternativas são verdadeiras.',
+      ff: (
+        <>
+          I. Falso
+          <br />
+          II. Falso
+        </>
+      ),
+      fv: (
+        <>
+          I. Falso
+          <br />
+          II. Verdadeiro
+        </>
+      ),
+      vf: (
+        <>
+          I. Verdadeiro
+          <br />
+          II. Falso
+        </>
+      ),
+      vv: (
+        <>
+          I. Verdadeiro
+          <br />
+          II. Verdadeiro
+        </>
+      ),
     },
     button: { confirm: 'Confirmar', next: 'Avançar' },
   },
