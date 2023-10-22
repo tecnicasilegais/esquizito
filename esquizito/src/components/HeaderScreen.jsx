@@ -2,25 +2,52 @@ import { Box } from '@mui/joy';
 import PropTypes from 'prop-types';
 import React from 'react';
 import logo from 'assets/logo.png';
-import styles from './HeaderScreen.module.scss';
 
 function HeaderScreen({ children, headerCenter, headerRight }) {
+  const headerChildrenStyle = {
+    alignItems: 'center',
+    display: 'flex',
+    height: '100%',
+    justifyContent: 'center',
+    minWidth: '120px',
+  };
   return (
-    <div className={styles.container}>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        flexGrow: '1',
+        height: '100%',
+        width: '100%',
+      }}>
       <Box
-        className={styles.header}
-        fontSize='xl3'
-        fontWeight='xl'
-        px={2}
-        py={1}>
-        <div className={styles.headerEnd}>
+        sx={{
+          '& img': {
+            height: '100%',
+          },
+          boxSizing: 'border-box',
+          display: 'flex',
+          fontSize: 'xl3',
+          fontWeight: 'xl',
+          height: '100px',
+          px: 2,
+          py: 1,
+          zIndex: '1',
+        }}>
+        <Box sx={headerChildrenStyle}>
           <img alt='EsQUIZito logo' src={logo} />
-        </div>
-        <div className={styles.headerCenter}>{headerCenter}</div>
-        <div className={styles.headerEnd}>{headerRight}</div>
+        </Box>
+        <Box sx={{ ...headerChildrenStyle, flexGrow: '1' }}>{headerCenter}</Box>
+        <Box sx={headerChildrenStyle}>{headerRight}</Box>
       </Box>
-      <Box className={styles.children}>{children}</Box>
-    </div>
+      <Box
+        sx={{
+          maxHeight: 'calc(100vh - 100px)',
+          overflow: 'auto',
+        }}>
+        {children}
+      </Box>
+    </Box>
   );
 }
 
