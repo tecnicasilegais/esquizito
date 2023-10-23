@@ -8,6 +8,7 @@ import { UserProvider } from 'contexts/UserContext';
 import { theme } from 'util/Theme';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { ServiceProvider } from 'contexts/ServiceContext';
 import App from './App';
 
 import './index.css';
@@ -19,8 +20,10 @@ root.render(
       <BrowserRouter>
         <AuthProvider>
           <UserProvider>
-            <Toaster richColors />
-            <App />
+            <ServiceProvider>
+              <Toaster richColors />
+              <App />
+            </ServiceProvider>
           </UserProvider>
         </AuthProvider>
       </BrowserRouter>

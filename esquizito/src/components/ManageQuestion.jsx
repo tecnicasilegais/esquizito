@@ -1,11 +1,10 @@
 import { Box, Button, Card, Chip, Divider, Stack } from '@mui/joy';
 import { DeleteRounded, EditRounded } from '@mui/icons-material';
 import { translations } from 'util/Properties';
-import { useUser } from 'contexts/UserContext';
 import DeleteConfirmationModal from 'components/DeleteConfirmationModal';
 import ManageQuestionModal from 'components/ManageQuestionModal';
 import PropTypes from 'prop-types';
-import QuestionService from 'apis/services/QuestionService';
+import { useService } from 'contexts/ServiceContext';
 import React, { useState } from 'react';
 
 function ManageQuestion({
@@ -18,7 +17,8 @@ function ManageQuestion({
 }) {
   const [modalEditQuestion, setModalEditQuestion] = useState(false);
   const [modalDeleteQuestion, setModalDeleteQuestion] = useState(false);
-  const { user } = useUser();
+  const { questionService } = useService();
+
   return (
     <Card variant='soft'>
       <Stack alignItems='stretch' direction='row' spacing={1}>
@@ -61,11 +61,12 @@ function ManageQuestion({
         onCancel={() => setModalEditQuestion(false)}
         onClose={() => setModalEditQuestion(false)}
         onSave={(questionData) =>
-          QuestionService.update({
-            questionId,
-            userId: user.id,
-            ...questionData,
-          }).then(() => refreshPage())
+          questionService
+            .update({
+              questionId,
+              ...questionData,
+            })
+            .then(() => refreshPage())
         }
       />
       <DeleteConfirmationModal
@@ -73,7 +74,7 @@ function ManageQuestion({
         title={translations.manageQuestions.deleteHeader}
         onClose={() => setModalDeleteQuestion(false)}
         onDelete={() => {
-          QuestionService.remove(questionId).then(() => refreshPage());
+          questionService.remove(questionId).then(() => refreshPage());
         }}
       />
     </Card>

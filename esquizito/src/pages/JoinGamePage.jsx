@@ -12,8 +12,8 @@ import { translations } from 'util/Properties';
 import { urlPaths } from 'util/UrlPaths';
 import { useNavigate } from 'react-router-dom';
 import GameContext from 'contexts/GameContext';
+import { useService } from 'contexts/ServiceContext';
 import LogoCard from 'components/LogoCard';
-import QuizService from 'apis/services/QuizService';
 import React, { useEffect } from 'react';
 
 /*
@@ -29,6 +29,7 @@ function JoinGamePage() {
   const [gameCode, setGameCode] = React.useState('');
   const [errorMessage, setErrorMessage] = React.useState(null);
   const [showError, setShowError] = React.useState(false);
+  const { quizService } = useService();
 
   const handleJoinGame = async () => {
     if (!gameCode) {
@@ -37,7 +38,7 @@ function JoinGamePage() {
       return;
     }
     try {
-      const quiz = await QuizService.getByCode(gameCode);
+      const quiz = await quizService.getByCode(gameCode);
       if (quiz.data.questions.length % 2 !== 0) {
         setErrorMessage(translations.joinGame.gameCode.error.oddQuestions);
         setShowError(true);

@@ -10,13 +10,15 @@ import { properties, translations } from 'util/Properties';
 import DeleteConfirmationModal from 'components/DeleteConfirmationModal';
 import ManageQuizModal from 'components/ManageQuizModal';
 import PropTypes from 'prop-types';
-import QuizService from 'apis/services/QuizService';
+import { useService } from 'contexts/ServiceContext';
 import React, { useState } from 'react';
 
 function Quiz({ gameMode, name, questions, quizId, quizStatus, refreshPage }) {
   const [modalEditQuiz, setModalEditQuiz] = useState(false);
   const [modalDeleteQuiz, setModalDeleteQuiz] = useState(false);
   const [modalFieldsDisabled, setModalFieldsDisabled] = useState(false);
+  const { quizService } = useService();
+
   return (
     <Card variant='soft'>
       <Stack alignItems='stretch' direction='row' spacing={1}>
@@ -120,7 +122,7 @@ function Quiz({ gameMode, name, questions, quizId, quizStatus, refreshPage }) {
         primaryText={translations.manageQuizzes.button.archive}
         title={translations.manageQuizzes.deleteHeader}
         onClose={() => setModalDeleteQuiz(false)}
-        onDelete={() => QuizService.archive(quizId).then(() => refreshPage())}
+        onDelete={() => quizService.archive(quizId).then(() => refreshPage())}
       />
     </Card>
   );
