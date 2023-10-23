@@ -12,12 +12,26 @@ import React, {
 } from 'react';
 import UserService from 'apis/services/UserService';
 
-const UserContext = createContext(undefined);
+const initialContext = {
+  getAccessTokenSilently: async () => {},
+  isAuthenticated: false,
+  isLoading: false,
+  loginWithRedirect: async () => {},
+  logout: async () => {},
+  user: {
+    auth0Id: '',
+    email: '',
+    id: '',
+    name: '',
+  },
+};
+
+const UserContext = createContext(initialContext);
 
 export const useUser = () => {
   const context = useContext(UserContext);
 
-  if (context === undefined) {
+  if (context === initialContext) {
     throw new Error('useUser was called outside of its Provider');
   }
 
@@ -108,6 +122,7 @@ export function UserProvider({ children }) {
 
   const contextValue = useMemo(
     () => ({
+      getAccessTokenSilently,
       isAuthenticated,
       isLoading,
       login: handleLogin,

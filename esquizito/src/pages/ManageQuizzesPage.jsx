@@ -8,11 +8,10 @@ import { translations } from 'util/Properties';
 import { urlPaths } from 'util/UrlPaths';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from 'contexts/UserContext';
+import { useService } from 'contexts/ServiceContext';
 import HeaderScreen from 'components/HeaderScreen';
 import ManageQuizModal from 'components/ManageQuizModal';
-import QuestionService from 'apis/services/QuestionService';
 import Quiz from 'components/Quiz';
-import QuizService from 'apis/services/QuizService';
 import React, { useEffect, useState } from 'react';
 
 function ManageQuizzesPage() {
@@ -22,16 +21,17 @@ function ManageQuizzesPage() {
   const [quizzes, setQuizzes] = useState([]);
   const [questions, setQuestions] = useState([]);
   const { user } = useUser();
+  const { questionService, quizService } = useService();
 
   const refreshQuizzes = async () => {
-    const result = await QuizService.list(user.id);
+    const result = await quizService.list();
     if (result) {
       setQuizzes(result);
     }
   };
 
   const refreshQuestions = async () => {
-    const result = await QuestionService.list(user.id);
+    const result = await questionService.list();
     if (result) {
       setQuestions(result);
     }
@@ -101,12 +101,13 @@ function ManageQuizzesPage() {
         onCancel={() => setModalManageQuiz(false)}
         onClose={() => setModalManageQuiz(false)}
         onSave={({ gameMode, name, questionIds }) =>
-          QuizService.create({
-            gameMode,
-            name,
-            questionIds,
-            userId: user.id,
-          }).then(() => refreshQuizzes())
+          quizService
+            .create({
+              gameMode,
+              name,
+              questionIds,
+            })
+            .then(() => refreshQuizzes())
         }
       />
     </HeaderScreen>

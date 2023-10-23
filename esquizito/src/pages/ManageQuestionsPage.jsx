@@ -8,10 +8,10 @@ import { translations } from 'util/Properties';
 import { urlPaths } from 'util/UrlPaths';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from 'contexts/UserContext';
+import { useService } from 'contexts/ServiceContext';
 import HeaderScreen from 'components/HeaderScreen';
 import ManageQuestion from 'components/ManageQuestion';
 import ManageQuestionModal from 'components/ManageQuestionModal';
-import QuestionService from 'apis/services/QuestionService';
 import React, { useEffect, useState } from 'react';
 
 function ManageQuestionsPage() {
@@ -20,9 +20,10 @@ function ManageQuestionsPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [questions, setQuestions] = useState([]);
   const { user } = useUser();
+  const { questionService } = useService();
   const refreshQuestions = async () => {
     setIsLoading(true);
-    const result = await QuestionService.list(user.id);
+    const result = await questionService.list();
     if (result) {
       setQuestions(result);
     }
@@ -83,9 +84,9 @@ function ManageQuestionsPage() {
         onCancel={() => setModalCreateQuestion(false)}
         onClose={() => setModalCreateQuestion(false)}
         onSave={(questionData) =>
-          QuestionService.create({ userId: user.id, ...questionData }).then(
-            () => refreshQuestions(),
-          )
+          questionService
+            .create({ ...questionData })
+            .then(() => refreshQuestions())
         }
       />
     </HeaderScreen>

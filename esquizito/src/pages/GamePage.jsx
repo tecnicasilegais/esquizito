@@ -13,9 +13,8 @@ import GameContext from 'contexts/GameContext';
 import GameQuestion from 'components/GameQuestion';
 import HeaderScreen from 'components/HeaderScreen';
 import React, { useEffect, useState, useContext } from 'react';
-import ResultService from 'apis/services/ResultService';
 import { urlPaths } from 'util/UrlPaths';
-import { useUser } from 'contexts/UserContext';
+import { useService } from 'contexts/ServiceContext';
 import { useNavigate } from 'react-router-dom';
 
 function GamePage() {
@@ -28,7 +27,7 @@ function GamePage() {
   const [disabled, setDisabled] = useState(false);
   const [loading, setLoading] = useState(true);
   const [answers, setAnswers] = useState([]);
-  const { user } = useUser();
+  const { resultService } = useService();
 
   const handleAnswerChange = (event) => {
     setSelectedAnswer(event.target.value);
@@ -72,12 +71,13 @@ function GamePage() {
       setQuestionIndex(questionIndex + 2);
       setDisabled(false);
     } else {
-      ResultService.create({
-        answers,
-        elapsedTime: questions.length * 10,
-        quizId: gameData._id,
-        userId: user.id,
-      }).then(() => navigate(urlPaths.mainMenu));
+      resultService
+        .create({
+          answers,
+          elapsedTime: questions.length * 10,
+          quizId: gameData._id,
+        })
+        .then(() => navigate(urlPaths.mainMenu));
     }
   };
 
