@@ -9,6 +9,10 @@ const resultSchema: Schema<ResultDocument> = new Schema<ResultDocument>(
       required: true,
       index: true,
     },
+    userName: {
+      type: String,
+      required: true,
+    },
     quizId: {
       type: Schema.Types.ObjectId,
       required: true,

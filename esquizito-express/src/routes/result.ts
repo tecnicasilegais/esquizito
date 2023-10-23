@@ -3,6 +3,7 @@ import express from 'express';
 import auth0Config from 'configs/auth0.config';
 import { ResultController } from 'controllers/result.controller';
 import { postErrorHandler } from 'middlewares/error-handling/post-error.middleware';
+import { validateUserExistsAndAddUserName } from 'middlewares/general';
 import { validateAccessToken } from 'middlewares/validators/auth0.middleware';
 import {
   validateBodyQuizId,
@@ -10,7 +11,6 @@ import {
   validateId,
 } from 'middlewares/validators/id.validator.middleware';
 import { validateBodyQuizExists } from 'middlewares/validators/quiz.validator.middleware';
-import { validateBodyUserExists } from 'middlewares/validators/user.validator.middleware';
 
 import { validateAnswers } from '../middlewares/validators/result.validator.middleware';
 
@@ -26,7 +26,7 @@ router.post(
   '/create',
   validateBodyUserId,
   validateBodyQuizId,
-  validateBodyUserExists,
+  validateUserExistsAndAddUserName,
   validateBodyQuizExists,
   validateAnswers,
   resultController.create,

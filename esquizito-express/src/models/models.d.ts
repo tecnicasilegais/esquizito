@@ -38,6 +38,7 @@ export interface IResponse<T> {
 
 export interface IResult<T> {
   userId: T;
+  userName: string;
   quizId: T;
   answers: IResponse<T>[];
   elapsedTime: number; // seconds
