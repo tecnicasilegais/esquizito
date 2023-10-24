@@ -1,13 +1,4 @@
-import {
-  Box,
-  Button,
-  FormControl,
-  FormHelperText,
-  FormLabel,
-  Input,
-  Stack,
-} from '@mui/joy';
-import { InfoOutlined } from '@mui/icons-material';
+import { Button, FormControl, FormLabel, Input, Stack } from '@mui/joy';
 import { translations } from 'util/Properties';
 import { urlPaths } from 'util/UrlPaths';
 import { useNavigate } from 'react-router-dom';
@@ -15,6 +6,7 @@ import GameContext from 'contexts/GameContext';
 import { useService } from 'contexts/ServiceContext';
 import LogoCard from 'components/LogoCard';
 import React, { useEffect } from 'react';
+import FormErrorMsg from 'components/FormErrorMsg';
 
 /*
   TODO: Validate input
@@ -72,14 +64,7 @@ function JoinGamePage() {
               setGameCode(event.target.value);
             }}
           />
-          {showError && (
-            <FormHelperText>
-              <Stack direction='row' spacing={1}>
-                <InfoOutlined />
-                <Box>{errorMessage}</Box>
-              </Stack>
-            </FormHelperText>
-          )}
+          {showError && <FormErrorMsg errorMessage={errorMessage} />}
         </FormControl>
         <Stack spacing={1}>
           <Button onClick={handleJoinGame}>

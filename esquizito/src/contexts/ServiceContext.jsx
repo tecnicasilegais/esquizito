@@ -25,7 +25,7 @@ const initialServiceContext = {
     getByCode: async (quizCode) => {},
     list: async () => {},
     publish: async (quizId) => {},
-    update: async ({ gameMode, name, questions, quizId }) => {},
+    update: async ({ gameMode, name, questionIds, quizId }) => {},
   },
   resultService: {
     create: async ({ answers, elapsedTime, quizId }) => {},
@@ -162,13 +162,13 @@ function QuizProvider({ children }) {
   );
 
   const update = useCallback(
-    async ({ gameMode, name, questions, quizId }) =>
+    async ({ gameMode, name, questionIds, quizId }) =>
       getAccessTokenSilently().then((token) =>
         QuizService.update(
           {
             gameMode,
             name,
-            questions,
+            questionIds,
             quizId,
             userId: user.id,
           },

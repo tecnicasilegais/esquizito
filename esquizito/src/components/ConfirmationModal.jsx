@@ -11,9 +11,10 @@ import { DeleteRounded } from '@mui/icons-material';
 import { translations } from 'util/Properties';
 import React from 'react';
 
-function DeleteConfirmationModal({
+function ConfirmationModal({
+  negative,
   onClose,
-  onDelete,
+  onConfirm,
   open,
   primaryIcon,
   primaryText,
@@ -26,17 +27,17 @@ function DeleteConfirmationModal({
         <DialogContent>
           <ButtonGroup buttonFlex={1} sx={{ mt: '12px' }}>
             <Button variant='soft' onClick={onClose}>
-              {translations.deleteModal.button.cancel}
+              {translations.confirmationModal.button.cancel}
             </Button>
             <Button
-              color='danger'
+              color={negative ? 'danger' : 'primary'}
               startDecorator={primaryIcon || <DeleteRounded />}
               variant='solid'
               onClick={() => {
-                onDelete();
+                onConfirm();
                 onClose();
               }}>
-              {primaryText || translations.deleteModal.button.delete}
+              {primaryText || translations.confirmationModal.button.delete}
             </Button>
           </ButtonGroup>
         </DialogContent>
@@ -45,18 +46,20 @@ function DeleteConfirmationModal({
   );
 }
 
-DeleteConfirmationModal.propTypes = {
+ConfirmationModal.propTypes = {
+  negative: PropTypes.bool,
   onClose: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired,
+  onConfirm: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
   primaryIcon: PropTypes.element,
   primaryText: PropTypes.string,
   title: PropTypes.string.isRequired,
 };
 
-DeleteConfirmationModal.defaultProps = {
+ConfirmationModal.defaultProps = {
+  negative: true,
   primaryIcon: null,
   primaryText: null,
 };
 
-export default DeleteConfirmationModal;
+export default ConfirmationModal;
