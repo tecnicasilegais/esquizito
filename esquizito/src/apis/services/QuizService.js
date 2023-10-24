@@ -73,14 +73,14 @@ const QuizService = {
     }
   },
 
-  update: async ({ gameMode, name, questions, quizId, userId }, token) => {
+  update: async ({ gameMode, name, questionIds, quizId, userId }, token) => {
     try {
       const response = await client.put(
         `/quiz/update/${quizId}`,
         {
           gameMode,
           name,
-          questions,
+          questions: questionIds,
           userId,
         },
         {

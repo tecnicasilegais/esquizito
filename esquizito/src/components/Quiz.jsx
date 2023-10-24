@@ -1,6 +1,7 @@
 import {
   ArchiveRounded,
   EditRounded,
+  KeyRounded,
   PublishRounded,
   TagRounded,
   VisibilityRounded,
@@ -15,6 +16,7 @@ import React, { useState } from 'react';
 
 function Quiz({
   availableQuestions,
+  code,
   gameMode,
   name,
   questions,
@@ -84,6 +86,15 @@ function Quiz({
             <Chip size='sm' startDecorator={<TagRounded />} variant='solid'>
               {`${questions.length} ${translations.manageQuizzes.quizModal.questions}`}
             </Chip>
+            {properties.quizStatus[quizStatus] === 'published' && (
+              <Chip
+                size='sm'
+                startDecorator={<KeyRounded />}
+                variant='solid'
+                onClick={() => navigator.clipboard.writeText(code)}>
+                {code}
+              </Chip>
+            )}
           </Stack>
           <Box textAlign='justify'>{name}</Box>
         </Stack>
@@ -124,7 +135,11 @@ function Quiz({
         }
         onCancel={() => setModalEditQuiz(false)}
         onClose={() => setModalEditQuiz(false)}
-        onSave={(questionData) => alert('implementa aí vai')}
+        onSave={(questionData) =>
+          quizService
+            .update({ quizId, ...questionData })
+            .then(() => refreshPage())
+        }
       />
       <ConfirmationModal
         open={modalDeleteQuiz}
@@ -156,6 +171,7 @@ Quiz.propTypes = {
       subject: PropTypes.string,
     }),
   ).isRequired,
+  code: PropTypes.string,
   gameMode: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   questions: PropTypes.arrayOf(
@@ -169,5 +185,9 @@ Quiz.propTypes = {
   quizId: PropTypes.string.isRequired,
   quizStatus: PropTypes.number.isRequired,
   refreshPage: PropTypes.func.isRequired,
+};
+
+Quiz.defaultProps = {
+  code: '',
 };
 export default Quiz;

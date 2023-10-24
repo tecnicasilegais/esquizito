@@ -50,8 +50,10 @@ function ManageQuizModal({
   const [name, setName] = useState('');
   const [gameMode, setGameMode] = useState(properties.gameModes[0]);
   const [checkedQuestions, setCheckedQuestions] = useState(
-    initialCheckedQuestions.reduce((acc, question) => {
-      acc[question._id] = true;
+    quizQuestions.reduce((acc, question) => {
+      acc[question._id] = !!initialCheckedQuestions.find(
+        (q) => q._id === question._id,
+      );
       return acc;
     }, {}),
   );
@@ -102,12 +104,12 @@ function ManageQuizModal({
     setGameMode(properties.gameModes[quizGameMode]);
 
     setCheckedQuestions(
-      type === 'edit'
-        ? initialCheckedQuestions.reduce((acc, question) => {
-            acc[question._id] = true;
-            return acc;
-          }, {})
-        : {},
+      quizQuestions.reduce((acc, question) => {
+        acc[question._id] = !!initialCheckedQuestions.find(
+          (q) => q._id === question._id,
+        );
+        return acc;
+      }, {}),
     );
     setErrorMessage(null);
     setErrorMessageLocation(null);

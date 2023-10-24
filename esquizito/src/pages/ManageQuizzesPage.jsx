@@ -82,6 +82,7 @@ function ManageQuizzesPage() {
               quizzes.map((quiz) => (
                 <Quiz
                   availableQuestions={questions}
+                  code={quiz.code}
                   gameMode={quiz.gameMode}
                   key={quiz._id}
                   name={quiz.name}
