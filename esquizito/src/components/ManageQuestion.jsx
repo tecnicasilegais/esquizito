@@ -1,7 +1,7 @@
 import { Box, Button, Card, Chip, Divider, Stack } from '@mui/joy';
 import { DeleteRounded, EditRounded } from '@mui/icons-material';
 import { translations } from 'util/Properties';
-import DeleteConfirmationModal from 'components/DeleteConfirmationModal';
+import ConfirmationModal from 'components/ConfirmationModal';
 import ManageQuestionModal from 'components/ManageQuestionModal';
 import PropTypes from 'prop-types';
 import { useService } from 'contexts/ServiceContext';
@@ -69,11 +69,11 @@ function ManageQuestion({
             .then(() => refreshPage())
         }
       />
-      <DeleteConfirmationModal
+      <ConfirmationModal
         open={modalDeleteQuestion}
         title={translations.manageQuestions.deleteHeader}
         onClose={() => setModalDeleteQuestion(false)}
-        onDelete={() => {
+        onConfirm={() => {
           questionService.remove(questionId).then(() => refreshPage());
         }}
       />

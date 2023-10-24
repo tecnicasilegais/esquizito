@@ -7,7 +7,7 @@ import {
 } from '@mui/icons-material';
 import { Box, Button, Card, Chip, Divider, Stack } from '@mui/joy';
 import { properties, translations } from 'util/Properties';
-import DeleteConfirmationModal from 'components/DeleteConfirmationModal';
+import ConfirmationModal from 'components/ConfirmationModal';
 import ManageQuizModal from 'components/ManageQuizModal';
 import PropTypes from 'prop-types';
 import { useService } from 'contexts/ServiceContext';
@@ -16,6 +16,7 @@ import React, { useState } from 'react';
 function Quiz({ gameMode, name, questions, quizId, quizStatus, refreshPage }) {
   const [modalEditQuiz, setModalEditQuiz] = useState(false);
   const [modalDeleteQuiz, setModalDeleteQuiz] = useState(false);
+  const [modalPublishQuiz, setModalPublishQuiz] = useState(false);
   const [modalFieldsDisabled, setModalFieldsDisabled] = useState(false);
   const { quizService } = useService();
 
@@ -29,7 +30,7 @@ function Quiz({ gameMode, name, questions, quizId, quizStatus, refreshPage }) {
               startDecorator={<PublishRounded />}
               sx={{ justifyContent: 'flex-start' }}
               variant='plain'
-              onClick={() => alert('implementa aí vai')}>
+              onClick={() => setModalPublishQuiz(true)}>
               {translations.manageQuizzes.button.publish}
             </Button>
           )}
@@ -88,7 +89,7 @@ function Quiz({ gameMode, name, questions, quizId, quizStatus, refreshPage }) {
             }>
             {translations.manageQuizzes.quizStatus[quizStatus].text}
           </Chip>
-          {properties.quizStatus[quizStatus] === 'draft' && (
+          {properties.quizStatus[quizStatus] !== 'archived' && (
             <Button
               color='danger'
               size='sm'
@@ -116,13 +117,22 @@ function Quiz({ gameMode, name, questions, quizId, quizStatus, refreshPage }) {
         onClose={() => setModalEditQuiz(false)}
         onSave={(questionData) => alert('implementa aí vai')}
       />
-      <DeleteConfirmationModal
+      <ConfirmationModal
         open={modalDeleteQuiz}
         primaryIcon={<ArchiveRounded />}
         primaryText={translations.manageQuizzes.button.archive}
         title={translations.manageQuizzes.deleteHeader}
         onClose={() => setModalDeleteQuiz(false)}
-        onDelete={() => quizService.archive(quizId).then(() => refreshPage())}
+        onConfirm={() => quizService.archive(quizId).then(() => refreshPage())}
+      />
+      <ConfirmationModal
+        negative={false}
+        open={modalPublishQuiz}
+        primaryIcon={<PublishRounded />}
+        primaryText={translations.manageQuizzes.button.publish}
+        title={translations.manageQuizzes.publishHeader}
+        onClose={() => setModalPublishQuiz(false)}
+        onConfirm={() => quizService.publish(quizId).then(() => refreshPage())}
       />
     </Card>
   );

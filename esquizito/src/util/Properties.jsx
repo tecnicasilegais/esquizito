@@ -14,8 +14,8 @@ export const properties = {
 };
 
 export const translations = {
-  deleteModal: {
-    button: { cancel: 'Cancelar', delete: 'Excluir' },
+  confirmationModal: {
+    button: { cancel: 'Cancelar', confirm: 'Confirmar', delete: 'Excluir' },
   },
   game: {
     answers: {
@@ -102,6 +102,7 @@ export const translations = {
     },
     deleteHeader: 'Tem certeza que deseja arquivar o questionário?',
     header: 'Gerenciar Questionários',
+    publishHeader: 'Tem certeza que deseja publicar o questionário?',
     quizModal: {
       button: {
         cancel: 'Cancelar',
