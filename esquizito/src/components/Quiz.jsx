@@ -13,7 +13,15 @@ import PropTypes from 'prop-types';
 import { useService } from 'contexts/ServiceContext';
 import React, { useState } from 'react';
 
-function Quiz({ gameMode, name, questions, quizId, quizStatus, refreshPage }) {
+function Quiz({
+  availableQuestions,
+  gameMode,
+  name,
+  questions,
+  quizId,
+  quizStatus,
+  refreshPage,
+}) {
   const [modalEditQuiz, setModalEditQuiz] = useState(false);
   const [modalDeleteQuiz, setModalDeleteQuiz] = useState(false);
   const [modalPublishQuiz, setModalPublishQuiz] = useState(false);
@@ -103,10 +111,11 @@ function Quiz({ gameMode, name, questions, quizId, quizStatus, refreshPage }) {
       </Stack>
       <ManageQuizModal
         formDisabled={modalFieldsDisabled}
+        initialCheckedQuestions={questions}
         open={modalEditQuiz}
         quizGameMode={gameMode}
         quizName={name}
-        quizQuestions={questions}
+        quizQuestions={availableQuestions}
         type='edit'
         title={
           modalFieldsDisabled
@@ -139,6 +148,14 @@ function Quiz({ gameMode, name, questions, quizId, quizStatus, refreshPage }) {
 }
 
 Quiz.propTypes = {
+  availableQuestions: PropTypes.arrayOf(
+    PropTypes.shape({
+      answer: PropTypes.bool,
+      explanation: PropTypes.string,
+      statement: PropTypes.string,
+      subject: PropTypes.string,
+    }),
+  ).isRequired,
   gameMode: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   questions: PropTypes.arrayOf(

@@ -37,6 +37,7 @@ import FormErrorMsg from './FormErrorMsg';
 
 function ManageQuizModal({
   formDisabled,
+  initialCheckedQuestions,
   onClose,
   onSave,
   open,
@@ -48,7 +49,12 @@ function ManageQuizModal({
 }) {
   const [name, setName] = useState('');
   const [gameMode, setGameMode] = useState(properties.gameModes[0]);
-  const [checkedQuestions, setCheckedQuestions] = useState({});
+  const [checkedQuestions, setCheckedQuestions] = useState(
+    initialCheckedQuestions.reduce((acc, question) => {
+      acc[question._id] = true;
+      return acc;
+    }, {}),
+  );
   const [loading, setLoading] = useState(true);
   const [showQuestionModal, setShowQuestionModal] = useState(false);
   const [openQuestionData, setOpenQuestionData] = useState({});
@@ -95,12 +101,14 @@ function ManageQuizModal({
     setName(quizName);
     setGameMode(properties.gameModes[quizGameMode]);
 
-    const checkedValue = type === 'edit';
-    const newCheckedQuestions = {};
-    quizQuestions.forEach((question) => {
-      newCheckedQuestions[question._id] = checkedValue;
-    });
-    setCheckedQuestions({ ...newCheckedQuestions });
+    setCheckedQuestions(
+      type === 'edit'
+        ? initialCheckedQuestions.reduce((acc, question) => {
+            acc[question._id] = true;
+            return acc;
+          }, {})
+        : {},
+    );
     setErrorMessage(null);
     setErrorMessageLocation(null);
   };
@@ -357,6 +365,15 @@ function ManageQuizModal({
 
 ManageQuizModal.propTypes = {
   formDisabled: PropTypes.bool,
+  initialCheckedQuestions: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string,
+      answer: PropTypes.bool,
+      explanation: PropTypes.string,
+      statement: PropTypes.string,
+      subject: PropTypes.string,
+    }),
+  ),
   onClose: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
@@ -364,6 +381,7 @@ ManageQuizModal.propTypes = {
   quizName: PropTypes.string,
   quizQuestions: PropTypes.arrayOf(
     PropTypes.shape({
+      _id: PropTypes.string,
       answer: PropTypes.bool,
       explanation: PropTypes.string,
       statement: PropTypes.string,
@@ -376,6 +394,7 @@ ManageQuizModal.propTypes = {
 
 ManageQuizModal.defaultProps = {
   formDisabled: false,
+  initialCheckedQuestions: [],
   quizGameMode: 0,
   quizName: '',
   quizQuestions: [],
