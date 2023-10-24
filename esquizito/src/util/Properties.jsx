@@ -108,6 +108,10 @@ export const translations = {
         clear: 'Limpar',
         save: 'Salvar',
       },
+      error: {
+        name: 'O nome do questionário é obrigatório.',
+        questions: 'As questões devem formar pares.',
+      },
       gameMode: 'Modo de jogo',
       gameModes: {
         0: {

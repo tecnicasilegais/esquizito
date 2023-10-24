@@ -32,6 +32,8 @@ import { properties, translations } from 'util/Properties';
 import GameModeSelector from 'components/GameModeSelector';
 import ManageQuestionModal from 'components/ManageQuestionModal';
 import React, { useEffect, useState } from 'react';
+import { toast } from 'sonner';
+import FormErrorMsg from './FormErrorMsg';
 
 function ManageQuizModal({
   formDisabled,
@@ -50,9 +52,31 @@ function ManageQuizModal({
   const [loading, setLoading] = useState(true);
   const [showQuestionModal, setShowQuestionModal] = useState(false);
   const [openQuestionData, setOpenQuestionData] = useState({});
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [errorMessageLocation, setErrorMessageLocation] = useState(null);
 
   const updateCheckedQuestion = (questionId, checked) => {
     setCheckedQuestions({ ...checkedQuestions, [questionId]: checked });
+  };
+
+  const validateFields = () => {
+    if (!name) {
+      setErrorMessage(translations.manageQuizzes.quizModal.error.name);
+      setErrorMessageLocation('name');
+      toast.error(translations.manageQuizzes.quizModal.error.name);
+      return false;
+    }
+    const selectedQuestions = Object.values(checkedQuestions).filter(
+      (isSelected) => isSelected,
+    ).length;
+    if (selectedQuestions % 2 !== 0 || selectedQuestions === 0) {
+      setErrorMessage(translations.manageQuizzes.quizModal.error.questions);
+      setErrorMessageLocation('questions');
+      toast.error(translations.manageQuizzes.quizModal.error.questions);
+      return false;
+    }
+    setErrorMessageLocation(null);
+    return true;
   };
 
   const clearFields = () => {
@@ -63,6 +87,8 @@ function ManageQuizModal({
       newCheckedQuestions[questionId] = false;
     });
     setCheckedQuestions(newCheckedQuestions);
+    setErrorMessage(null);
+    setErrorMessageLocation(null);
   };
 
   const resetEditedValues = () => {
@@ -75,6 +101,8 @@ function ManageQuizModal({
       newCheckedQuestions[question._id] = checkedValue;
     });
     setCheckedQuestions({ ...newCheckedQuestions });
+    setErrorMessage(null);
+    setErrorMessageLocation(null);
   };
 
   const handleClose = () => {
@@ -106,7 +134,7 @@ function ManageQuizModal({
         <DialogTitle>{title}</DialogTitle>
         <DialogContent>
           <Stack mt={1} spacing={2} width='450px'>
-            <FormControl>
+            <FormControl error={errorMessageLocation === 'name'}>
               <FormLabel>{translations.manageQuizzes.quizModal.name}</FormLabel>
               <Input
                 autoFocus
@@ -116,6 +144,9 @@ function ManageQuizModal({
                 variant='soft'
                 onChange={(event) => setName(event.target.value)}
               />
+              {errorMessageLocation === 'name' && (
+                <FormErrorMsg errorMessage={errorMessage} />
+              )}
             </FormControl>
             <FormControl>
               <FormLabel>
@@ -209,9 +240,14 @@ function ManageQuizModal({
                 </Stack>
               </FormHelperText>
             </FormControl>
-            <FormLabel>
-              {translations.manageQuizzes.quizModal.questions}
-            </FormLabel>
+            <FormControl error={errorMessageLocation === 'questions'}>
+              <FormLabel>
+                {translations.manageQuizzes.quizModal.questions}
+              </FormLabel>
+              {errorMessageLocation === 'questions' && (
+                <FormErrorMsg errorMessage={errorMessage} />
+              )}
+            </FormControl>
             <Card
               sx={{ maxHeight: '40vh', overflow: 'auto', p: 1 }}
               variant='soft'>
@@ -289,14 +325,16 @@ function ManageQuizModal({
                   type='submit'
                   variant='solid'
                   onClick={() => {
-                    onSave({
-                      gameMode: properties.gameModes.indexOf(gameMode),
-                      name,
-                      questionIds: Object.keys(checkedQuestions).filter(
-                        (key) => checkedQuestions[key],
-                      ),
-                    });
-                    onClose();
+                    if (validateFields()) {
+                      onSave({
+                        gameMode: properties.gameModes.indexOf(gameMode),
+                        name,
+                        questionIds: Object.keys(checkedQuestions).filter(
+                          (key) => checkedQuestions[key],
+                        ),
+                      });
+                      onClose();
+                    }
                   }}>
                   {translations.manageQuizzes.quizModal.button.save}
                 </Button>
