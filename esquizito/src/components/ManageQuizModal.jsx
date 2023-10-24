@@ -49,14 +49,15 @@ function ManageQuizModal({
 }) {
   const [name, setName] = useState('');
   const [gameMode, setGameMode] = useState(properties.gameModes[0]);
-  const [checkedQuestions, setCheckedQuestions] = useState(
-    quizQuestions.reduce((acc, question) => {
-      acc[question._id] = !!initialCheckedQuestions.find(
+  const [checkedQuestions, setCheckedQuestions] = useState(() => {
+    const initialCheckedQuestionsObj = {};
+    quizQuestions.forEach((question) => {
+      initialCheckedQuestionsObj[question._id] = !!initialCheckedQuestions.find(
         (q) => q._id === question._id,
       );
-      return acc;
-    }, {}),
-  );
+    });
+    return initialCheckedQuestionsObj;
+  });
   const [loading, setLoading] = useState(true);
   const [showQuestionModal, setShowQuestionModal] = useState(false);
   const [openQuestionData, setOpenQuestionData] = useState({});
@@ -103,14 +104,14 @@ function ManageQuizModal({
     setName(quizName);
     setGameMode(properties.gameModes[quizGameMode]);
 
-    setCheckedQuestions(
-      quizQuestions.reduce((acc, question) => {
-        acc[question._id] = !!initialCheckedQuestions.find(
-          (q) => q._id === question._id,
-        );
-        return acc;
-      }, {}),
-    );
+    setCheckedQuestions(() => {
+      const initialCheckedQuestionsObj = {};
+      quizQuestions.forEach((question) => {
+        initialCheckedQuestionsObj[question._id] =
+          !!initialCheckedQuestions.find((q) => q._id === question._id);
+      });
+      return initialCheckedQuestionsObj;
+    });
     setErrorMessage(null);
     setErrorMessageLocation(null);
   };
