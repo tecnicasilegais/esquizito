@@ -13,9 +13,11 @@ function MainMenu() {
         <Button onClick={() => navigate(urlPaths.joinGamePage)}>
           {translations.menu.button.enterGame}
         </Button>
-        <Button>{translations.menu.button.seeResults}</Button>
       </Stack>
       <Stack spacing={2}>
+        <Button variant='soft' onClick={() => navigate(urlPaths.rankingPage)}>
+          {translations.menu.button.seeResults}
+        </Button>
         <Button
           variant='soft'
           onClick={() => navigate(urlPaths.manageQuestionsPage)}>
