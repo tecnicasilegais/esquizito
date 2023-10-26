@@ -77,11 +77,9 @@ function Quiz({
           <Stack direction='row' spacing={1}>
             <Chip
               size='sm'
-              variant='solid'
-              startDecorator={
-                translations.manageQuizzes.quizModal.gameModes[gameMode].icon
-              }>
-              {translations.manageQuizzes.quizModal.gameModes[gameMode].text}
+              startDecorator={translations.gameModes[gameMode].icon}
+              variant='solid'>
+              {translations.gameModes[gameMode].text}
             </Chip>
             <Chip size='sm' startDecorator={<TagRounded />} variant='solid'>
               {`${questions.length} ${translations.manageQuizzes.quizModal.questions}`}

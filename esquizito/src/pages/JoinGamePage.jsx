@@ -47,7 +47,7 @@ function JoinGamePage() {
 
   useEffect(() => {
     if (gameData) {
-      navigate(urlPaths.gamePage);
+      navigate(urlPaths.startGamePage);
     }
   }, [gameData, navigate]);
 
