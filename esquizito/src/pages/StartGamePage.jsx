@@ -13,12 +13,17 @@ import { urlPaths } from 'util/UrlPaths';
 
 function StartGamePage() {
   const navigate = useNavigate();
-  const { gameData } = useContext(GameContext);
-  const [loading, setLoading] = React.useState(false);
+  const { gameData, setGameData } = useContext(GameContext);
+  const [loading, setLoading] = React.useState(true);
   const [name, setName] = React.useState('');
   const [numberOfQuestions, setNumberOfQuestions] = React.useState(0);
   const [gameMode, setGameMode] = React.useState(0);
   const [gameCode, setGameCode] = React.useState('');
+
+  const handleBackButton = () => {
+    setGameData(null);
+    navigate(urlPaths.joinGamePage);
+  };
 
   useEffect(() => {
     if (gameData) {
@@ -60,7 +65,7 @@ function StartGamePage() {
                 <Button
                   startDecorator={<ArrowBackRounded />}
                   variant='soft'
-                  onClick={() => navigate(urlPaths.joinGamePage)}>
+                  onClick={handleBackButton}>
                   {translations.startGame.button.back}
                 </Button>
                 <Button
