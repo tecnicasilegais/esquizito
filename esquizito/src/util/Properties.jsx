@@ -11,6 +11,23 @@ export const properties = {
   answers: ['vv', 'vf', 'fv', 'ff'],
   gameModes: ['classic', 'timed', 'stars'],
   quizStatus: ['draft', 'published', 'archived'],
+  rankingHeadCells: [
+    {
+      id: 'userName',
+      label: 'Nome',
+      numeric: false,
+    },
+    {
+      id: 'hits',
+      label: 'Acertos',
+      numeric: true,
+    },
+    {
+      id: 'elapsedTime',
+      label: 'Tempo',
+      numeric: false,
+    },
+  ],
 };
 
 export const translations = {
@@ -156,11 +173,11 @@ export const translations = {
   },
   ranking: {
     averagesHeader: {
-      answers: 'Respostas',
-      hits: 'Média de Acertos',
-      time: 'Tempo Médio',
+      answers: { title: 'Respostas' },
+      hits: { title: 'Média de Acertos' },
+      time: { title: 'Tempo Médio' },
     },
-    button: { back: 'Voltar' },
+    button: { home: 'Início' },
     imgDescription: {
       correct: 'Ícone de acerto',
       incorrect: 'Ícone de erro',
