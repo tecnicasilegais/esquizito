@@ -67,6 +67,23 @@ export const translations = {
     },
     button: { confirm: 'Confirmar', next: 'Avançar' },
   },
+  gameModes: {
+    0: {
+      helperText: 'Modo padrão sem limite de tempo.',
+      icon: <QuizRounded />,
+      text: 'Clássico',
+    },
+    1: {
+      helperText: 'O jogo termina quando o tempo acaba.',
+      icon: <TimerRounded />,
+      text: 'Tempo',
+    },
+    2: {
+      helperText: 'O jogo termina quando o jogador perde todas as estrelas.',
+      icon: <StarRounded />,
+      text: 'Estrelas',
+    },
+  },
   joinGame: {
     button: { back: 'Voltar', play: 'Jogar' },
     gameCode: {
@@ -131,24 +148,6 @@ export const translations = {
         questions: 'As questões devem formar pares.',
       },
       gameMode: 'Modo de jogo',
-      gameModes: {
-        0: {
-          helperText: 'Modo padrão sem limite de tempo.',
-          icon: <QuizRounded />,
-          text: 'Clássico',
-        },
-        1: {
-          helperText: 'O jogo termina quando o tempo acaba.',
-          icon: <TimerRounded />,
-          text: 'Tempo',
-        },
-        2: {
-          helperText:
-            'O jogo termina quando o jogador perde todas as estrelas.',
-          icon: <StarRounded />,
-          text: 'Estrelas',
-        },
-      },
       headerCreate: 'Criar novo questionário',
       headerEdit: 'Editar questionário',
       headerView: 'Visualizar questionário',
@@ -189,6 +188,12 @@ export const translations = {
       successRate: 'Acertos',
       time: 'Tempo',
     },
+  },
+  startGame: {
+    button: { back: 'Voltar', play: 'Iniciar Jogo' },
+    code: 'Código',
+    header: 'Entrando no jogo',
+    questions: 'Perguntas',
   },
 };
 
