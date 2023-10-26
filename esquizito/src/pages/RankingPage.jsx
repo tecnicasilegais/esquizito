@@ -1,18 +1,10 @@
-import { ArrowUpwardRounded, HomeRounded } from '@mui/icons-material';
-import {
-  Box,
-  Button,
-  Card,
-  Grid,
-  Link,
-  Stack,
-  Table,
-  Typography,
-} from '@mui/joy';
+import { HomeRounded } from '@mui/icons-material';
+import { Box, Button, Card, Grid, Stack, Table, Typography } from '@mui/joy';
 import incorrect from 'assets/cancel.svg';
 import correct from 'assets/check.svg';
 import Average from 'components/Average';
 import HeaderScreen from 'components/HeaderScreen';
+import TableHeader from 'components/TableHeader';
 import { useService } from 'contexts/ServiceContext';
 import { useUser } from 'contexts/UserContext';
 import format from 'format-duration';
@@ -129,87 +121,31 @@ function RankingPage() {
               <thead>
                 <tr>
                   <th>
-                    <Link
-                      color='neutral'
-                      component='button'
-                      textColor={orderBy === 'userName' && 'primary.plainColor'}
-                      underline='none'
-                      startDecorator={
-                        <ArrowUpwardRounded
-                          sx={{ opacity: orderBy === 'userName' ? 1 : 0 }}
-                        />
-                      }
-                      sx={{
-                        '& svg': {
-                          transform:
-                            orderBy === 'userName' && order === 'asc'
-                              ? 'rotate(0deg)'
-                              : 'rotate(180deg)',
-                          transition: '0.2s',
-                        },
-                        '&:hover': {
-                          '& svg': { opacity: 1 },
-                        },
-                      }}
-                      onClick={() => sortResultsByKey('userName')}>
+                    <TableHeader
+                      id='userName'
+                      order={order}
+                      orderBy={orderBy}
+                      sort={sortResultsByKey}>
                       {translations.ranking.resultsHeader.name}
-                    </Link>
+                    </TableHeader>
                   </th>
                   <th>
-                    <Link
-                      color='neutral'
-                      component='button'
-                      textColor={orderBy === 'hits' && 'primary.plainColor'}
-                      underline='none'
-                      startDecorator={
-                        <ArrowUpwardRounded
-                          sx={{ opacity: orderBy === 'hits' ? 1 : 0 }}
-                        />
-                      }
-                      sx={{
-                        '& svg': {
-                          transform:
-                            orderBy === 'hits' && order === 'asc'
-                              ? 'rotate(0deg)'
-                              : 'rotate(180deg)',
-                          transition: '0.2s',
-                        },
-                        '&:hover': {
-                          '& svg': { opacity: 1 },
-                        },
-                      }}
-                      onClick={() => sortResultsByKey('hits')}>
+                    <TableHeader
+                      id='hits'
+                      order={order}
+                      orderBy={orderBy}
+                      sort={sortResultsByKey}>
                       {translations.ranking.resultsHeader.successRate}
-                    </Link>
+                    </TableHeader>
                   </th>
                   <th>
-                    <Link
-                      color='neutral'
-                      component='button'
-                      underline='none'
-                      startDecorator={
-                        <ArrowUpwardRounded
-                          sx={{ opacity: orderBy === 'elapsedTime' ? 1 : 0 }}
-                        />
-                      }
-                      sx={{
-                        '& svg': {
-                          transform:
-                            orderBy === 'elapsedTime' && order === 'asc'
-                              ? 'rotate(0deg)'
-                              : 'rotate(180deg)',
-                          transition: '0.2s',
-                        },
-                        '&:hover': {
-                          '& svg': { opacity: 1 },
-                        },
-                      }}
-                      textColor={
-                        orderBy === 'elapsedTime' && 'primary.plainColor'
-                      }
-                      onClick={() => sortResultsByKey('elapsedTime')}>
+                    <TableHeader
+                      id='elapsedTime'
+                      order={order}
+                      orderBy={orderBy}
+                      sort={sortResultsByKey}>
                       {translations.ranking.resultsHeader.time}
-                    </Link>
+                    </TableHeader>
                   </th>
                   {results[0].answers.map((answer, i) => (
                     <Box
