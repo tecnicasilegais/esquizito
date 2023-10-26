@@ -1,5 +1,6 @@
 import {
   ArchiveRounded,
+  ContentCopyRounded,
   EditRounded,
   KeyRounded,
   PublishRounded,
@@ -7,6 +8,7 @@ import {
   VisibilityRounded,
 } from '@mui/icons-material';
 import { Box, Button, Card, Chip, Divider, Stack } from '@mui/joy';
+import { toast } from 'sonner';
 import { properties, translations } from 'util/Properties';
 import ConfirmationModal from 'components/ConfirmationModal';
 import ManageQuizModal from 'components/ManageQuizModal';
@@ -33,43 +35,34 @@ function Quiz({
   return (
     <Card variant='soft'>
       <Stack alignItems='stretch' direction='row' spacing={1}>
-        <Stack alignItems='stretch' justifyContent='center' width='130px'>
-          {properties.quizStatus[quizStatus] === 'draft' && (
-            <Button
+        <Stack
+          alignItems='center'
+          justifyContent='center'
+          minWidth='130px'
+          spacing={1}
+          width='130px'>
+          <Chip
+            color={translations.manageQuizzes.quizStatus[quizStatus].color}
+            size='md'
+            variant='solid'
+            startDecorator={
+              translations.manageQuizzes.quizStatus[quizStatus].icon
+            }>
+            {translations.manageQuizzes.quizStatus[quizStatus].text}
+          </Chip>
+          {properties.quizStatus[quizStatus] === 'published' && (
+            <Chip
+              color='success'
+              endDecorator={<ContentCopyRounded />}
               size='sm'
-              startDecorator={<PublishRounded />}
-              sx={{ justifyContent: 'flex-start' }}
-              variant='plain'
-              onClick={() => setModalPublishQuiz(true)}>
-              {translations.manageQuizzes.button.publish}
-            </Button>
-          )}
-          {properties.quizStatus[quizStatus] === 'draft' && (
-            <Button
-              size='sm'
-              startDecorator={<EditRounded />}
-              sx={{ justifyContent: 'flex-start' }}
-              variant='plain'
+              startDecorator={<KeyRounded />}
+              variant='outlined'
               onClick={() => {
-                setModalFieldsDisabled(false);
-                setModalEditQuiz(true);
+                navigator.clipboard.writeText(code);
+                toast.message('Código copiado para a área de transferência');
               }}>
-              {translations.manageQuizzes.button.edit}
-            </Button>
-          )}
-          {(properties.quizStatus[quizStatus] === 'published' ||
-            properties.quizStatus[quizStatus] === 'archived') && (
-            <Button
-              size='sm'
-              startDecorator={<VisibilityRounded />}
-              sx={{ justifyContent: 'flex-start' }}
-              variant='plain'
-              onClick={() => {
-                setModalFieldsDisabled(true);
-                setModalEditQuiz(true);
-              }}>
-              {translations.manageQuizzes.button.view}
-            </Button>
+              {code}
+            </Chip>
           )}
         </Stack>
         <Divider orientation='vertical' />
@@ -86,38 +79,53 @@ function Quiz({
             <Chip size='sm' startDecorator={<TagRounded />} variant='solid'>
               {`${questions.length} ${translations.manageQuizzes.quizModal.questions}`}
             </Chip>
-            {properties.quizStatus[quizStatus] === 'published' && (
-              <Chip
-                size='sm'
-                startDecorator={<KeyRounded />}
-                variant='solid'
-                onClick={() => navigator.clipboard.writeText(code)}>
-                {code}
-              </Chip>
-            )}
           </Stack>
           <Box textAlign='justify'>{name}</Box>
         </Stack>
-        <Divider orientation='vertical' />
-        <Stack alignItems='center' justifyContent='space-around' width='130px'>
-          <Chip
-            size='md'
-            variant='solid'
-            startDecorator={
-              translations.manageQuizzes.quizStatus[quizStatus].icon
-            }>
-            {translations.manageQuizzes.quizStatus[quizStatus].text}
-          </Chip>
-          {properties.quizStatus[quizStatus] !== 'archived' && (
-            <Button
-              color='danger'
-              size='sm'
-              startDecorator={<ArchiveRounded />}
-              variant='plain'
-              onClick={() => setModalDeleteQuiz(true)}>
-              {translations.manageQuizzes.button.archive}
-            </Button>
-          )}
+        <Stack
+          alignItems='center'
+          direction='row'
+          justifyContent='flex-end'
+          sx={{ '& button:disabled': { opacity: '0.4' } }}>
+          <Button
+            disabled={properties.quizStatus[quizStatus] !== 'draft'}
+            size='sm'
+            startDecorator={<PublishRounded />}
+            variant='plain'
+            onClick={() => setModalPublishQuiz(true)}>
+            {translations.manageQuizzes.button.publish}
+          </Button>
+          <Button
+            disabled={properties.quizStatus[quizStatus] !== 'draft'}
+            size='sm'
+            startDecorator={<EditRounded />}
+            variant='plain'
+            onClick={() => {
+              setModalFieldsDisabled(false);
+              setModalEditQuiz(true);
+            }}>
+            {translations.manageQuizzes.button.edit}
+          </Button>
+          <Button
+            disabled={properties.quizStatus[quizStatus] === 'draft'}
+            size='sm'
+            startDecorator={<VisibilityRounded />}
+            variant='plain'
+            onClick={() => {
+              setModalFieldsDisabled(true);
+              setModalEditQuiz(true);
+            }}>
+            {translations.manageQuizzes.button.view}
+          </Button>
+          <Button
+            color='danger'
+            disabled={properties.quizStatus[quizStatus] === 'archived'}
+            size='sm'
+            startDecorator={<ArchiveRounded />}
+            variant='plain'
+            onClick={() => setModalDeleteQuiz(true)}>
+            {translations.manageQuizzes.button.archive}
+          </Button>
         </Stack>
       </Stack>
       <ManageQuizModal

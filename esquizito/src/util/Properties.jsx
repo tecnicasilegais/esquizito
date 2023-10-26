@@ -2,6 +2,7 @@ import {
   EditNoteRounded,
   Inventory2Rounded,
   KeyRounded,
+  PublicRounded,
   QuizRounded,
   StarRounded,
   TimerRounded,
@@ -157,9 +158,9 @@ export const translations = {
       questions: 'Perguntas',
     },
     quizStatus: {
-      0: { icon: <EditNoteRounded />, text: 'Rascunho' },
-      1: { icon: <KeyRounded />, text: 'Publicado' },
-      2: { icon: <Inventory2Rounded />, text: 'Arquivado' },
+      0: { color: 'warning', icon: <EditNoteRounded />, text: 'Rascunho' },
+      1: { color: 'success', icon: <PublicRounded />, text: 'Publicado' },
+      2: { color: 'neutral', icon: <Inventory2Rounded />, text: 'Arquivado' },
     },
   },
   menu: {
