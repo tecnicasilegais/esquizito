@@ -3,6 +3,7 @@ import {
   ContentCopyRounded,
   EditRounded,
   KeyRounded,
+  LeaderboardRounded,
   PublishRounded,
   TagRounded,
   VisibilityRounded,
@@ -26,11 +27,17 @@ function Quiz({
   quizStatus,
   refreshPage,
 }) {
+  const { resultService } = useService();
   const [modalEditQuiz, setModalEditQuiz] = useState(false);
   const [modalDeleteQuiz, setModalDeleteQuiz] = useState(false);
   const [modalPublishQuiz, setModalPublishQuiz] = useState(false);
   const [modalFieldsDisabled, setModalFieldsDisabled] = useState(false);
   const { quizService } = useService();
+
+  const handleQuizResultsButton = async () => {
+    const result = await resultService.listFromQuiz(quizId);
+    console.log({ result });
+  };
 
   return (
     <Card variant='soft'>
@@ -82,50 +89,69 @@ function Quiz({
           </Stack>
           <Box textAlign='justify'>{name}</Box>
         </Stack>
+        <Divider orientation='vertical' />
         <Stack
           alignItems='center'
           direction='row'
           justifyContent='flex-end'
           sx={{ '& button:disabled': { opacity: '0.4' } }}>
-          <Button
-            disabled={properties.quizStatus[quizStatus] !== 'draft'}
-            size='sm'
-            startDecorator={<PublishRounded />}
-            variant='plain'
-            onClick={() => setModalPublishQuiz(true)}>
-            {translations.manageQuizzes.button.publish}
-          </Button>
-          <Button
-            disabled={properties.quizStatus[quizStatus] !== 'draft'}
-            size='sm'
-            startDecorator={<EditRounded />}
-            variant='plain'
-            onClick={() => {
-              setModalFieldsDisabled(false);
-              setModalEditQuiz(true);
-            }}>
-            {translations.manageQuizzes.button.edit}
-          </Button>
-          <Button
-            disabled={properties.quizStatus[quizStatus] === 'draft'}
-            size='sm'
-            startDecorator={<VisibilityRounded />}
-            variant='plain'
-            onClick={() => {
-              setModalFieldsDisabled(true);
-              setModalEditQuiz(true);
-            }}>
-            {translations.manageQuizzes.button.view}
-          </Button>
-          <Button
-            color='danger'
-            disabled={properties.quizStatus[quizStatus] === 'archived'}
-            size='sm'
-            startDecorator={<ArchiveRounded />}
-            variant='plain'
-            onClick={() => setModalDeleteQuiz(true)}>
-            {translations.manageQuizzes.button.archive}
-          </Button>
+          {properties.quizStatus[quizStatus] === 'published' ||
+            (properties.quizStatus[quizStatus] === 'archived' && (
+              <Button
+                size='sm'
+                startDecorator={<LeaderboardRounded />}
+                variant='plain'
+                onClick={handleQuizResultsButton}>
+                {translations.manageQuizzes.button.results}
+              </Button>
+            ))}
+          {properties.quizStatus[quizStatus] === 'draft' && (
+            <Button
+              disabled={properties.quizStatus[quizStatus] !== 'draft'}
+              size='sm'
+              startDecorator={<PublishRounded />}
+              variant='plain'
+              onClick={() => setModalPublishQuiz(true)}>
+              {translations.manageQuizzes.button.publish}
+            </Button>
+          )}
+          {properties.quizStatus[quizStatus] === 'draft' && (
+            <Button
+              disabled={properties.quizStatus[quizStatus] !== 'draft'}
+              size='sm'
+              startDecorator={<EditRounded />}
+              variant='plain'
+              onClick={() => {
+                setModalFieldsDisabled(false);
+                setModalEditQuiz(true);
+              }}>
+              {translations.manageQuizzes.button.edit}
+            </Button>
+          )}
+          {properties.quizStatus[quizStatus] !== 'draft' && (
+            <Button
+              disabled={properties.quizStatus[quizStatus] === 'draft'}
+              size='sm'
+              startDecorator={<VisibilityRounded />}
+              variant='plain'
+              onClick={() => {
+                setModalFieldsDisabled(true);
+                setModalEditQuiz(true);
+              }}>
+              {translations.manageQuizzes.button.view}
+            </Button>
+          )}
+          {properties.quizStatus[quizStatus] !== 'archived' && (
+            <Button
+              color='danger'
+              disabled={properties.quizStatus[quizStatus] === 'archived'}
+              size='sm'
+              startDecorator={<ArchiveRounded />}
+              variant='plain'
+              onClick={() => setModalDeleteQuiz(true)}>
+              {translations.manageQuizzes.button.archive}
+            </Button>
+          )}
         </Stack>
       </Stack>
       <ManageQuizModal

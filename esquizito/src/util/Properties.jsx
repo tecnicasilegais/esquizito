@@ -115,6 +115,7 @@ export const translations = {
       edit: 'Editar',
       home: 'Início',
       publish: 'Publicar',
+      results: 'Resultados',
       update: 'Atualizar',
       view: 'Visualizar',
     },
