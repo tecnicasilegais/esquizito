@@ -28,7 +28,7 @@ function GamePage() {
   const [disabled, setDisabled] = useState(false);
   const [loading, setLoading] = useState(true);
   const [answers, setAnswers] = useState([]);
-  const [openEndModal, setOpenEndModal] = useState(true);
+  const [openEndModal, setOpenEndModal] = useState(false);
   const [numberCorrectAnswers, setNumberCorrectAnswers] = useState(0);
   const { resultService } = useService();
 
