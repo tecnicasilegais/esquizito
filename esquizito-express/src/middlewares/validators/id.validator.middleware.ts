@@ -14,9 +14,12 @@ export function validateBodyUserId(
   res: Response,
   next: NextFunction,
 ) {
-  return validateObjectId(req.body.userId)
-    ? next()
-    : res.status(400).json({ error: 'Invalid User ID' });
+  if (validateObjectId(req.body.userId)) {
+    req.body.userId = new mongoose.Types.ObjectId(req.body.userId);
+
+    return next();
+  }
+  return res.status(400).json({ error: 'Invalid User ID' });
 }
 
 export function validateBodyQuizId(
