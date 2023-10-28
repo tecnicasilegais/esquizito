@@ -171,6 +171,10 @@ export const translations = {
       seeResults: 'Meus resultados',
     },
   },
+  notFound: {
+    homeLink: 'Volte para a página inicial!',
+    text: 'Você parece estar perdido :(',
+  },
   quizResults: {
     averagesHeader: {
       answers: { title: 'Respostas' },
