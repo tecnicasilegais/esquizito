@@ -5,7 +5,8 @@ import {
   KeyRounded,
   LeaderboardRounded,
   PublishRounded,
-  TagRounded,
+  QuestionAnswerRounded,
+  QuestionMarkRounded,
   VisibilityRounded,
 } from '@mui/icons-material';
 import { Box, Button, Card, Chip, Divider, Stack } from '@mui/joy';
@@ -87,12 +88,18 @@ function Quiz({
               variant='solid'>
               {translations.gameModes[gameMode].text}
             </Chip>
-            <Chip size='sm' startDecorator={<TagRounded />} variant='solid'>
+            <Chip
+              size='sm'
+              startDecorator={<QuestionMarkRounded />}
+              variant='solid'>
               {`${questions.length} ${translations.manageQuizzes.quizModal.questions}`}
             </Chip>
             {properties.quizStatus[quizStatus] !== 'draft' &&
               amountOfAnswers > 0 && (
-                <Chip size='sm' startDecorator={<TagRounded />} variant='solid'>
+                <Chip
+                  size='sm'
+                  startDecorator={<QuestionAnswerRounded />}
+                  variant='solid'>
                   {`${amountOfAnswers} ${translations.manageQuizzes.quizModal.answers}`}
                 </Chip>
               )}
