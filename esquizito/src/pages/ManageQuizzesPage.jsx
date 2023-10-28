@@ -81,6 +81,7 @@ function ManageQuizzesPage() {
             {!isLoading &&
               quizzes.map((quiz) => (
                 <Quiz
+                  amountOfAnswers={quiz.amountOfAnswers}
                   availableQuestions={questions}
                   code={quiz.code}
                   gameMode={quiz.gameMode}

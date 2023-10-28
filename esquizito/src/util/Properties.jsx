@@ -139,6 +139,7 @@ export const translations = {
     header: 'Gerenciar Questionários',
     publishHeader: 'Tem certeza que deseja publicar o questionário?',
     quizModal: {
+      answers: 'Respostas',
       button: {
         cancel: 'Cancelar',
         clear: 'Limpar',
@@ -153,7 +154,6 @@ export const translations = {
       headerEdit: 'Editar questionário',
       headerView: 'Visualizar questionário',
       name: 'Nome',
-
       questions: 'Perguntas',
     },
     quizStatus: {

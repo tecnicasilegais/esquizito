@@ -5,7 +5,8 @@ import {
   KeyRounded,
   LeaderboardRounded,
   PublishRounded,
-  TagRounded,
+  QuestionAnswerRounded,
+  QuestionMarkRounded,
   VisibilityRounded,
 } from '@mui/icons-material';
 import { Box, Button, Card, Chip, Divider, Stack } from '@mui/joy';
@@ -21,6 +22,7 @@ import { properties, translations } from 'util/Properties';
 import { urlPaths } from 'util/UrlPaths';
 
 function Quiz({
+  amountOfAnswers,
   availableQuestions,
   code,
   gameMode,
@@ -86,9 +88,21 @@ function Quiz({
               variant='solid'>
               {translations.gameModes[gameMode].text}
             </Chip>
-            <Chip size='sm' startDecorator={<TagRounded />} variant='solid'>
+            <Chip
+              size='sm'
+              startDecorator={<QuestionMarkRounded />}
+              variant='solid'>
               {`${questions.length} ${translations.manageQuizzes.quizModal.questions}`}
             </Chip>
+            {properties.quizStatus[quizStatus] !== 'draft' &&
+              amountOfAnswers > 0 && (
+                <Chip
+                  size='sm'
+                  startDecorator={<QuestionAnswerRounded />}
+                  variant='solid'>
+                  {`${amountOfAnswers} ${translations.manageQuizzes.quizModal.answers}`}
+                </Chip>
+              )}
           </Stack>
           <Box textAlign='justify'>{name}</Box>
         </Stack>
@@ -98,16 +112,16 @@ function Quiz({
           direction='row'
           justifyContent='flex-end'
           sx={{ '& button:disabled': { opacity: '0.4' } }}>
-          {(properties.quizStatus[quizStatus] === 'published' ||
-            properties.quizStatus[quizStatus] === 'archived') && (
-            <Button
-              size='sm'
-              startDecorator={<LeaderboardRounded />}
-              variant='plain'
-              onClick={handleQuizResultsButton}>
-              {translations.manageQuizzes.button.results}
-            </Button>
-          )}
+          {properties.quizStatus[quizStatus] !== 'draft' &&
+            amountOfAnswers > 0 && (
+              <Button
+                size='sm'
+                startDecorator={<LeaderboardRounded />}
+                variant='plain'
+                onClick={handleQuizResultsButton}>
+                {translations.manageQuizzes.button.results}
+              </Button>
+            )}
           {properties.quizStatus[quizStatus] === 'draft' && (
             <Button
               disabled={properties.quizStatus[quizStatus] !== 'draft'}
@@ -200,6 +214,7 @@ function Quiz({
 }
 
 Quiz.propTypes = {
+  amountOfAnswers: PropTypes.number,
   availableQuestions: PropTypes.arrayOf(
     PropTypes.shape({
       answer: PropTypes.bool,
@@ -225,6 +240,7 @@ Quiz.propTypes = {
 };
 
 Quiz.defaultProps = {
+  amountOfAnswers: 0,
   code: '',
 };
 export default Quiz;
