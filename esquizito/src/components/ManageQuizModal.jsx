@@ -190,10 +190,8 @@ function ManageQuizModal({
                     variant='plain'
                     label={
                       <GameModeSelector
-                        startDecorator={
-                          translations.manageQuizzes.quizModal.gameModes[i].icon
-                        }>
-                        {translations.manageQuizzes.quizModal.gameModes[i].text}
+                        startDecorator={translations.gameModes[i].icon}>
+                        {translations.gameModes[i].text}
                       </GameModeSelector>
                     }
                     slotProps={{
@@ -243,7 +241,7 @@ function ManageQuizModal({
                   <InfoOutlined />
                   <Box>
                     {
-                      translations.manageQuizzes.quizModal.gameModes[
+                      translations.gameModes[
                         properties.gameModes.indexOf(gameMode)
                       ].helperText
                     }

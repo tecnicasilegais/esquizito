@@ -32,7 +32,7 @@ function Quiz({
 }) {
   const navigate = useNavigate();
   const { setResultData } = useNavContext();
-  const { quizService, resultService } = useService();
+  const { quizService } = useService();
   const [modalEditQuiz, setModalEditQuiz] = useState(false);
   const [modalDeleteQuiz, setModalDeleteQuiz] = useState(false);
   const [modalPublishQuiz, setModalPublishQuiz] = useState(false);
@@ -49,6 +49,7 @@ function Quiz({
         <Stack
           alignItems='center'
           justifyContent='center'
+          maxWidth='130px'
           minWidth='130px'
           spacing={1}
           width='130px'>
@@ -81,11 +82,9 @@ function Quiz({
           <Stack direction='row' spacing={1}>
             <Chip
               size='sm'
-              variant='solid'
-              startDecorator={
-                translations.manageQuizzes.quizModal.gameModes[gameMode].icon
-              }>
-              {translations.manageQuizzes.quizModal.gameModes[gameMode].text}
+              startDecorator={translations.gameModes[gameMode].icon}
+              variant='solid'>
+              {translations.gameModes[gameMode].text}
             </Chip>
             <Chip size='sm' startDecorator={<TagRounded />} variant='solid'>
               {`${questions.length} ${translations.manageQuizzes.quizModal.questions}`}

@@ -2,6 +2,7 @@ import AuthenticationGuard from 'components/AuthenticationGuard';
 import { NavContextProvider } from 'contexts/NavContext';
 import { useUser } from 'contexts/UserContext';
 import GamePage from 'pages/GamePage';
+import StartGamePage from 'pages/StartGamePage';
 import JoinGamePage from 'pages/JoinGamePage';
 import LandingPage from 'pages/LandingPage';
 import LoadingPage from 'pages/LoadingPage';
@@ -30,6 +31,10 @@ function AppRoutes() {
       <Route
         element={<AuthenticationGuard component={GamePage} />}
         path={urlPaths.gamePage}
+      />
+      <Route
+        element={<AuthenticationGuard component={StartGamePage} />}
+        path={urlPaths.startGamePage}
       />
       <Route
         element={<AuthenticationGuard component={QuizResultsPage} />}
