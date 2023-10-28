@@ -9,13 +9,16 @@ import {
   VisibilityRounded,
 } from '@mui/icons-material';
 import { Box, Button, Card, Chip, Divider, Stack } from '@mui/joy';
-import { toast } from 'sonner';
-import { properties, translations } from 'util/Properties';
 import ConfirmationModal from 'components/ConfirmationModal';
 import ManageQuizModal from 'components/ManageQuizModal';
-import PropTypes from 'prop-types';
+import { useNavContext } from 'contexts/NavContext';
 import { useService } from 'contexts/ServiceContext';
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
+import { properties, translations } from 'util/Properties';
+import { urlPaths } from 'util/UrlPaths';
 
 function Quiz({
   availableQuestions,
@@ -27,16 +30,17 @@ function Quiz({
   quizStatus,
   refreshPage,
 }) {
-  const { resultService } = useService();
+  const navigate = useNavigate();
+  const { setResultData } = useNavContext();
+  const { quizService, resultService } = useService();
   const [modalEditQuiz, setModalEditQuiz] = useState(false);
   const [modalDeleteQuiz, setModalDeleteQuiz] = useState(false);
   const [modalPublishQuiz, setModalPublishQuiz] = useState(false);
   const [modalFieldsDisabled, setModalFieldsDisabled] = useState(false);
-  const { quizService } = useService();
 
   const handleQuizResultsButton = async () => {
-    const result = await resultService.listFromQuiz(quizId);
-    console.log({ result });
+    setResultData({ quizId });
+    navigate(urlPaths.quizResultsPage);
   };
 
   return (
@@ -95,16 +99,16 @@ function Quiz({
           direction='row'
           justifyContent='flex-end'
           sx={{ '& button:disabled': { opacity: '0.4' } }}>
-          {properties.quizStatus[quizStatus] === 'published' ||
-            (properties.quizStatus[quizStatus] === 'archived' && (
-              <Button
-                size='sm'
-                startDecorator={<LeaderboardRounded />}
-                variant='plain'
-                onClick={handleQuizResultsButton}>
-                {translations.manageQuizzes.button.results}
-              </Button>
-            ))}
+          {(properties.quizStatus[quizStatus] === 'published' ||
+            properties.quizStatus[quizStatus] === 'archived') && (
+            <Button
+              size='sm'
+              startDecorator={<LeaderboardRounded />}
+              variant='plain'
+              onClick={handleQuizResultsButton}>
+              {translations.manageQuizzes.button.results}
+            </Button>
+          )}
           {properties.quizStatus[quizStatus] === 'draft' && (
             <Button
               disabled={properties.quizStatus[quizStatus] !== 'draft'}

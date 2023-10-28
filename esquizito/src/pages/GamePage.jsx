@@ -8,18 +8,18 @@ import {
   Stack,
   radioClasses,
 } from '@mui/joy';
+import { useNavContext } from 'contexts/NavContext';
 import { properties, translations } from 'util/Properties';
-import GameContext from 'contexts/GameContext';
 import GameQuestion from 'components/GameQuestion';
 import HeaderScreen from 'components/HeaderScreen';
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import { urlPaths } from 'util/UrlPaths';
 import { useService } from 'contexts/ServiceContext';
 import { useNavigate } from 'react-router-dom';
 
 function GamePage() {
   const navigate = useNavigate();
-  const { gameData } = useContext(GameContext);
+  const { gameData } = useNavContext();
   const [questions, setQuestions] = useState([]);
   const [questionIndex, setQuestionIndex] = useState(0);
   const [answerCorrect, setAnswerCorrect] = useState(null);

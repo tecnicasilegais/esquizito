@@ -168,22 +168,23 @@ export const translations = {
     button: {
       enterGame: 'Entrar em um jogo',
       logout: 'Sair',
-      manageQuestions: 'Gerenciar banco de perguntas',
+      manageQuestions: 'Gerenciar questões',
       manageQuizzes: 'Gerenciar questionários',
       seeResults: 'Meus resultados',
     },
   },
-  ranking: {
+  quizResults: {
     averagesHeader: {
       answers: { title: 'Respostas' },
       hits: { title: 'Média de Acertos' },
       time: { title: 'Tempo Médio' },
     },
-    button: { home: 'Início' },
+    button: { back: 'Voltar' },
     imgDescription: {
       correct: 'Ícone de acerto',
       incorrect: 'Ícone de erro',
     },
+    noResults: 'Nenhum resultado encontrado.',
     pageHeader: { center: 'Relatório' },
     resultsHeader: {
       name: 'Nome',
