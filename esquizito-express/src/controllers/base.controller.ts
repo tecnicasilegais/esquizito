@@ -32,5 +32,7 @@ export class BaseController<T> {
       .create(body)
       .then(({ _id }) => res.status(201).json({ id: _id }))
       .catch((err) => next(err));
+
+    return next();
   };
 }

@@ -33,6 +33,9 @@ export class QuizService extends BaseService<QuizDocument> {
     this.repository.getAll([
       { field: 'userId', type: FilterType.EQUALS, value: userId },
     ]);
+
+  increaseAmountOfAnswers = async (id: string) =>
+    this.repository.increment(id, 'amountOfAnswers', 1);
 }
 
 const quizService = new QuizService();

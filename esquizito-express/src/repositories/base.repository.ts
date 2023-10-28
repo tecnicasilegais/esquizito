@@ -61,6 +61,14 @@ export class BaseRepository<T> implements IRepository<T> {
       .exec();
   }
 
+  async increment(id: string, field: keyof T, amount: number) {
+    return this._model.findByIdAndUpdate(
+      id,
+      { $inc: { [field]: amount } } as never,
+      { new: true },
+    );
+  }
+
   async create(model: T) {
     return this._model.create(model);
   }
