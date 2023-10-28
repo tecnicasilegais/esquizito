@@ -67,6 +67,12 @@ export const translations = {
     },
     button: { confirm: 'Confirmar', next: 'Avançar' },
   },
+  gameEndModal: {
+    button: { home: 'Início' },
+    correctAnswers: 'Respostas corretas',
+    header: 'Fim de jogo',
+    incorrectAnswers: 'Respostas incorretas',
+  },
   gameModes: {
     0: {
       helperText: 'Modo padrão sem limite de tempo.',

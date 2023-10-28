@@ -8,6 +8,7 @@ import {
   radioClasses,
   Stack,
 } from '@mui/joy';
+import GameEndModal from 'components/GameEndModal';
 import GameQuestion from 'components/GameQuestion';
 import HeaderScreen from 'components/HeaderScreen';
 import { useNavContext } from 'contexts/NavContext';
@@ -19,7 +20,7 @@ import { urlPaths } from 'util/UrlPaths';
 
 function GamePage() {
   const navigate = useNavigate();
-  const { gameData } = useNavContext();
+  const { gameData, setGameData } = useNavContext();
   const [questions, setQuestions] = useState([]);
   const [questionIndex, setQuestionIndex] = useState(0);
   const [answerCorrect, setAnswerCorrect] = useState(null);
@@ -27,6 +28,8 @@ function GamePage() {
   const [disabled, setDisabled] = useState(false);
   const [loading, setLoading] = useState(true);
   const [answers, setAnswers] = useState([]);
+  const [openEndModal, setOpenEndModal] = useState(true);
+  const [numberCorrectAnswers, setNumberCorrectAnswers] = useState(0);
   const { resultService } = useService();
 
   const handleAnswerChange = (event) => {
@@ -37,6 +40,11 @@ function GamePage() {
     setDisabled(true);
 
     const userAnswers = [selectedAnswer[0] === 'v', selectedAnswer[1] === 'v'];
+
+    setNumberCorrectAnswers(
+      (storedNumber) =>
+        storedNumber + userAnswers.count((answer) => answer === true),
+    );
 
     setAnswers((storedAnswers) => [
       ...storedAnswers,
@@ -64,6 +72,16 @@ function GamePage() {
     }
   };
 
+  const endGame = () => {
+    resultService
+      .create({
+        answers,
+        elapsedTime: questions.length * 10,
+        quizId: gameData._id,
+      })
+      .then(() => navigate(urlPaths.mainMenu));
+  };
+
   const nextQuestion = () => {
     setSelectedAnswer('');
     setAnswerCorrect(null);
@@ -71,13 +89,7 @@ function GamePage() {
       setQuestionIndex(questionIndex + 2);
       setDisabled(false);
     } else {
-      resultService
-        .create({
-          answers,
-          elapsedTime: questions.length * 10,
-          quizId: gameData._id,
-        })
-        .then(() => navigate(urlPaths.mainMenu));
+      setOpenEndModal(true);
     }
   };
 
@@ -185,6 +197,12 @@ function GamePage() {
           </Box>
         </Stack>
       )}
+      <GameEndModal
+        clearGameData={() => setGameData(undefined)}
+        correctAnswers={numberCorrectAnswers}
+        incorrectAnswers={questions.length - numberCorrectAnswers}
+        open={openEndModal}
+      />
     </HeaderScreen>
   );
 }
