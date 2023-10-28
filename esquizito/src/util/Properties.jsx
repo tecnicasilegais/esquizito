@@ -1,7 +1,6 @@
 import {
   EditNoteRounded,
   Inventory2Rounded,
-  KeyRounded,
   PublicRounded,
   QuizRounded,
   StarRounded,

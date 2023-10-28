@@ -5,17 +5,17 @@ import {
   Divider,
   Grid,
   Radio,
-  Stack,
   radioClasses,
+  Stack,
 } from '@mui/joy';
-import { useNavContext } from 'contexts/NavContext';
-import { properties, translations } from 'util/Properties';
 import GameQuestion from 'components/GameQuestion';
 import HeaderScreen from 'components/HeaderScreen';
-import React, { useEffect, useState } from 'react';
-import { urlPaths } from 'util/UrlPaths';
+import { useNavContext } from 'contexts/NavContext';
 import { useService } from 'contexts/ServiceContext';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { properties, translations } from 'util/Properties';
+import { urlPaths } from 'util/UrlPaths';
 
 function GamePage() {
   const navigate = useNavigate();

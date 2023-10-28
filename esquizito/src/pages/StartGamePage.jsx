@@ -6,7 +6,7 @@ import {
 import { Button, Card, Chip, Stack, Typography } from '@mui/joy';
 import HeaderScreen from 'components/HeaderScreen';
 import { useNavContext } from 'contexts/NavContext';
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { translations } from 'util/Properties';
 import { urlPaths } from 'util/UrlPaths';

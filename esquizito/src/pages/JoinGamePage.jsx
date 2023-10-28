@@ -1,12 +1,12 @@
 import { Button, FormControl, FormLabel, Input, Stack } from '@mui/joy';
+import FormErrorMsg from 'components/FormErrorMsg';
+import LogoCard from 'components/LogoCard';
 import { useNavContext } from 'contexts/NavContext';
+import { useService } from 'contexts/ServiceContext';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { translations } from 'util/Properties';
 import { urlPaths } from 'util/UrlPaths';
-import { useNavigate } from 'react-router-dom';
-import { useService } from 'contexts/ServiceContext';
-import LogoCard from 'components/LogoCard';
-import React, { useEffect } from 'react';
-import FormErrorMsg from 'components/FormErrorMsg';
 
 /*
   Quiz ID won't be readable, so we need to create an unique ID

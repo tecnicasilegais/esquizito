@@ -1,7 +1,7 @@
-import { Box, FormHelperText, Stack } from '@mui/joy';
 import { InfoOutlined } from '@mui/icons-material';
-import React from 'react';
+import { Box, FormHelperText, Stack } from '@mui/joy';
 import PropTypes from 'prop-types';
+import React from 'react';
 
 function FormErrorMsg({ errorMessage }) {
   return (

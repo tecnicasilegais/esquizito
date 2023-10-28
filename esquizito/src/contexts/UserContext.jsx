@@ -1,6 +1,5 @@
 import { useAuth0 } from '@auth0/auth0-react';
-
-import { extractAuth0Id } from 'util/Util';
+import UserService from 'apis/services/UserService';
 import PropTypes from 'prop-types';
 import React, {
   createContext,
@@ -10,7 +9,8 @@ import React, {
   useMemo,
   useState,
 } from 'react';
-import UserService from 'apis/services/UserService';
+
+import { extractAuth0Id } from 'util/Util';
 
 const initialContext = {
   getAccessTokenSilently: async () => {},

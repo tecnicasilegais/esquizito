@@ -1,7 +1,7 @@
-import { Box, Card, CardOverflow } from '@mui/joy';
+import { Card, CardOverflow } from '@mui/joy';
+import logo from 'assets/logo.png';
 import PropTypes from 'prop-types';
 import React from 'react';
-import logo from 'assets/logo.png';
 
 function LogoCard({ children }) {
   return (

@@ -1,9 +1,9 @@
 import { Button, Stack } from '@mui/joy';
-import { translations } from 'util/Properties';
-import { urlPaths } from 'util/UrlPaths';
-import { useNavigate } from 'react-router-dom';
 import LogoutButton from 'components/LogoutButton';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { translations } from 'util/Properties';
+import { urlPaths } from 'util/UrlPaths';
 
 function MainMenu() {
   const navigate = useNavigate();

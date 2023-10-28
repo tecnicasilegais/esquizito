@@ -1,4 +1,4 @@
-import { ArrowBackRounded, HomeRounded } from '@mui/icons-material';
+import { ArrowBackRounded } from '@mui/icons-material';
 import { Box, Button, Card, Grid, Stack, Table, Typography } from '@mui/joy';
 import incorrect from 'assets/cancel.svg';
 import correct from 'assets/check.svg';
