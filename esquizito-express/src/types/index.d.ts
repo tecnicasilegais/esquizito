@@ -5,5 +5,8 @@ declare global {
     export interface Request {
       notFoundMessage?: string;
     }
+    export interface Response {
+      isSent?: boolean;
+    }
   }
 }

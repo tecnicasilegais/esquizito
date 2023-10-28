@@ -39,6 +39,7 @@ router.put(
   '/update/:id',
   validateId,
   validateQuizIsDraft,
+  validateBodyUserId,
   validateBodyUserExists,
   validateQuizListOfIds,
   validateQuestionsExists,
