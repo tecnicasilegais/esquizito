@@ -15,7 +15,9 @@ function MainMenu() {
         </Button>
       </Stack>
       <Stack spacing={2}>
-        <Button variant='soft' onClick={() => navigate(urlPaths.rankingPage)}>
+        <Button
+          variant='soft'
+          onClick={() => navigate(urlPaths.quizResultsPage)}>
           {translations.menu.button.seeResults}
         </Button>
         <Button

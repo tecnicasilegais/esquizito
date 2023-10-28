@@ -1,19 +1,18 @@
-import { useUser } from 'contexts/UserContext';
 import AuthenticationGuard from 'components/AuthenticationGuard';
+import { NavContextProvider } from 'contexts/NavContext';
+import { useUser } from 'contexts/UserContext';
 import GamePage from 'pages/GamePage';
 import StartGamePage from 'pages/StartGamePage';
-
-import { Route, Routes } from 'react-router-dom';
-import { urlPaths } from 'util/UrlPaths';
 import JoinGamePage from 'pages/JoinGamePage';
 import LandingPage from 'pages/LandingPage';
 import LoadingPage from 'pages/LoadingPage';
 import MainMenu from 'pages/MainMenu';
 import ManageQuestionsPage from 'pages/ManageQuestionsPage';
 import ManageQuizzesPage from 'pages/ManageQuizzesPage';
-import RankingPage from 'pages/RankingPage';
-import React, { useMemo } from 'react';
-import GameContext from 'contexts/GameContext';
+import QuizResultsPage from 'pages/QuizResultsPage';
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
+import { urlPaths } from 'util/UrlPaths';
 import styles from './App.module.scss';
 
 function AppRoutes() {
@@ -38,8 +37,8 @@ function AppRoutes() {
         path={urlPaths.startGamePage}
       />
       <Route
-        element={<AuthenticationGuard component={RankingPage} />}
-        path={urlPaths.rankingPage}
+        element={<AuthenticationGuard component={QuizResultsPage} />}
+        path={urlPaths.quizResultsPage}
       />
       <Route
         element={<AuthenticationGuard component={ManageQuestionsPage} />}
@@ -54,20 +53,14 @@ function AppRoutes() {
 }
 
 export default function App() {
-  const [gameData, setGameData] = React.useState(null);
   const { isLoading } = useUser();
 
-  const gameContext = useMemo(
-    () => ({ gameData, setGameData }),
-    [gameData, setGameData],
-  );
-
   return (
-    <GameContext.Provider value={gameContext}>
+    <NavContextProvider>
       <div className={styles.app}>
         {isLoading && <LoadingPage />}
         {!isLoading && <AppRoutes />}
       </div>
-    </GameContext.Provider>
+    </NavContextProvider>
   );
 }
