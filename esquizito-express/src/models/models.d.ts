@@ -27,6 +27,7 @@ export interface IQuiz<T, U> {
   questionTimeLimit?: number; // seconds
   amountOfStars?: number;
   questions: Array<U>;
+  amountOfAnswers: number;
 }
 
 export interface IResponse<T> {

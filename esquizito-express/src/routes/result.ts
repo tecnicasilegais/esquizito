@@ -5,6 +5,7 @@ import { ResultController } from 'controllers/result.controller';
 import { postErrorHandler } from 'middlewares/error-handling/post-error.middleware';
 import {
   addTimestamp,
+  incrementAmountOfAnswers,
   validateUserExistsAndAddUserName,
 } from 'middlewares/general';
 import { validateAccessToken } from 'middlewares/validators/auth0.middleware';
@@ -34,6 +35,7 @@ router.post(
   validateAnswers,
   addTimestamp,
   resultController.create,
+  incrementAmountOfAnswers,
   postErrorHandler,
 );
 

@@ -36,6 +36,10 @@ const quizSchema: Schema<QuizDocument> = new Schema<QuizDocument>(
       type: [questionSchema],
       required: true,
     },
+    amountOfAnswers: {
+      type: Number,
+      default: 0,
+    },
   },
   {
     strict: 'throw',

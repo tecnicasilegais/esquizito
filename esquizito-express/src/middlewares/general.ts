@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 
+import quizService from 'services/quiz.service';
 import userService from 'services/user.service';
 import { CustomError } from 'utils/error.util';
 
@@ -32,4 +33,14 @@ export async function addTimestamp(
 ) {
   req.body.createdAt = new Date();
   return next();
+}
+
+export async function incrementAmountOfAnswers(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
+  const { quizId } = req.body;
+
+  await quizService.increaseAmountOfAnswers(quizId);
 }
