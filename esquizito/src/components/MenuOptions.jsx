@@ -1,9 +1,9 @@
 import { Button, Stack } from '@mui/joy';
-import { translations } from 'util/Properties';
-import { urlPaths } from 'util/UrlPaths';
-import { useNavigate } from 'react-router-dom';
 import LogoutButton from 'components/LogoutButton';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { translations } from 'util/Properties';
+import { urlPaths } from 'util/UrlPaths';
 
 function MainMenu() {
   const navigate = useNavigate();
@@ -15,7 +15,9 @@ function MainMenu() {
         </Button>
       </Stack>
       <Stack spacing={2}>
-        <Button variant='soft' onClick={() => navigate(urlPaths.rankingPage)}>
+        <Button
+          variant='soft'
+          onClick={() => navigate(urlPaths.quizResultsPage)}>
           {translations.menu.button.seeResults}
         </Button>
         <Button

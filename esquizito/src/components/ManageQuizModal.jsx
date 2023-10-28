@@ -1,4 +1,10 @@
-import * as PropTypes from 'prop-types';
+import {
+  CleaningServices,
+  Clear,
+  InfoOutlined,
+  Save,
+  VisibilityRounded,
+} from '@mui/icons-material';
 import {
   Box,
   Button,
@@ -21,18 +27,12 @@ import {
   RadioGroup,
   Stack,
 } from '@mui/joy';
-import {
-  CleaningServices,
-  Clear,
-  InfoOutlined,
-  Save,
-  VisibilityRounded,
-} from '@mui/icons-material';
-import { properties, translations } from 'util/Properties';
 import GameModeSelector from 'components/GameModeSelector';
 import ManageQuestionModal from 'components/ManageQuestionModal';
+import * as PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'sonner';
+import { properties, translations } from 'util/Properties';
 import FormErrorMsg from './FormErrorMsg';
 
 function ManageQuizModal({

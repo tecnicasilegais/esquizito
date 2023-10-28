@@ -5,21 +5,21 @@ import {
   Divider,
   Grid,
   Radio,
-  Stack,
   radioClasses,
+  Stack,
 } from '@mui/joy';
-import { properties, translations } from 'util/Properties';
-import GameContext from 'contexts/GameContext';
 import GameQuestion from 'components/GameQuestion';
 import HeaderScreen from 'components/HeaderScreen';
-import React, { useEffect, useState, useContext } from 'react';
-import { urlPaths } from 'util/UrlPaths';
+import { useNavContext } from 'contexts/NavContext';
 import { useService } from 'contexts/ServiceContext';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { properties, translations } from 'util/Properties';
+import { urlPaths } from 'util/UrlPaths';
 
 function GamePage() {
   const navigate = useNavigate();
-  const { gameData } = useContext(GameContext);
+  const { gameData } = useNavContext();
   const [questions, setQuestions] = useState([]);
   const [questionIndex, setQuestionIndex] = useState(0);
   const [answerCorrect, setAnswerCorrect] = useState(null);

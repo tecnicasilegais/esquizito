@@ -5,15 +5,15 @@ import {
 } from '@mui/icons-material';
 import { Button, Card, Chip, Stack, Typography } from '@mui/joy';
 import HeaderScreen from 'components/HeaderScreen';
-import GameContext from 'contexts/GameContext';
-import React, { useContext, useEffect } from 'react';
+import { useNavContext } from 'contexts/NavContext';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { translations } from 'util/Properties';
 import { urlPaths } from 'util/UrlPaths';
 
 function StartGamePage() {
   const navigate = useNavigate();
-  const { gameData, setGameData } = useContext(GameContext);
+  const { gameData, setGameData } = useNavContext();
   const [loading, setLoading] = React.useState(true);
   const [name, setName] = React.useState('');
   const [numberOfQuestions, setNumberOfQuestions] = React.useState(0);

@@ -6,11 +6,11 @@ import {
   Stack,
   Typography,
 } from '@mui/joy';
-import { urlPaths } from 'util/UrlPaths';
-import { useNavigate } from 'react-router-dom';
 import LogoCard from 'components/LogoCard';
 import PropTypes from 'prop-types';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { urlPaths } from 'util/UrlPaths';
 
 function LandingPage({ authType = 'login' }) {
   const navigate = useNavigate();

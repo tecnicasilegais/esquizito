@@ -1,4 +1,4 @@
-import * as PropTypes from 'prop-types';
+import { DeleteRounded } from '@mui/icons-material';
 import {
   Button,
   ButtonGroup,
@@ -7,9 +7,9 @@ import {
   Modal,
   ModalDialog,
 } from '@mui/joy';
-import { DeleteRounded } from '@mui/icons-material';
-import { translations } from 'util/Properties';
+import * as PropTypes from 'prop-types';
 import React from 'react';
+import { translations } from 'util/Properties';
 
 function ConfirmationModal({
   negative,

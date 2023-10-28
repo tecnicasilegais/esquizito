@@ -1,18 +1,24 @@
 import {
   ArchiveRounded,
+  ContentCopyRounded,
   EditRounded,
   KeyRounded,
+  LeaderboardRounded,
   PublishRounded,
   TagRounded,
   VisibilityRounded,
 } from '@mui/icons-material';
 import { Box, Button, Card, Chip, Divider, Stack } from '@mui/joy';
-import { properties, translations } from 'util/Properties';
 import ConfirmationModal from 'components/ConfirmationModal';
 import ManageQuizModal from 'components/ManageQuizModal';
-import PropTypes from 'prop-types';
+import { useNavContext } from 'contexts/NavContext';
 import { useService } from 'contexts/ServiceContext';
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
+import { properties, translations } from 'util/Properties';
+import { urlPaths } from 'util/UrlPaths';
 
 function Quiz({
   availableQuestions,
@@ -24,52 +30,51 @@ function Quiz({
   quizStatus,
   refreshPage,
 }) {
+  const navigate = useNavigate();
+  const { setResultData } = useNavContext();
+  const { quizService } = useService();
   const [modalEditQuiz, setModalEditQuiz] = useState(false);
   const [modalDeleteQuiz, setModalDeleteQuiz] = useState(false);
   const [modalPublishQuiz, setModalPublishQuiz] = useState(false);
   const [modalFieldsDisabled, setModalFieldsDisabled] = useState(false);
-  const { quizService } = useService();
+
+  const handleQuizResultsButton = async () => {
+    setResultData({ quizId });
+    navigate(urlPaths.quizResultsPage);
+  };
 
   return (
     <Card variant='soft'>
       <Stack alignItems='stretch' direction='row' spacing={1}>
-        <Stack alignItems='stretch' justifyContent='center' width='130px'>
-          {properties.quizStatus[quizStatus] === 'draft' && (
-            <Button
+        <Stack
+          alignItems='center'
+          justifyContent='center'
+          maxWidth='130px'
+          minWidth='130px'
+          spacing={1}
+          width='130px'>
+          <Chip
+            color={translations.manageQuizzes.quizStatus[quizStatus].color}
+            size='md'
+            variant='solid'
+            startDecorator={
+              translations.manageQuizzes.quizStatus[quizStatus].icon
+            }>
+            {translations.manageQuizzes.quizStatus[quizStatus].text}
+          </Chip>
+          {properties.quizStatus[quizStatus] === 'published' && (
+            <Chip
+              color='success'
+              endDecorator={<ContentCopyRounded />}
               size='sm'
-              startDecorator={<PublishRounded />}
-              sx={{ justifyContent: 'flex-start' }}
-              variant='plain'
-              onClick={() => setModalPublishQuiz(true)}>
-              {translations.manageQuizzes.button.publish}
-            </Button>
-          )}
-          {properties.quizStatus[quizStatus] === 'draft' && (
-            <Button
-              size='sm'
-              startDecorator={<EditRounded />}
-              sx={{ justifyContent: 'flex-start' }}
-              variant='plain'
+              startDecorator={<KeyRounded />}
+              variant='outlined'
               onClick={() => {
-                setModalFieldsDisabled(false);
-                setModalEditQuiz(true);
+                navigator.clipboard.writeText(code);
+                toast.message('Código copiado para a área de transferência');
               }}>
-              {translations.manageQuizzes.button.edit}
-            </Button>
-          )}
-          {(properties.quizStatus[quizStatus] === 'published' ||
-            properties.quizStatus[quizStatus] === 'archived') && (
-            <Button
-              size='sm'
-              startDecorator={<VisibilityRounded />}
-              sx={{ justifyContent: 'flex-start' }}
-              variant='plain'
-              onClick={() => {
-                setModalFieldsDisabled(true);
-                setModalEditQuiz(true);
-              }}>
-              {translations.manageQuizzes.button.view}
-            </Button>
+              {code}
+            </Chip>
           )}
         </Stack>
         <Divider orientation='vertical' />
@@ -84,31 +89,65 @@ function Quiz({
             <Chip size='sm' startDecorator={<TagRounded />} variant='solid'>
               {`${questions.length} ${translations.manageQuizzes.quizModal.questions}`}
             </Chip>
-            {properties.quizStatus[quizStatus] === 'published' && (
-              <Chip
-                size='sm'
-                startDecorator={<KeyRounded />}
-                variant='solid'
-                onClick={() => navigator.clipboard.writeText(code)}>
-                {code}
-              </Chip>
-            )}
           </Stack>
           <Box textAlign='justify'>{name}</Box>
         </Stack>
         <Divider orientation='vertical' />
-        <Stack alignItems='center' justifyContent='space-around' width='130px'>
-          <Chip
-            size='md'
-            variant='solid'
-            startDecorator={
-              translations.manageQuizzes.quizStatus[quizStatus].icon
-            }>
-            {translations.manageQuizzes.quizStatus[quizStatus].text}
-          </Chip>
+        <Stack
+          alignItems='center'
+          direction='row'
+          justifyContent='flex-end'
+          sx={{ '& button:disabled': { opacity: '0.4' } }}>
+          {(properties.quizStatus[quizStatus] === 'published' ||
+            properties.quizStatus[quizStatus] === 'archived') && (
+            <Button
+              size='sm'
+              startDecorator={<LeaderboardRounded />}
+              variant='plain'
+              onClick={handleQuizResultsButton}>
+              {translations.manageQuizzes.button.results}
+            </Button>
+          )}
+          {properties.quizStatus[quizStatus] === 'draft' && (
+            <Button
+              disabled={properties.quizStatus[quizStatus] !== 'draft'}
+              size='sm'
+              startDecorator={<PublishRounded />}
+              variant='plain'
+              onClick={() => setModalPublishQuiz(true)}>
+              {translations.manageQuizzes.button.publish}
+            </Button>
+          )}
+          {properties.quizStatus[quizStatus] === 'draft' && (
+            <Button
+              disabled={properties.quizStatus[quizStatus] !== 'draft'}
+              size='sm'
+              startDecorator={<EditRounded />}
+              variant='plain'
+              onClick={() => {
+                setModalFieldsDisabled(false);
+                setModalEditQuiz(true);
+              }}>
+              {translations.manageQuizzes.button.edit}
+            </Button>
+          )}
+          {properties.quizStatus[quizStatus] !== 'draft' && (
+            <Button
+              disabled={properties.quizStatus[quizStatus] === 'draft'}
+              size='sm'
+              startDecorator={<VisibilityRounded />}
+              variant='plain'
+              onClick={() => {
+                setModalFieldsDisabled(true);
+                setModalEditQuiz(true);
+              }}>
+              {translations.manageQuizzes.button.view}
+            </Button>
+          )}
           {properties.quizStatus[quizStatus] !== 'archived' && (
             <Button
               color='danger'
+              disabled={properties.quizStatus[quizStatus] === 'archived'}
               size='sm'
               startDecorator={<ArchiveRounded />}
               variant='plain'

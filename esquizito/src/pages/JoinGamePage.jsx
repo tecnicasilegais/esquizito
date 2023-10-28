@@ -1,15 +1,14 @@
 import { Button, FormControl, FormLabel, Input, Stack } from '@mui/joy';
+import FormErrorMsg from 'components/FormErrorMsg';
+import LogoCard from 'components/LogoCard';
+import { useNavContext } from 'contexts/NavContext';
+import { useService } from 'contexts/ServiceContext';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { translations } from 'util/Properties';
 import { urlPaths } from 'util/UrlPaths';
-import { useNavigate } from 'react-router-dom';
-import GameContext from 'contexts/GameContext';
-import { useService } from 'contexts/ServiceContext';
-import LogoCard from 'components/LogoCard';
-import React, { useEffect } from 'react';
-import FormErrorMsg from 'components/FormErrorMsg';
 
 /*
-  TODO: Validate input
   Quiz ID won't be readable, so we need to create an unique ID
    that can be written and read and save it to mongoDB as unique, indexed field
   Was thinking of generating a [0-9A-Z] string with 8 characters (nanoid)
@@ -17,7 +16,7 @@ import FormErrorMsg from 'components/FormErrorMsg';
  */
 function JoinGamePage() {
   const navigate = useNavigate();
-  const { gameData, setGameData } = React.useContext(GameContext);
+  const { gameData, setGameData } = useNavContext();
   const [gameCode, setGameCode] = React.useState('');
   const [errorMessage, setErrorMessage] = React.useState(null);
   const [showError, setShowError] = React.useState(false);

@@ -1,21 +1,24 @@
-import { HomeRounded } from '@mui/icons-material';
+import { ArrowBackRounded } from '@mui/icons-material';
 import { Box, Button, Card, Grid, Stack, Table, Typography } from '@mui/joy';
 import incorrect from 'assets/cancel.svg';
 import correct from 'assets/check.svg';
 import Average from 'components/Average';
 import HeaderScreen from 'components/HeaderScreen';
 import TableHeader from 'components/TableHeader';
+import { useNavContext } from 'contexts/NavContext';
 import { useService } from 'contexts/ServiceContext';
 import { useUser } from 'contexts/UserContext';
 import format from 'format-duration';
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
 import { properties, translations } from 'util/Properties';
 import { urlPaths } from 'util/UrlPaths';
 import { sortByType } from 'util/Util';
 
-function RankingPage() {
+function QuizResultsPage() {
   const navigate = useNavigate();
+  const { resultData, setResultData } = useNavContext();
   const [averageHits, setAverageHits] = React.useState(0);
   const [averageTime, setAverageTime] = React.useState(0);
   const [results, setResults] = React.useState([]);
@@ -52,9 +55,12 @@ function RankingPage() {
   const refreshAnswers = async () => {
     setLoading(true);
 
-    const newResults = await resultService.listFromQuiz(
-      '652b36d54a66f19b604d80ba',
-    );
+    const newResults = await resultService.listFromQuiz(resultData.quizId);
+    if (newResults.length === 0) {
+      toast.error(translations.quizResults.noResults);
+      navigate(urlPaths.manageQuizzesPage);
+      return;
+    }
 
     for (let i = 0; i < newResults.length; i++) {
       newResults[i].hits = newResults[i].answers.filter(
@@ -77,34 +83,37 @@ function RankingPage() {
   };
 
   useEffect(() => {
-    if (user.id) {
+    if (user.id && resultData) {
       refreshAnswers();
     }
-  }, [user.id]);
+  }, [user.id, resultData]);
 
   return (
-    <HeaderScreen headerCenter={translations.ranking.pageHeader.center}>
+    <HeaderScreen headerCenter={translations.quizResults.pageHeader.center}>
       <Stack mb={2} mt={1} mx={2} spacing={2}>
         <Card sx={{ display: 'flex', flexDirection: 'row' }}>
           <Button
-            startDecorator={<HomeRounded />}
+            startDecorator={<ArrowBackRounded />}
             variant='solid'
-            onClick={() => navigate(urlPaths.mainMenu)}>
-            {translations.ranking.button.home}
+            onClick={() => {
+              setResultData(undefined);
+              navigate(urlPaths.manageQuizzesPage);
+            }}>
+            {translations.quizResults.button.back}
           </Button>
           <Grid container flex={1}>
             <Average
-              title={translations.ranking.averagesHeader.hits.title}
+              title={translations.quizResults.averagesHeader.hits.title}
               xs={4}>
               <Typography>{averageHits}</Typography>
             </Average>
             <Average
-              title={translations.ranking.averagesHeader.time.title}
+              title={translations.quizResults.averagesHeader.time.title}
               xs={4}>
               <Typography>{format(averageTime * 1000)}</Typography>
             </Average>
             <Average
-              title={translations.ranking.averagesHeader.answers.title}
+              title={translations.quizResults.averagesHeader.answers.title}
               xs={4}>
               <Typography>{results.length}</Typography>
             </Average>
@@ -126,7 +135,7 @@ function RankingPage() {
                       order={order}
                       orderBy={orderBy}
                       sort={sortResultsByKey}>
-                      {translations.ranking.resultsHeader.name}
+                      {translations.quizResults.resultsHeader.name}
                     </TableHeader>
                   </th>
                   <th>
@@ -135,7 +144,7 @@ function RankingPage() {
                       order={order}
                       orderBy={orderBy}
                       sort={sortResultsByKey}>
-                      {translations.ranking.resultsHeader.successRate}
+                      {translations.quizResults.resultsHeader.successRate}
                     </TableHeader>
                   </th>
                   <th>
@@ -144,7 +153,7 @@ function RankingPage() {
                       order={order}
                       orderBy={orderBy}
                       sort={sortResultsByKey}>
-                      {translations.ranking.resultsHeader.time}
+                      {translations.quizResults.resultsHeader.time}
                     </TableHeader>
                   </th>
                   {results[0].answers.map((answer, i) => (
@@ -179,8 +188,10 @@ function RankingPage() {
                           <img
                             alt={
                               answer.givenAnswer === answer.correctAnswer
-                                ? translations.ranking.imgDescription.correct
-                                : translations.ranking.imgDescription.incorrect
+                                ? translations.quizResults.imgDescription
+                                    .correct
+                                : translations.quizResults.imgDescription
+                                    .incorrect
                             }
                             src={
                               answer.givenAnswer === answer.correctAnswer
@@ -202,4 +213,4 @@ function RankingPage() {
   );
 }
 
-export default RankingPage;
+export default QuizResultsPage;

@@ -1,11 +1,11 @@
-import { Box, Button, Card, Chip, Divider, Stack } from '@mui/joy';
 import { DeleteRounded, EditRounded } from '@mui/icons-material';
-import { translations } from 'util/Properties';
+import { Box, Button, Card, Chip, Divider, Stack } from '@mui/joy';
 import ConfirmationModal from 'components/ConfirmationModal';
 import ManageQuestionModal from 'components/ManageQuestionModal';
-import PropTypes from 'prop-types';
 import { useService } from 'contexts/ServiceContext';
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
+import { translations } from 'util/Properties';
 
 function ManageQuestion({
   answer,

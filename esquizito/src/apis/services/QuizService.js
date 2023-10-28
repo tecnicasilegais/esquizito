@@ -1,5 +1,5 @@
-import { toast } from 'sonner';
 import client from 'apis/client';
+import { toast } from 'sonner';
 
 const QuizService = {
   archive: async (quizId, token) => {

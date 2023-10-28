@@ -1,7 +1,7 @@
 import {
   EditNoteRounded,
   Inventory2Rounded,
-  KeyRounded,
+  PublicRounded,
   QuizRounded,
   StarRounded,
   TimerRounded,
@@ -131,6 +131,7 @@ export const translations = {
       edit: 'Editar',
       home: 'Início',
       publish: 'Publicar',
+      results: 'Resultados',
       update: 'Atualizar',
       view: 'Visualizar',
     },
@@ -156,31 +157,32 @@ export const translations = {
       questions: 'Perguntas',
     },
     quizStatus: {
-      0: { icon: <EditNoteRounded />, text: 'Rascunho' },
-      1: { icon: <KeyRounded />, text: 'Publicado' },
-      2: { icon: <Inventory2Rounded />, text: 'Arquivado' },
+      0: { color: 'warning', icon: <EditNoteRounded />, text: 'Rascunho' },
+      1: { color: 'success', icon: <PublicRounded />, text: 'Publicado' },
+      2: { color: 'neutral', icon: <Inventory2Rounded />, text: 'Arquivado' },
     },
   },
   menu: {
     button: {
       enterGame: 'Entrar em um jogo',
       logout: 'Sair',
-      manageQuestions: 'Gerenciar banco de perguntas',
+      manageQuestions: 'Gerenciar questões',
       manageQuizzes: 'Gerenciar questionários',
       seeResults: 'Meus resultados',
     },
   },
-  ranking: {
+  quizResults: {
     averagesHeader: {
       answers: { title: 'Respostas' },
       hits: { title: 'Média de Acertos' },
       time: { title: 'Tempo Médio' },
     },
-    button: { home: 'Início' },
+    button: { back: 'Voltar' },
     imgDescription: {
       correct: 'Ícone de acerto',
       incorrect: 'Ícone de erro',
     },
+    noResults: 'Nenhum resultado encontrado.',
     pageHeader: { center: 'Relatório' },
     resultsHeader: {
       name: 'Nome',

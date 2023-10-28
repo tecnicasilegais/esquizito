@@ -1,5 +1,5 @@
-import { toast } from 'sonner';
 import client from 'apis/client';
+import { toast } from 'sonner';
 
 const ResultService = {
   create: async ({ answers, elapsedTime, quizId, userId }, token) => {

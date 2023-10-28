@@ -4,6 +4,7 @@ import auth0Config from 'configs/auth0.config';
 import { ResultController } from 'controllers/result.controller';
 import { postErrorHandler } from 'middlewares/error-handling/post-error.middleware';
 import {
+  addTimestamp,
   incrementAmountOfAnswers,
   validateUserExistsAndAddUserName,
 } from 'middlewares/general';
@@ -32,6 +33,7 @@ router.post(
   validateUserExistsAndAddUserName,
   validateBodyQuizExists,
   validateAnswers,
+  addTimestamp,
   resultController.create,
   incrementAmountOfAnswers,
   postErrorHandler,

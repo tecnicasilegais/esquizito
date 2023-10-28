@@ -4,15 +4,15 @@ import {
   SyncRounded,
 } from '@mui/icons-material';
 import { Button, Card, LinearProgress, Stack } from '@mui/joy';
-import { translations } from 'util/Properties';
-import { urlPaths } from 'util/UrlPaths';
-import { useNavigate } from 'react-router-dom';
-import { useUser } from 'contexts/UserContext';
-import { useService } from 'contexts/ServiceContext';
 import HeaderScreen from 'components/HeaderScreen';
 import ManageQuizModal from 'components/ManageQuizModal';
 import Quiz from 'components/Quiz';
+import { useService } from 'contexts/ServiceContext';
+import { useUser } from 'contexts/UserContext';
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { translations } from 'util/Properties';
+import { urlPaths } from 'util/UrlPaths';
 
 function ManageQuizzesPage() {
   const navigate = useNavigate();

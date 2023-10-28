@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
-import { SomeTest } from 'components/SomeTest';
 import { render, screen } from '@testing-library/react';
+import { SomeTest } from 'components/SomeTest';
 
 test('renders learn react link', () => {
   render(<SomeTest />);

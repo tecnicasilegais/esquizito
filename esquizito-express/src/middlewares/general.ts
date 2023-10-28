@@ -26,6 +26,15 @@ export async function validateUserExistsAndAddUserName(
   );
 }
 
+export async function addTimestamp(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
+  req.body.createdAt = new Date();
+  return next();
+}
+
 export async function incrementAmountOfAnswers(
   req: Request,
   res: Response,

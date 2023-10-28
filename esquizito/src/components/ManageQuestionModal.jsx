@@ -1,4 +1,4 @@
-import * as PropTypes from 'prop-types';
+import { CleaningServices, Clear, Save } from '@mui/icons-material';
 import {
   Button,
   ButtonGroup,
@@ -15,9 +15,9 @@ import {
   Stack,
   Textarea,
 } from '@mui/joy';
-import { CleaningServices, Clear, Save } from '@mui/icons-material';
-import { translations } from 'util/Properties';
+import * as PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
+import { translations } from 'util/Properties';
 
 function ManageQuestionModal({
   formDisabled,
