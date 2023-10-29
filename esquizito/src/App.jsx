@@ -10,6 +10,7 @@ import ManageQuestionsPage from 'pages/ManageQuestionsPage';
 import ManageQuizzesPage from 'pages/ManageQuizzesPage';
 import QuizResultsPage from 'pages/QuizResultsPage';
 import StartGamePage from 'pages/StartGamePage';
+import UserResultsPage from 'pages/UserResultsPage';
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { urlPaths } from 'util/UrlPaths';
@@ -31,6 +32,10 @@ function AppRoutes() {
       <Route
         element={<AuthenticationGuard component={GamePage} />}
         path={urlPaths.gamePage}
+      />
+      <Route
+        element={<AuthenticationGuard component={UserResultsPage} />}
+        path={urlPaths.userResultsPage}
       />
       <Route
         element={<AuthenticationGuard component={StartGamePage} />}

@@ -17,7 +17,7 @@ function MainMenu() {
       <Stack spacing={2}>
         <Button
           variant='soft'
-          onClick={() => navigate(urlPaths.quizResultsPage)}>
+          onClick={() => navigate(urlPaths.userResultsPage)}>
           {translations.menu.button.seeResults}
         </Button>
         <Button

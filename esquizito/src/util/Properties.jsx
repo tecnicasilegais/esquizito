@@ -197,6 +197,10 @@ export const translations = {
     header: 'Entrando no jogo',
     questions: 'Perguntas',
   },
+  userResults: {
+    button: { details: 'Ver Detalhes', home: 'Início', update: 'Atualizar' },
+    header: 'Meus resultados',
+  },
 };
 
 export const examples = {

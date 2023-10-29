@@ -8,4 +8,6 @@ export const urlPaths = {
   manageQuizzesPage: '/manage-quizzes',
   quizResultsPage: '/quiz-results',
   startGamePage: '/start-game',
+  userResultDetailsPage: '/result-details',
+  userResultsPage: '/results',
 };

@@ -6,6 +6,8 @@ const initialNavContext = {
   resultData: null,
   setGameData: (game) => {},
   setResultData: (result) => {},
+  setUserResultData: (result) => {},
+  userResultData: null,
 };
 
 const NavContext = React.createContext(initialNavContext);
@@ -23,10 +25,25 @@ export const useNavContext = () => {
 export function NavContextProvider({ children }) {
   const [gameData, setGameData] = React.useState(null);
   const [resultData, setResultData] = React.useState(null);
+  const [userResultData, setUserResultData] = React.useState(null);
 
   const contextValue = useMemo(
-    () => ({ gameData, resultData, setGameData, setResultData }),
-    [gameData, setGameData, resultData, setResultData],
+    () => ({
+      gameData,
+      resultData,
+      setGameData,
+      setResultData,
+      setUserResultData,
+      userResultData,
+    }),
+    [
+      gameData,
+      setGameData,
+      resultData,
+      setResultData,
+      userResultData,
+      setUserResultData,
+    ],
   );
 
   return (

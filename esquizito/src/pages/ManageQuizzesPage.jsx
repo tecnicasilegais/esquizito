@@ -17,7 +17,7 @@ import { urlPaths } from 'util/UrlPaths';
 function ManageQuizzesPage() {
   const navigate = useNavigate();
   const [modalManageQuiz, setModalManageQuiz] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
   const [quizzes, setQuizzes] = useState([]);
   const [questions, setQuestions] = useState([]);
   const { user } = useUser();
@@ -38,10 +38,10 @@ function ManageQuizzesPage() {
   };
 
   const refreshContent = async () => {
-    setIsLoading(true);
+    setLoading(true);
     await refreshQuizzes();
     await refreshQuestions();
-    setIsLoading(false);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -76,10 +76,10 @@ function ManageQuizzesPage() {
               </Button>
             </Stack>
           </Stack>
-          {isLoading && <LinearProgress size='sm' />}
-          <Stack spacing={2}>
-            {!isLoading &&
-              quizzes.map((quiz) => (
+          {loading && <LinearProgress size='sm' />}
+          {!loading && quizzes.length > 0 && (
+            <Stack spacing={2}>
+              {quizzes.map((quiz) => (
                 <Quiz
                   amountOfAnswers={quiz.amountOfAnswers}
                   availableQuestions={questions}
@@ -93,7 +93,8 @@ function ManageQuizzesPage() {
                   refreshPage={refreshContent}
                 />
               ))}
-          </Stack>
+            </Stack>
+          )}
         </Card>
       </Stack>
       <ManageQuizModal
