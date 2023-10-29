@@ -70,8 +70,8 @@ function UserResultsPage() {
                     resultService
                       .getSingle(result._id)
                       .then((resultDetails) => {
-                        console.log('result', result);
-                        setUserResultData(result);
+                        console.log('resultDetails', resultDetails);
+                        setUserResultData(resultDetails);
                         navigate(urlPaths.userResultDetailsPage);
                       });
                   }}

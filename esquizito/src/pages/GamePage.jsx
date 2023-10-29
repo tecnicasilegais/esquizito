@@ -1,12 +1,15 @@
+import { CheckRounded } from '@mui/icons-material';
 import {
   Box,
   Button,
   Card,
   Divider,
   Grid,
+  LinearProgress,
   Radio,
   radioClasses,
   Stack,
+  Typography,
 } from '@mui/joy';
 import GameQuestion from 'components/GameQuestion';
 import HeaderScreen from 'components/HeaderScreen';
@@ -81,6 +84,18 @@ function GamePage() {
     }
   };
 
+  // TODO: change classic.right to be number of correct answers
+  const headerInfo = {
+    classic: {
+      center: `${questionIndex / 2 + 1} / ${questions.length / 2}`,
+      right: (
+        <Box sx={{ alignItems: 'center', display: 'flex' }}>
+          <CheckRounded color='success' fontSize='xl4' fontWeight='xl' />1
+        </Box>
+      ),
+    },
+  };
+
   useEffect(() => {
     if (gameData) {
       setQuestions(gameData.questions);
@@ -88,8 +103,14 @@ function GamePage() {
     }
   }, [gameData]);
 
+  if (loading) {
+    return <LinearProgress size='sm' />;
+  }
+
   return (
-    <HeaderScreen>
+    <HeaderScreen
+      headerCenter={headerInfo[properties.gameModes[gameData.gameMode]].center}
+      headerRight={headerInfo[properties.gameModes[gameData.gameMode]].right}>
       {!loading && (
         <Stack mb={2} mt={1} mx={2} spacing={4} sx={{ userSelect: 'none' }}>
           <Card>

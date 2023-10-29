@@ -9,7 +9,7 @@ html {
   background-color: Constants.$color-app-bg;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   min-height: 100vh;
 }
 
