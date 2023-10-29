@@ -1,4 +1,4 @@
-import { ArrowBackRounded, HomeRounded } from '@mui/icons-material';
+import { HomeRounded, LeaderboardRounded } from '@mui/icons-material';
 import {
   Button,
   DialogContent,
@@ -8,21 +8,21 @@ import {
   Stack,
   Typography,
 } from '@mui/joy';
+import incorrect from 'assets/cancel.svg';
+import correct from 'assets/check.svg';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { translations } from 'util/Properties';
-import { urlPaths } from 'util/UrlPaths';
 import { useNavigate } from 'react-router-dom';
-import correct from 'assets/check.svg';
-import incorrect from 'assets/cancel.svg';
+import { translations } from 'util/Properties';
 
 function GameEndModal({
-  clearGameData,
   correctAnswers,
+  goToHome,
+  goToResults,
   incorrectAnswers,
+  isSaving,
   open,
 }) {
-  const navigate = useNavigate();
   return (
     <Modal open={open}>
       <ModalDialog sx={{ alignItems: 'center', textAlign: 'center' }}>
@@ -35,7 +35,9 @@ function GameEndModal({
               justifyContent='center'
               spacing={1}>
               <img alt='correct' src={correct} />
-              <Typography variant='h3'>{`${correctAnswers} ${translations.gameEndModal.correctAnswers}`}</Typography>
+              <Typography variant='h3'>{`${correctAnswers} ${translations.gameEndModal.correctAnswers(
+                correctAnswers,
+              )}`}</Typography>
             </Stack>
             <Stack
               alignItems='center'
@@ -43,15 +45,22 @@ function GameEndModal({
               justifyContent='center'
               spacing={1}>
               <img alt='correct' src={incorrect} />
-              <Typography variant='h3'>{`${incorrectAnswers} ${translations.gameEndModal.incorrectAnswers}`}</Typography>
+              <Typography variant='h3'>{`${incorrectAnswers} ${translations.gameEndModal.incorrectAnswers(
+                incorrectAnswers,
+              )}`}</Typography>
             </Stack>
             <Button
+              loading={isSaving}
+              startDecorator={<LeaderboardRounded />}
+              variant='soft'
+              onClick={goToResults}>
+              {translations.gameEndModal.button.results}
+            </Button>
+            <Button
+              loading={isSaving}
               startDecorator={<HomeRounded />}
               variant='solid'
-              onClick={() => {
-                clearGameData();
-                navigate(urlPaths.mainMenu);
-              }}>
+              onClick={goToHome}>
               {translations.gameEndModal.button.home}
             </Button>
           </Stack>
@@ -62,10 +71,16 @@ function GameEndModal({
 }
 
 GameEndModal.propTypes = {
-  clearGameData: PropTypes.func.isRequired,
   correctAnswers: PropTypes.number.isRequired,
+  goToHome: PropTypes.func.isRequired,
+  goToResults: PropTypes.func.isRequired,
   incorrectAnswers: PropTypes.number.isRequired,
+  isSaving: PropTypes.bool,
   open: PropTypes.bool.isRequired,
+};
+
+GameEndModal.defaultProps = {
+  isSaving: false,
 };
 
 export default GameEndModal;

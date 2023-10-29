@@ -68,10 +68,12 @@ export const translations = {
     button: { confirm: 'Confirmar', next: 'Avançar' },
   },
   gameEndModal: {
-    button: { home: 'Início' },
-    correctAnswers: 'Respostas corretas',
+    button: { home: 'Início', results: 'Meus Resultados' },
+    correctAnswers: (amount) =>
+      Math.abs(amount) === 1 ? 'Resposta correta' : 'Respostas corretas',
     header: 'Fim de jogo',
-    incorrectAnswers: 'Respostas incorretas',
+    incorrectAnswers: (amount) =>
+      Math.abs(amount) === 1 ? 'Resposta incorreta' : 'Respostas incorretas',
   },
   gameModes: {
     0: {

@@ -30,6 +30,8 @@ function GamePage() {
   const [answers, setAnswers] = useState([]);
   const [openEndModal, setOpenEndModal] = useState(false);
   const [numberCorrectAnswers, setNumberCorrectAnswers] = useState(0);
+  const [numberIncorrectAnswers, setNumberIncorrectAnswers] = useState(0);
+  const [isSaving, setIsSaving] = useState(false);
   const { resultService } = useService();
 
   const handleAnswerChange = (event) => {
@@ -41,13 +43,7 @@ function GamePage() {
 
     const userAnswers = [selectedAnswer[0] === 'v', selectedAnswer[1] === 'v'];
 
-    setNumberCorrectAnswers(
-      (storedNumber) =>
-        storedNumber + userAnswers.count((answer) => answer === true),
-    );
-
-    setAnswers((storedAnswers) => [
-      ...storedAnswers,
+    const newAnswers = [
       {
         correctAnswer: questions[questionIndex].answer,
         elapsedTime: 10,
@@ -60,26 +56,30 @@ function GamePage() {
         givenAnswer: userAnswers[1],
         questionId: questions[questionIndex + 1]._id,
       },
-    ]);
+    ];
+    setAnswers((storedAnswers) => [...storedAnswers, ...newAnswers]);
 
     if (
-      userAnswers[0] === questions[questionIndex].answer &&
-      userAnswers[1] === questions[questionIndex + 1].answer
+      newAnswers[0].correctAnswer === newAnswers[0].givenAnswer &&
+      newAnswers[1].correctAnswer === newAnswers[1].givenAnswer
     ) {
+      setNumberCorrectAnswers((storedNumber) => storedNumber + 1);
       setAnswerCorrect(true);
     } else {
+      setNumberIncorrectAnswers((storedNumber) => storedNumber + 1);
       setAnswerCorrect(false);
     }
   };
 
   const endGame = () => {
+    setIsSaving(true);
     resultService
       .create({
         answers,
         elapsedTime: questions.length * 10,
         quizId: gameData._id,
       })
-      .then(() => navigate(urlPaths.mainMenu));
+      .then(() => setIsSaving(false));
   };
 
   const nextQuestion = () => {
@@ -90,6 +90,7 @@ function GamePage() {
       setDisabled(false);
     } else {
       setOpenEndModal(true);
+      endGame();
     }
   };
 
@@ -198,10 +199,18 @@ function GamePage() {
         </Stack>
       )}
       <GameEndModal
-        clearGameData={() => setGameData(undefined)}
         correctAnswers={numberCorrectAnswers}
-        incorrectAnswers={questions.length - numberCorrectAnswers}
+        incorrectAnswers={numberIncorrectAnswers}
+        isSaving={isSaving}
         open={openEndModal}
+        goToHome={() => {
+          setGameData(undefined);
+          navigate(urlPaths.mainMenu);
+        }}
+        goToResults={() => {
+          setGameData(undefined);
+          navigate(urlPaths.userResultsPage);
+        }}
       />
     </HeaderScreen>
   );
