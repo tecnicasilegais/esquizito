@@ -1,4 +1,4 @@
-import { DeleteRounded } from '@mui/icons-material';
+import { CloseRounded, DeleteRounded } from '@mui/icons-material';
 import {
   Button,
   ButtonGroup,
@@ -6,6 +6,7 @@ import {
   DialogTitle,
   Modal,
   ModalDialog,
+  Stack,
 } from '@mui/joy';
 import * as PropTypes from 'prop-types';
 import React from 'react';
@@ -22,11 +23,14 @@ function ConfirmationModal({
 }) {
   return (
     <Modal open={open} onClose={onClose}>
-      <ModalDialog>
-        <DialogTitle sx={{ textAlign: 'center' }}>{title}</DialogTitle>
+      <ModalDialog sx={{ alignItems: 'center' }}>
+        <DialogTitle>{title}</DialogTitle>
         <DialogContent>
-          <ButtonGroup buttonFlex={1} sx={{ mt: '12px' }}>
-            <Button variant='soft' onClick={onClose}>
+          <Stack direction='row' mt='12px' spacing={1}>
+            <Button
+              startDecorator={<CloseRounded />}
+              variant='soft'
+              onClick={onClose}>
               {translations.confirmationModal.button.cancel}
             </Button>
             <Button
@@ -39,7 +43,7 @@ function ConfirmationModal({
               }}>
               {primaryText || translations.confirmationModal.button.delete}
             </Button>
-          </ButtonGroup>
+          </Stack>
         </DialogContent>
       </ModalDialog>
     </Modal>

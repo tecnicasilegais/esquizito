@@ -67,6 +67,14 @@ export const translations = {
     },
     button: { confirm: 'Confirmar', next: 'Avançar' },
   },
+  gameEndModal: {
+    button: { home: 'Início', results: 'Meus Resultados' },
+    correctAnswers: (amount) =>
+      Math.abs(amount) === 1 ? 'Resposta correta' : 'Respostas corretas',
+    header: 'Fim de jogo',
+    incorrectAnswers: (amount) =>
+      Math.abs(amount) === 1 ? 'Resposta incorreta' : 'Respostas incorretas',
+  },
   gameModes: {
     0: {
       helperText: 'Modo padrão sem limite de tempo.',
@@ -170,6 +178,10 @@ export const translations = {
       manageQuizzes: 'Gerenciar questionários',
       seeResults: 'Meus resultados',
     },
+  },
+  notFound: {
+    homeLink: 'Volte para a página inicial!',
+    text: 'Você parece estar perdido :(',
   },
   quizResults: {
     averagesHeader: {

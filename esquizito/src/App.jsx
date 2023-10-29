@@ -8,11 +8,12 @@ import LoadingPage from 'pages/LoadingPage';
 import MainMenu from 'pages/MainMenu';
 import ManageQuestionsPage from 'pages/ManageQuestionsPage';
 import ManageQuizzesPage from 'pages/ManageQuizzesPage';
+import NotFoundPage from 'pages/NotFoundPage';
 import QuizResultsPage from 'pages/QuizResultsPage';
 import StartGamePage from 'pages/StartGamePage';
 import UserResultsPage from 'pages/UserResultsPage';
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { urlPaths } from 'util/UrlPaths';
 import styles from './App.module.scss';
 
@@ -53,6 +54,8 @@ function AppRoutes() {
         element={<AuthenticationGuard component={ManageQuizzesPage} />}
         path={urlPaths.manageQuizzesPage}
       />
+      <Route element={<NotFoundPage />} path={urlPaths.notFoundPage} />
+      <Route element={<Navigate to={urlPaths.notFoundPage} />} path='*' />
     </Routes>
   );
 }

@@ -6,6 +6,7 @@ export const urlPaths = {
   mainMenu: '/',
   manageQuestionsPage: '/manage-questions',
   manageQuizzesPage: '/manage-quizzes',
+  notFoundPage: '/404',
   quizResultsPage: '/quiz-results',
   startGamePage: '/start-game',
   userResultDetailsPage: '/result-details',
