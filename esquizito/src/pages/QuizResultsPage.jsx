@@ -64,7 +64,7 @@ function QuizResultsPage() {
 
     for (let i = 0; i < newResults.length; i++) {
       newResults[i].hits = newResults[i].answers.filter(
-        (answer) => answer.correctAnswer === answer.givenAnswer,
+        (answer) => answer.answer === answer.question.answer,
       ).length;
     }
 
@@ -177,7 +177,7 @@ function QuizResultsPage() {
                           {
                             result.answers.filter(
                               (answer) =>
-                                answer.correctAnswer === answer.givenAnswer,
+                                answer.answer === answer.question.answer,
                             ).length
                           }
                         </Box>
@@ -189,14 +189,14 @@ function QuizResultsPage() {
                             <Box display='flex'>
                               <img
                                 alt={
-                                  answer.givenAnswer === answer.correctAnswer
+                                  answer.answer === answer.question.answer
                                     ? translations.quizResults.imgDescription
                                         .correct
                                     : translations.quizResults.imgDescription
                                         .incorrect
                                 }
                                 src={
-                                  answer.givenAnswer === answer.correctAnswer
+                                  answer.answer === answer.question.answer
                                     ? correct
                                     : incorrect
                                 }
