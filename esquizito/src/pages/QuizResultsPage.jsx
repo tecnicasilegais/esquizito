@@ -64,7 +64,7 @@ function QuizResultsPage() {
 
     for (let i = 0; i < newResults.length; i++) {
       newResults[i].hits = newResults[i].answers.filter(
-        (answer) => answer.correctAnswer === answer.givenAnswer,
+        (answer) => answer.answer === answer.question.answer,
       ).length;
     }
 
@@ -90,124 +90,128 @@ function QuizResultsPage() {
 
   return (
     <HeaderScreen headerCenter={translations.quizResults.pageHeader.center}>
-      <Stack mb={2} mt={1} mx={2} spacing={2}>
-        <Card sx={{ display: 'flex', flexDirection: 'row' }}>
-          <Button
-            startDecorator={<ArrowBackRounded />}
-            variant='solid'
-            onClick={() => {
-              setResultData(undefined);
-              navigate(urlPaths.manageQuizzesPage);
-            }}>
-            {translations.quizResults.button.back}
-          </Button>
-          <Grid container flex={1}>
-            <Average
-              title={translations.quizResults.averagesHeader.hits.title}
-              xs={4}>
-              <Typography>{averageHits}</Typography>
-            </Average>
-            <Average
-              title={translations.quizResults.averagesHeader.time.title}
-              xs={4}>
-              <Typography>{format(averageTime * 1000)}</Typography>
-            </Average>
-            <Average
-              title={translations.quizResults.averagesHeader.answers.title}
-              xs={4}>
-              <Typography>{results.length}</Typography>
-            </Average>
-          </Grid>
-        </Card>
-        {!loading && (
-          <Card>
-            <Table
-              hoverRow
-              sx={{
-                '& img': { width: '100%' },
-                '& thead th': { textAlign: 'center' },
-              }}>
-              <thead>
-                <tr>
-                  <th>
-                    <TableHeader
-                      id='userName'
-                      order={order}
-                      orderBy={orderBy}
-                      sort={sortResultsByKey}>
-                      {translations.quizResults.resultsHeader.name}
-                    </TableHeader>
-                  </th>
-                  <th>
-                    <TableHeader
-                      id='hits'
-                      order={order}
-                      orderBy={orderBy}
-                      sort={sortResultsByKey}>
-                      {translations.quizResults.resultsHeader.successRate}
-                    </TableHeader>
-                  </th>
-                  <th>
-                    <TableHeader
-                      id='elapsedTime'
-                      order={order}
-                      orderBy={orderBy}
-                      sort={sortResultsByKey}>
-                      {translations.quizResults.resultsHeader.time}
-                    </TableHeader>
-                  </th>
-                  {results[0].answers.map((answer, i) => (
-                    <Box
-                      className='answer'
-                      component='th'
-                      key={`header-${answer.questionId}`}
-                      width='2%'>
-                      {i + 1}
-                    </Box>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {results.map((result) => (
-                  <tr key={result._id}>
-                    <Box component='td'>{result.userName}</Box>
-                    <Box component='td' textAlign='center'>
-                      {
-                        result.answers.filter(
-                          (answer) =>
-                            answer.correctAnswer === answer.givenAnswer,
-                        ).length
-                      }
-                    </Box>
-                    <Box component='td' textAlign='center'>
-                      {format(result.elapsedTime * 1000)}
-                    </Box>
-                    {result.answers.map((answer) => (
-                      <td key={`${answer._id}`}>
-                        <Box display='flex'>
-                          <img
-                            alt={
-                              answer.givenAnswer === answer.correctAnswer
-                                ? translations.quizResults.imgDescription
-                                    .correct
-                                : translations.quizResults.imgDescription
-                                    .incorrect
-                            }
-                            src={
-                              answer.givenAnswer === answer.correctAnswer
-                                ? correct
-                                : incorrect
-                            }
-                          />
+      <Stack mb={2} mt={1} mx={2}>
+        <Card>
+          <Stack spacing={3}>
+            <Stack direction='row'>
+              <Button
+                startDecorator={<ArrowBackRounded />}
+                variant='solid'
+                onClick={() => {
+                  setResultData(undefined);
+                  navigate(urlPaths.manageQuizzesPage);
+                }}>
+                {translations.quizResults.button.back}
+              </Button>
+              <Grid container flex={1}>
+                <Average
+                  title={translations.quizResults.averagesHeader.hits.title}
+                  xs={4}>
+                  <Typography>{averageHits}</Typography>
+                </Average>
+                <Average
+                  title={translations.quizResults.averagesHeader.time.title}
+                  xs={4}>
+                  <Typography>{format(averageTime * 1000)}</Typography>
+                </Average>
+                <Average
+                  title={translations.quizResults.averagesHeader.answers.title}
+                  xs={4}>
+                  <Typography>{results.length}</Typography>
+                </Average>
+              </Grid>
+            </Stack>
+            {!loading && (
+              <Card sx={{ p: 0 }} variant='soft'>
+                <Table
+                  hoverRow
+                  sx={{
+                    '& img': { width: '100%' },
+                    '& thead th': { textAlign: 'center' },
+                  }}>
+                  <thead>
+                    <tr>
+                      <th>
+                        <TableHeader
+                          id='userName'
+                          order={order}
+                          orderBy={orderBy}
+                          sort={sortResultsByKey}>
+                          {translations.quizResults.resultsHeader.name}
+                        </TableHeader>
+                      </th>
+                      <th>
+                        <TableHeader
+                          id='hits'
+                          order={order}
+                          orderBy={orderBy}
+                          sort={sortResultsByKey}>
+                          {translations.quizResults.resultsHeader.successRate}
+                        </TableHeader>
+                      </th>
+                      <th>
+                        <TableHeader
+                          id='elapsedTime'
+                          order={order}
+                          orderBy={orderBy}
+                          sort={sortResultsByKey}>
+                          {translations.quizResults.resultsHeader.time}
+                        </TableHeader>
+                      </th>
+                      {results[0].answers.map((answer, i) => (
+                        <Box
+                          className='answer'
+                          component='th'
+                          key={`header-${answer.questionId}`}
+                          width='2%'>
+                          {i + 1}
                         </Box>
-                      </td>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {results.map((result) => (
+                      <tr key={result._id}>
+                        <Box component='td'>{result.userName}</Box>
+                        <Box component='td' textAlign='center'>
+                          {
+                            result.answers.filter(
+                              (answer) =>
+                                answer.answer === answer.question.answer,
+                            ).length
+                          }
+                        </Box>
+                        <Box component='td' textAlign='center'>
+                          {format(result.elapsedTime * 1000)}
+                        </Box>
+                        {result.answers.map((answer) => (
+                          <td key={`${answer._id}`}>
+                            <Box display='flex'>
+                              <img
+                                alt={
+                                  answer.answer === answer.question.answer
+                                    ? translations.quizResults.imgDescription
+                                        .correct
+                                    : translations.quizResults.imgDescription
+                                        .incorrect
+                                }
+                                src={
+                                  answer.answer === answer.question.answer
+                                    ? correct
+                                    : incorrect
+                                }
+                              />
+                            </Box>
+                          </td>
+                        ))}
+                      </tr>
                     ))}
-                  </tr>
-                ))}
-              </tbody>
-            </Table>
-          </Card>
-        )}
+                  </tbody>
+                </Table>
+              </Card>
+            )}
+          </Stack>
+        </Card>
       </Stack>
     </HeaderScreen>
   );

@@ -12,7 +12,6 @@ import incorrect from 'assets/cancel.svg';
 import correct from 'assets/check.svg';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import { translations } from 'util/Properties';
 
 function GameEndModal({

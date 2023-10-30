@@ -17,17 +17,17 @@ import { urlPaths } from 'util/UrlPaths';
 function ManageQuestionsPage() {
   const navigate = useNavigate();
   const [modalCreateQuestion, setModalCreateQuestion] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
   const [questions, setQuestions] = useState([]);
   const { user } = useUser();
   const { questionService } = useService();
   const refreshQuestions = async () => {
-    setIsLoading(true);
+    setLoading(true);
     const result = await questionService.list();
     if (result) {
       setQuestions(result);
     }
-    setIsLoading(false);
+    setLoading(false);
   };
   useEffect(() => {
     if (user.id) {
@@ -60,10 +60,10 @@ function ManageQuestionsPage() {
               </Button>
             </Stack>
           </Stack>
-          {isLoading && <LinearProgress size='sm' />}
-          <Stack spacing={2}>
-            {!isLoading &&
-              questions.map((question) => (
+          {loading && <LinearProgress size='sm' />}
+          {!loading && questions.length > 0 && (
+            <Stack maxHeight='75vh' overflow='auto' spacing={2}>
+              {questions.map((question) => (
                 <ManageQuestion
                   answer={question.answer}
                   explanation={question.explanation}
@@ -74,7 +74,8 @@ function ManageQuestionsPage() {
                   subject={question.subject}
                 />
               ))}
-          </Stack>
+            </Stack>
+          )}
         </Card>
       </Stack>
       <ManageQuestionModal

@@ -1,7 +1,6 @@
 import { CloseRounded, DeleteRounded } from '@mui/icons-material';
 import {
   Button,
-  ButtonGroup,
   DialogContent,
   DialogTitle,
   Modal,

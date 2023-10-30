@@ -10,7 +10,9 @@ import ManageQuestionsPage from 'pages/ManageQuestionsPage';
 import ManageQuizzesPage from 'pages/ManageQuizzesPage';
 import NotFoundPage from 'pages/NotFoundPage';
 import QuizResultsPage from 'pages/QuizResultsPage';
+import ResultDetailsPage from 'pages/ResultDetailsPage';
 import StartGamePage from 'pages/StartGamePage';
+import UserResultsPage from 'pages/UserResultsPage';
 import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { urlPaths } from 'util/UrlPaths';
@@ -34,6 +36,10 @@ function AppRoutes() {
         path={urlPaths.gamePage}
       />
       <Route
+        element={<AuthenticationGuard component={UserResultsPage} />}
+        path={urlPaths.userResultsPage}
+      />
+      <Route
         element={<AuthenticationGuard component={StartGamePage} />}
         path={urlPaths.startGamePage}
       />
@@ -44,6 +50,10 @@ function AppRoutes() {
       <Route
         element={<AuthenticationGuard component={ManageQuestionsPage} />}
         path={urlPaths.manageQuestionsPage}
+      />
+      <Route
+        element={<AuthenticationGuard component={ResultDetailsPage} />}
+        path={urlPaths.resultDetailsPage}
       />
       <Route
         element={<AuthenticationGuard component={ManageQuizzesPage} />}
