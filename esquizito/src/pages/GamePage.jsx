@@ -103,7 +103,8 @@ function GamePage() {
       center: `${questionIndex / 2 + 1} / ${questions.length / 2}`,
       right: (
         <Box sx={{ alignItems: 'center', display: 'flex' }}>
-          <CheckRounded color='success' fontSize='xl4' fontWeight='xl' />1
+          <CheckRounded color='success' fontSize='xl4' fontWeight='xl' />
+          {numberCorrectAnswers}
         </Box>
       ),
     },

@@ -22,6 +22,7 @@ function UserResultsPage() {
     setLoading(true);
     const newResults = await resultService.listFromUser();
     console.log('new results ', newResults);
+    newResults.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
     setResults(newResults);
     setLoading(false);
   };
@@ -34,7 +35,7 @@ function UserResultsPage() {
 
   useEffect(() => {
     if (userResultData) {
-      navigate(urlPaths.userResultDetailsPage);
+      navigate(urlPaths.resultDetailsPage);
     }
   }, []);
 
@@ -46,7 +47,10 @@ function UserResultsPage() {
             <Button
               startDecorator={<HomeRounded />}
               variant='solid'
-              onClick={() => navigate(urlPaths.mainMenu)}>
+              onClick={() => {
+                setUserResultData(undefined);
+                navigate(urlPaths.mainMenu);
+              }}>
               {translations.userResults.button.home}
             </Button>
             <Button
@@ -72,7 +76,7 @@ function UserResultsPage() {
                       .then((resultDetails) => {
                         console.log('resultDetails', resultDetails);
                         setUserResultData(resultDetails);
-                        navigate(urlPaths.userResultDetailsPage);
+                        navigate(urlPaths.resultDetailsPage);
                       });
                   }}
                 />

@@ -44,7 +44,7 @@ function UserResult({
           startDecorator={<CheckRounded />}
           sx={{ minWidth: '80px', textAlign: 'center', width: '80px' }}
           variant='solid'>
-          {`${correctPercentage}%`}
+          {`${Math.round(correctPercentage)}%`}
         </Chip>
         <Divider orientation='vertical' />
         <Stack
