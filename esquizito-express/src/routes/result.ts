@@ -16,7 +16,11 @@ import {
 } from 'middlewares/validators/id.validator.middleware';
 import { validateBodyQuizExists } from 'middlewares/validators/quiz.validator.middleware';
 
-import { validateAnswers } from '../middlewares/validators/result.validator.middleware';
+import {
+  addQuestionDetails,
+  addQuizName,
+  validateAnswers,
+} from '../middlewares/validators/result.validator.middleware';
 
 const router = express.Router();
 
@@ -33,6 +37,8 @@ router.post(
   validateUserExistsAndAddUserName,
   validateBodyQuizExists,
   validateAnswers,
+  addQuizName,
+  addQuestionDetails,
   addTimestamp,
   resultController.create,
   incrementAmountOfAnswers,

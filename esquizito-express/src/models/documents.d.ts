@@ -13,5 +13,5 @@ export interface QuizDocument
     Document {}
 
 export interface ResultDocument
-  extends IResult<Schema.Types.ObjectId>,
+  extends IResult<Schema.Types.ObjectId, QuestionDocument>,
     Document {}

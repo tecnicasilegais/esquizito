@@ -1,6 +1,7 @@
 import { Schema, model } from 'mongoose';
 
 import { ResultDocument } from './documents';
+import { questionSchema } from './question';
 
 const resultSchema: Schema<ResultDocument> = new Schema<ResultDocument>(
   {
@@ -18,12 +19,15 @@ const resultSchema: Schema<ResultDocument> = new Schema<ResultDocument>(
       required: true,
       index: true,
     },
+    quizName: {
+      type: String,
+      required: true,
+    },
     answers: {
       type: [
         {
-          questionId: { type: Schema.Types.ObjectId, required: true },
-          givenAnswer: { type: Boolean, required: true },
-          correctAnswer: { type: Boolean, required: true },
+          question: { type: questionSchema, required: true },
+          answer: { type: Boolean, required: true },
           elapsedTime: { type: Number, required: true },
         },
       ],
