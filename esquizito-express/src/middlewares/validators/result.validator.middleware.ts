@@ -1,7 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
 
-import quizService from 'services/quiz.service';
-
 export async function validateAnswers(
   req: Request,
   res: Response,
@@ -13,13 +11,13 @@ export async function validateAnswers(
     return res.status(400).json({ error: 'Invalid Answers' });
   }
 
-  const { questions } = (await quizService.get(req.body.quizId))!;
+  const { questions } = req.validatorContent!.quizData!;
 
   if (questions.length !== answers.length) {
     return res.status(400).json({ error: 'Invalid amount of answers' });
   }
 
-  answers.sort(
+  (answers as [{ questionId: string }]).sort(
     (a, b) =>
       questions.findIndex((qa) => qa._id === a.questionId) -
       questions.findIndex((qb) => qb._id === b.questionId),
@@ -32,6 +30,40 @@ export async function validateAnswers(
       });
     }
   }
+
+  return next();
+}
+
+export async function addQuestionDetails(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
+  const { answers } = req.body;
+
+  const { questions } = req.validatorContent!.quizData!;
+
+  for (let i = 0; i < answers.length; i++) {
+    const question = questions.find((q) =>
+      q._id.equals(answers[i].questionId),
+    )!;
+
+    answers[i] = {
+      answer: answers[i].answer,
+      elapsedTime: answers[i].elapsedTime,
+      question,
+    };
+  }
+
+  return next();
+}
+
+export async function addQuizName(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
+  req.body.quizName = req.validatorContent!.quizData!.name;
 
   return next();
 }
