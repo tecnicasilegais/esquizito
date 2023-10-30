@@ -5,7 +5,7 @@ import {
 } from '@mui/icons-material';
 import { Button, Card, Chip, Divider, Stack, Typography } from '@mui/joy';
 import PropTypes from 'prop-types';
-import React, { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { translations } from 'util/Properties';
 
 function UserResult({
@@ -15,7 +15,7 @@ function UserResult({
   resultId,
   savedAt,
 }) {
-  const [correctPercentage, setCorrectPercentage] = React.useState(0);
+  const [correctPercentage, setCorrectPercentage] = useState(0);
   const colorByPercentage = (percentage) => {
     if (percentage < 40) {
       return 'danger';
@@ -27,12 +27,16 @@ function UserResult({
   };
 
   useEffect(() => {
-    setCorrectPercentage(
-      (answers.filter((answer) => answer.givenAnswer === answer.correctAnswer)
-        .length /
-        answers.length) *
-        100,
-    );
+    let numberCorrectAnswers = 0;
+    for (let i = 0; i <= answers.length - 2; i += 2) {
+      if (
+        answers[i].answer === answers[i].question.answer &&
+        answers[i + 1].answer === answers[i + 1].question.answer
+      ) {
+        numberCorrectAnswers++;
+      }
+    }
+    setCorrectPercentage((numberCorrectAnswers / (answers.length / 2)) * 100);
   }, [answers]);
 
   return (
@@ -80,8 +84,10 @@ function UserResult({
 UserResult.propTypes = {
   answers: PropTypes.arrayOf(
     PropTypes.shape({
-      correctAnswer: PropTypes.bool.isRequired,
-      givenAnswer: PropTypes.bool.isRequired,
+      answer: PropTypes.bool.isRequired,
+      question: PropTypes.shape({
+        answer: PropTypes.bool.isRequired,
+      }).isRequired,
     }),
   ).isRequired,
   openResultDetails: PropTypes.func.isRequired,

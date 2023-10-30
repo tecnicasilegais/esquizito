@@ -235,9 +235,9 @@ export const examples = {
     answers: [
       {
         _id: '653e909b2206d754be9bd24d',
+        answer: true,
         elapsedTime: 10,
-        givenAnswer: true,
-        questionData: {
+        question: {
           _id: '653cabd91ae47db8dd7af1ed',
           answer: false,
           explanation: 'asdasd é falso',

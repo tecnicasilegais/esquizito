@@ -48,23 +48,21 @@ function GamePage() {
 
     const newAnswers = [
       {
-        correctAnswer: questions[questionIndex].answer,
+        answer: userAnswers[0],
         elapsedTime: 10,
-        givenAnswer: userAnswers[0],
         questionId: questions[questionIndex]._id,
       },
       {
-        correctAnswer: questions[questionIndex + 1].answer,
+        answer: userAnswers[1],
         elapsedTime: 10,
-        givenAnswer: userAnswers[1],
         questionId: questions[questionIndex + 1]._id,
       },
     ];
     setAnswers((storedAnswers) => [...storedAnswers, ...newAnswers]);
 
     if (
-      newAnswers[0].correctAnswer === newAnswers[0].givenAnswer &&
-      newAnswers[1].correctAnswer === newAnswers[1].givenAnswer
+      questions[questionIndex].answer === userAnswers[0] &&
+      questions[questionIndex + 1].answer === userAnswers[1]
     ) {
       setNumberCorrectAnswers((storedNumber) => storedNumber + 1);
       setAnswerCorrect(true);
@@ -97,7 +95,7 @@ function GamePage() {
     }
   };
 
-  // TODO: change classic.right to be number of correct answers
+  // TODO: change file to address backend changes
   const headerInfo = {
     classic: {
       center: `${questionIndex / 2 + 1} / ${questions.length / 2}`,

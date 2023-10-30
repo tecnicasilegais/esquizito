@@ -1,13 +1,5 @@
 import { ArrowBackRounded, HomeRounded } from '@mui/icons-material';
-import {
-  Button,
-  Card,
-  Chip,
-  Divider,
-  LinearProgress,
-  Stack,
-  Typography,
-} from '@mui/joy';
+import { Button, Card, LinearProgress, Stack } from '@mui/joy';
 import AnswerDetails from 'components/AnswerDetails';
 import HeaderScreen from 'components/HeaderScreen';
 import { useNavContext } from 'contexts/NavContext';
@@ -18,21 +10,15 @@ import { urlPaths } from 'util/UrlPaths';
 
 function ResultDetailsPage() {
   const navigate = useNavigate();
-  const { setUserResultData } = useNavContext();
+  const { setUserResultData, userResultData } = useNavContext();
   const [loading, setLoading] = React.useState(true);
-  const [resultDetails, setResultDetails] = React.useState([]);
 
   useEffect(() => {
-    if (resultDetails) {
-      console.log('resultDetails ', resultDetails);
+    if (userResultData) {
+      console.log('resultDetails ', userResultData);
       setLoading(false);
     }
-  }, [resultDetails]);
-
-  useEffect(() => {
-    console.log('examples ', examples.resultDetails);
-    setResultDetails(examples.resultDetails);
-  }, []);
+  }, [userResultData]);
 
   return (
     <HeaderScreen headerCenter={translations.resultDetails.header}>
@@ -59,15 +45,15 @@ function ResultDetailsPage() {
             </Button>
           </Stack>
           {loading && <LinearProgress size='sm' />}
-          {!loading && resultDetails.answers.length > 0 && (
+          {!loading && userResultData.answers.length > 0 && (
             <Stack spacing={2}>
-              {resultDetails.answers.map((answer) => (
+              {userResultData.answers.map((answer) => (
                 <AnswerDetails
-                  correctAnswer={answer.questionData.answer}
-                  explanation={answer.questionData.explanation}
-                  givenAnswer={answer.givenAnswer}
+                  correctAnswer={answer.question.answer}
+                  explanation={answer.question.explanation}
+                  givenAnswer={answer.answer}
                   key={answer._id}
-                  statement={answer.questionData.statement}
+                  statement={answer.question.statement}
                 />
               ))}
             </Stack>

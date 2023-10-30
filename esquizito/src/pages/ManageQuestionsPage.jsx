@@ -62,7 +62,7 @@ function ManageQuestionsPage() {
           </Stack>
           {loading && <LinearProgress size='sm' />}
           {!loading && questions.length > 0 && (
-            <Stack spacing={2}>
+            <Stack maxHeight='75vh' overflow='auto' spacing={2}>
               {questions.map((question) => (
                 <ManageQuestion
                   answer={question.answer}

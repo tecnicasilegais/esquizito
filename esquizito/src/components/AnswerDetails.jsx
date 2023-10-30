@@ -1,3 +1,4 @@
+import { CancelRounded, CheckRounded, CloseRounded } from '@mui/icons-material';
 import { Card, Chip, Divider, Stack, Typography } from '@mui/joy';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -8,10 +9,20 @@ function AnswerDetails({ correctAnswer, explanation, givenAnswer, statement }) {
     <Stack direction='row' spacing={1}>
       <Card variant='soft'>
         <Stack
+          alignItems='center'
           flex={1}
           fontWeight={600}
           justifyContent='space-evenly'
           spacing={1}>
+          <Card
+            color={givenAnswer === correctAnswer ? 'success' : 'danger'}
+            variant='soft'>
+            {givenAnswer === correctAnswer ? (
+              <CheckRounded color='success' fontSize='xl4' />
+            ) : (
+              <CloseRounded color='danger' fontSize='xl4' />
+            )}
+          </Card>
           <Stack
             direction='row'
             justifyContent='space-between'
@@ -19,13 +30,10 @@ function AnswerDetails({ correctAnswer, explanation, givenAnswer, statement }) {
             spacing={1}
             width='260px'>
             <Typography>{translations.resultDetails.yourAnswer}</Typography>
-            <Chip
-              color={givenAnswer === correctAnswer ? 'success' : 'danger'}
-              size='sm'>
+            <Chip color={givenAnswer ? 'success' : 'danger'} size='sm'>
               {translations.resultDetails.answer[givenAnswer]}
             </Chip>
           </Stack>
-          <Divider />
           <Stack
             direction='row'
             justifyContent='space-between'
@@ -33,9 +41,7 @@ function AnswerDetails({ correctAnswer, explanation, givenAnswer, statement }) {
             spacing={1}
             width='260px'>
             <Typography>{translations.resultDetails.correctAnswer}</Typography>
-            <Chip
-              color={givenAnswer === correctAnswer ? 'success' : 'danger'}
-              size='sm'>
+            <Chip color={correctAnswer ? 'success' : 'danger'} size='sm'>
               {translations.resultDetails.answer[correctAnswer]}
             </Chip>
           </Stack>

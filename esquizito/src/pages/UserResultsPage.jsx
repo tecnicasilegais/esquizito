@@ -21,7 +21,6 @@ function UserResultsPage() {
   const refreshResults = async () => {
     setLoading(true);
     const newResults = await resultService.listFromUser();
-    console.log('new results ', newResults);
     newResults.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
     setResults(newResults);
     setLoading(false);
@@ -67,17 +66,12 @@ function UserResultsPage() {
                 <UserResult
                   answers={result.answers}
                   key={result._id}
-                  quizName={result.userName}
+                  quizName={result.quizName}
                   resultId={result._id}
                   savedAt={result.createdAt}
                   openResultDetails={() => {
-                    resultService
-                      .getSingle(result._id)
-                      .then((resultDetails) => {
-                        console.log('resultDetails', resultDetails);
-                        setUserResultData(resultDetails);
-                        navigate(urlPaths.resultDetailsPage);
-                      });
+                    setUserResultData(result);
+                    navigate(urlPaths.resultDetailsPage);
                   }}
                 />
               ))}
