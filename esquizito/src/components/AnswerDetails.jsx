@@ -1,4 +1,4 @@
-import { CancelRounded, CheckRounded, CloseRounded } from '@mui/icons-material';
+import { CheckRounded, CloseRounded } from '@mui/icons-material';
 import { Card, Chip, Divider, Stack, Typography } from '@mui/joy';
 import PropTypes from 'prop-types';
 import React from 'react';

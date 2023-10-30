@@ -137,7 +137,9 @@ function ManageQuizModal({
     }
   }, [quizQuestions]);
 
-  if (loading) return <div />;
+  if (loading) {
+    return <div />;
+  }
   return (
     <Modal open={open} onClose={handleClose}>
       <ModalDialog>

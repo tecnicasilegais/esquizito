@@ -5,7 +5,7 @@ import HeaderScreen from 'components/HeaderScreen';
 import { useNavContext } from 'contexts/NavContext';
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { examples, translations } from 'util/Properties';
+import { translations } from 'util/Properties';
 import { urlPaths } from 'util/UrlPaths';
 
 function ResultDetailsPage() {

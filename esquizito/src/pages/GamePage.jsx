@@ -9,7 +9,6 @@ import {
   Radio,
   radioClasses,
   Stack,
-  Typography,
 } from '@mui/joy';
 import GameEndModal from 'components/GameEndModal';
 import GameQuestion from 'components/GameQuestion';
