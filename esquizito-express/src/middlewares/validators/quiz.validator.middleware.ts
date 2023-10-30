@@ -75,16 +75,19 @@ export const validateBodyQuizExists = async (
 ) => {
   const { quizId } = req.body;
 
-  const exists = await validateQuizExists(quizId);
+  const quiz = await quizService.get(quizId);
 
-  return exists
-    ? next()
-    : next(
-        new CustomError(
-          `Could not locate quiz by id: ${quizId}`,
-          'QuizIdNotFound',
-        ),
-      );
+  if (!quiz) {
+    return next(
+      new CustomError(
+        `Could not locate quiz by id: ${quizId}`,
+        'QuizIdNotFound',
+      ),
+    );
+  }
+  req.validatorContent = { quizData: quiz };
+
+  return next();
 };
 
 export const validateParamsQuizExists = async (

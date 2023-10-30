@@ -31,17 +31,17 @@ export interface IQuiz<T, U> {
 }
 
 export interface IResponse<T> {
-  questionId: T;
-  givenAnswer: boolean;
-  correctAnswer: boolean;
+  question: T;
+  answer: boolean;
   elapsedTime: number; // seconds
 }
 
-export interface IResult<T> {
+export interface IResult<T, U> {
   userId: T;
   userName: string;
   quizId: T;
-  answers: IResponse<T>[];
+  quizName: string;
+  answers: IResponse<U>[];
   elapsedTime: number; // seconds
   createdAt: Date;
 }
