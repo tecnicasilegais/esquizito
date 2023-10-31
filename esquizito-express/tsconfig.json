@@ -5,7 +5,7 @@
     "lib": ["esnext"],
     "allowJs": true,
     "outDir": "dist"                        /* Redirect output structure to the directory. */,
-    "noEmit": true,
+    "noEmit": false,
     "isolatedModules": true,
     "strict": true,
     "noImplicitAny": true,
