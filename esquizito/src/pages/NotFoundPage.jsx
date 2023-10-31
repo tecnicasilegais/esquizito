@@ -1,7 +1,7 @@
-import { Box, Link, Stack, Typography } from '@mui/joy';
+import { Link, Stack, Typography } from '@mui/joy';
+import { ReactComponent as Animated404 } from 'assets/404-animation.svg';
 import animation404Script from 'components/Animation404Script';
 import React, { useEffect } from 'react';
-import { ReactComponent as Animated404 } from 'assets/404-animation.svg';
 import { useNavigate } from 'react-router-dom';
 import { translations } from 'util/Properties';
 import { urlPaths } from 'util/UrlPaths';

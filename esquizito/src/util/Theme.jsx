@@ -63,6 +63,13 @@ export const theme = extendTheme({
         },
       },
     },
+    JoyTable: {
+      styleOverrides: {
+        root: {
+          '--TableCell-headBackground': 'none',
+        },
+      },
+    },
     JoyTextarea: {
       styleOverrides: {
         root: {

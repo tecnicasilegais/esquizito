@@ -24,6 +24,20 @@ const ResultService = {
     }
   },
 
+  getSingle: async (resultId, token) => {
+    try {
+      const response = await client.get(`/result/${resultId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      toast.error('Erro ao buscar resultado!');
+      return undefined;
+    }
+  },
+
   listFromQuiz: async (quizId, token) => {
     try {
       const response = await client.get(`/quiz/${quizId}/results`, {

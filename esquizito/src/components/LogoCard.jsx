@@ -14,8 +14,8 @@ function LogoCard({ children }) {
         borderRadius: 36,
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'center',
-        marginTop: '200px',
+        justifyContent: 'flex-start',
+        marginTop: '40vh',
         maxWidth: '400px',
         transition: 'height 0.5s',
       }}>

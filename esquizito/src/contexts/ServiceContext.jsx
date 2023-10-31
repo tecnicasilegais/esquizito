@@ -29,6 +29,7 @@ const initialServiceContext = {
   },
   resultService: {
     create: async ({ answers, elapsedTime, quizId }) => {},
+    getSingle: async (resultId) => {},
     listFromQuiz: async (quizId) => {},
     listFromUser: async () => {},
   },
@@ -224,13 +225,22 @@ function ResultProvider({ children }) {
     [getAccessTokenSilently, user.id],
   );
 
+  const getSingle = useCallback(
+    async (resultId) =>
+      getAccessTokenSilently().then((token) =>
+        ResultService.getSingle(resultId, token),
+      ),
+    [getAccessTokenSilently],
+  );
+
   const contextValue = useMemo(
     () => ({
       create,
+      getSingle,
       listFromQuiz,
       listFromUser,
     }),
-    [create, listFromQuiz, listFromUser],
+    [create, listFromQuiz, listFromUser, getSingle],
   );
   return (
     <ResultContext.Provider value={contextValue}>
