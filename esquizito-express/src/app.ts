@@ -63,6 +63,10 @@ app.use('/question', questionsRouter);
 app.use('/quiz', quizzesRouter);
 app.use('/result', resultsRouter);
 
+app.get('/health', (req, res) =>
+  res.status(200).json({ message: `I'm Alive` }),
+);
+
 app.use(errorHandler);
 app.use(notFoundHandler);
 
