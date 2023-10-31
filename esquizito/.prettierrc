@@ -6,5 +6,5 @@
   "bracketSameLine": true,
   "jsxSingleQuote": true,
   "semi": true,
-  "endOfLine": "crlf"
+  "endOfLine": "auto"
 }
