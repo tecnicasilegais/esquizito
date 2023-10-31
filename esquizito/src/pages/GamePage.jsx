@@ -34,6 +34,9 @@ function GamePage() {
   const [numberCorrectAnswers, setNumberCorrectAnswers] = useState(0);
   const [numberIncorrectAnswers, setNumberIncorrectAnswers] = useState(0);
   const [isSaving, setIsSaving] = useState(false);
+  const [quizStartTime, setQuizStartTime] = useState(0);
+  const [quizDuration, setQuizDuration] = useState(0);
+  const [questionStartTime, setQuestionStartTime] = useState(0);
   const { resultService } = useService();
 
   const handleAnswerChange = (event) => {
@@ -42,18 +45,19 @@ function GamePage() {
 
   const checkAnswer = () => {
     setDisabled(true);
+    const elapsedTime = (new Date() - questionStartTime) / 1000;
 
     const userAnswers = [selectedAnswer[0] === 'v', selectedAnswer[1] === 'v'];
 
     const newAnswers = [
       {
         answer: userAnswers[0],
-        elapsedTime: 10,
+        elapsedTime,
         questionId: questions[questionIndex]._id,
       },
       {
         answer: userAnswers[1],
-        elapsedTime: 10,
+        elapsedTime,
         questionId: questions[questionIndex + 1]._id,
       },
     ];
@@ -76,7 +80,7 @@ function GamePage() {
     resultService
       .create({
         answers,
-        elapsedTime: questions.length * 10,
+        elapsedTime: quizDuration,
         quizId: gameData._id,
       })
       .then(() => setIsSaving(false));
@@ -87,14 +91,15 @@ function GamePage() {
     setAnswerCorrect(null);
     if (questionIndex + 2 < questions.length) {
       setQuestionIndex(questionIndex + 2);
+      setQuestionStartTime(new Date());
       setDisabled(false);
     } else {
+      setQuizDuration((new Date() - quizStartTime) / 1000);
       setOpenEndModal(true);
       endGame();
     }
   };
 
-  // TODO: change file to address backend changes
   const headerInfo = {
     classic: {
       center: `${questionIndex / 2 + 1} / ${questions.length / 2}`,
@@ -111,6 +116,9 @@ function GamePage() {
     if (gameData) {
       setQuestions(gameData.questions);
       setLoading(false);
+      const startTime = new Date();
+      setQuizStartTime(startTime);
+      setQuestionStartTime(startTime);
     }
   }, [gameData]);
 
@@ -222,6 +230,7 @@ function GamePage() {
         incorrectAnswers={numberIncorrectAnswers}
         isSaving={isSaving}
         open={openEndModal}
+        quizDuration={quizDuration}
         goToHome={() => {
           setGameData(undefined);
           navigate(urlPaths.mainMenu);

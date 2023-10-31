@@ -1,4 +1,10 @@
-import { HomeRounded, LeaderboardRounded } from '@mui/icons-material';
+import {
+  AlarmRounded,
+  CheckRounded,
+  CloseRounded,
+  HomeRounded,
+  LeaderboardRounded,
+} from '@mui/icons-material';
 import {
   Button,
   DialogContent,
@@ -8,8 +14,7 @@ import {
   Stack,
   Typography,
 } from '@mui/joy';
-import incorrect from 'assets/cancel.svg';
-import correct from 'assets/check.svg';
+import format from 'format-duration';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { translations } from 'util/Properties';
@@ -21,19 +26,24 @@ function GameEndModal({
   incorrectAnswers,
   isSaving,
   open,
+  quizDuration,
 }) {
   return (
     <Modal open={open}>
       <ModalDialog sx={{ alignItems: 'center', textAlign: 'center' }}>
         <DialogTitle>{translations.gameEndModal.header}</DialogTitle>
         <DialogContent>
-          <Stack alignItems='center' justifyContent='center' mt={1} spacing={1}>
+          <Stack
+            alignItems='stretch'
+            justifyContent='center'
+            mt={1}
+            spacing={1}>
             <Stack
               alignItems='center'
               direction='row'
-              justifyContent='center'
+              justifyContent='flex-start'
               spacing={1}>
-              <img alt='correct' src={correct} />
+              <CheckRounded color='success' fontSize='xl3' />
               <Typography variant='h3'>{`${correctAnswers} ${translations.gameEndModal.correctAnswers(
                 correctAnswers,
               )}`}</Typography>
@@ -41,12 +51,23 @@ function GameEndModal({
             <Stack
               alignItems='center'
               direction='row'
-              justifyContent='center'
+              justifyContent='flex-start'
               spacing={1}>
-              <img alt='correct' src={incorrect} />
+              <CloseRounded color='danger' fontSize='xl3' />
               <Typography variant='h3'>{`${incorrectAnswers} ${translations.gameEndModal.incorrectAnswers(
                 incorrectAnswers,
               )}`}</Typography>
+            </Stack>
+            <Stack
+              alignItems='center'
+              direction='row'
+              justifyContent='center'
+              pb={1}
+              spacing={1}>
+              <AlarmRounded color='primary' fontSize='xl3' />
+              <Typography variant='h3'>
+                {format(quizDuration * 1000)}
+              </Typography>
             </Stack>
             <Button
               loading={isSaving}
@@ -76,6 +97,7 @@ GameEndModal.propTypes = {
   incorrectAnswers: PropTypes.number.isRequired,
   isSaving: PropTypes.bool,
   open: PropTypes.bool.isRequired,
+  quizDuration: PropTypes.number.isRequired,
 };
 
 GameEndModal.defaultProps = {

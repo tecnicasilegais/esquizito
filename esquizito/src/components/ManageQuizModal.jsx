@@ -185,7 +185,7 @@ function ManageQuizModal({
                   <Radio
                     disableIcon
                     color='neutral'
-                    disabled={formDisabled}
+                    disabled={mode !== 'classic'}
                     key={mode}
                     name='gameModeRadio'
                     value={mode}
