@@ -75,12 +75,12 @@ function GamePage() {
     }
   };
 
-  const endGame = () => {
+  const endGame = (newQuizDuration) => {
     setIsSaving(true);
     resultService
       .create({
         answers,
-        elapsedTime: quizDuration,
+        elapsedTime: newQuizDuration,
         quizId: gameData._id,
       })
       .then(() => setIsSaving(false));
@@ -94,9 +94,10 @@ function GamePage() {
       setQuestionStartTime(new Date());
       setDisabled(false);
     } else {
-      setQuizDuration((new Date() - quizStartTime) / 1000);
+      const newQuizDuration = (new Date() - quizStartTime) / 1000;
+      setQuizDuration(newQuizDuration);
       setOpenEndModal(true);
-      endGame();
+      endGame(newQuizDuration);
     }
   };
 
