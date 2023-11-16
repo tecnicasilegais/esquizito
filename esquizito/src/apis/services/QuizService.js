@@ -62,11 +62,15 @@ const QuizService = {
 
   publish: async (quizId, token) => {
     try {
-      const response = await client.patch(`/quiz/${quizId}/publish`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
+      const response = await client.patch(
+        `/quiz/${quizId}/publish`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         },
-      });
+      );
       toast.success('Questionário publicado com sucesso!');
     } catch (error) {
       toast.error('Erro ao publicar questionário!');
